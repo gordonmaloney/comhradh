@@ -1,17 +1,28 @@
 import { Login } from "./components/Login";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SideMenu } from "./components/SideMenu";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Container } from "@material-ui/core";
+import { LessonList } from "./components/LessonList";
+import { Welcome } from "./components/Welcome";
+
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-
   return (
-    <div>
-      <SideMenu />
+    <BrowserRouter>
+      <Container maxwidth="lg">
+        <SideMenu />
 
-      <Login />
-      {user && <p>Welcome {user.result.givenName}</p>}
-    </div>
+        <Welcome />
+
+        <Switch>
+
+        <Route path="/" exact component={Login} />
+        <Route path="/lessons" exact component={LessonList} />
+
+        </Switch>
+      </Container>
+    </BrowserRouter>
   );
 }
 

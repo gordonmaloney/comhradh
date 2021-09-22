@@ -53,7 +53,7 @@ export const Login = () => {
     try {
       dispatch({ type: "AUTH", data: { result, token } });
 
-      history.push("/");
+      history.push("/lessons");
     } catch (error) {
       console.log(error);
     }
