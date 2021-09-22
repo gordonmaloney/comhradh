@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Login } from "./Login";
 
 export const Welcome = () => {
     const location = useLocation();
@@ -17,7 +18,9 @@ export const Welcome = () => {
       {user ? (
         <p>Welcome {user.result.givenName}</p>
       ) : (
-        <p>You need to log-in</p>
+        <><p>You need to log-in</p>
+        <Login />
+        </>
       )}
     </div>
   );

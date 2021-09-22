@@ -5,9 +5,11 @@ import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
+import MenuIcon from '@mui/icons-material/Menu';
+import Fab from '@mui/material/Fab';
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ export const SideMenu = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
+    history.push('/')
     setUser(null);
   };
 
@@ -45,7 +48,10 @@ export const SideMenu = () => {
         <ListItem button>
           <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to="/lessons">
+          <ListItemText primary="Lessons"   />
+        </ListItem>
+        <ListItem button component={Link} to="/dictionary">
           <ListItemText primary="Dictionary" />
         </ListItem>
         <ListItem button>
@@ -63,7 +69,9 @@ export const SideMenu = () => {
 
   return (
     <div>
-      <Button onClick={toggleDrawer("left", true)}>Open Menu</Button>
+            <Fab onClick={toggleDrawer("left", true)} style={{float: "left"}}>
+        <MenuIcon />
+      </Fab>
       <Drawer
         anchor="left"
         open={state["left"]}
