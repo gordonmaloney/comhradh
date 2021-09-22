@@ -17,6 +17,7 @@ export const LESSONS =
         lesson: 2,
         content: 
   <>
+  <h2>Lesson Two</h2>
   <h4>Lesson 2</h4>
                               
   <p>blah blah blah</p>                     
@@ -29,6 +30,7 @@ export const LESSONS =
           lesson: 3,
           content: 
     <>
+    <h2>Lesson Three</h2>
     <h4>Lesson 3</h4>
                                 
     <p>blah blah blah</p>                     

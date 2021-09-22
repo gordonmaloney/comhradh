@@ -10,8 +10,24 @@ export const Dictionary = () => {
         setSearchTerm(e.target.value)
     }
 
-    const unfilteredWords = WORDS.map(WORD => <> <b>Lesson {WORD.lesson}</b> {WORD.words.map(word => <p>{word.gd} - {word.en}</p>)} </> )
-    const filteredWords = WORDS.map(WORD => WORD.words.filter(words => words.gd.includes(searchTerm) || words.en.includes(searchTerm)).map(word => <p>{word.gd} - {word.en} - (lesson {WORD.lesson})</p>))
+    const unfilteredWords = WORDS.map(
+        WORD => <> <b>Lesson {WORD.lesson}</b>{WORD.words
+            .map(word =>
+            <p>
+                {word.gd} - {word.en}
+            </p>
+            )} </>
+        )
+    
+    
+    const filteredWords = WORDS.map(
+        WORD => WORD.words.filter(
+            words => words.gd.includes(searchTerm) || words.en.includes(searchTerm))
+            .map(word => 
+            <p>
+                {word.gd} - {word.en} - (lesson {WORD.lesson})
+            </p>
+        ))
 
     
     return (
@@ -19,7 +35,7 @@ export const Dictionary = () => {
 
         <TextField placeholder="Search" onChange={e => handleChange(e)}/>
 
-        <br />
+        <br /><br /><br />
         {searchTerm ? filteredWords : unfilteredWords }
         </div>
     )

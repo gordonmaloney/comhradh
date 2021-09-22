@@ -41,6 +41,7 @@ export const VocabSidebar = (props) => {
         <h4>Lesson {props.lesson} vocab</h4>
         {WORDS.filter(WORD => WORD.lesson == props.lesson)[0].words.map(word => <p>{word.gd} - {word.en}</p>)}
 
+        <Button onClick={toggleDrawer(anchor, false)}>Close</Button>
 
       </List>
     </Box>

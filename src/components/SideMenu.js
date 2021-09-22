@@ -64,6 +64,8 @@ export const SideMenu = () => {
           <ListItemText primary="Log Out"  />
         </ListItem>
       </List>
+
+      <Button onClick={toggleDrawer(anchor, false)}>Close</Button>
     </Box>
   );
 
