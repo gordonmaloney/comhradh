@@ -7,15 +7,10 @@ import { LessonList } from "./components/LessonList";
 import { Welcome } from "./components/Welcome";
 import { Lesson } from "./components/Lesson";
 import { Dictionary } from "./components/Dictionary";
+import { Discuss } from "./components/Discuss";
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  useEffect(() => {
-      const token = user?.token;
-  
-      setUser(JSON.parse(localStorage.getItem("profile")));
-    }, [user])
 
   return (
     <BrowserRouter>
@@ -27,7 +22,7 @@ function App() {
             <Route path="/lessons" exact component={LessonList} />
             <Route path="/lessons/:lesson" exact component={Lesson} />
             <Route path="/dictionary" exact component={Dictionary} />
-
+            <Route path="/discuss/:lesson" exact component={Discuss} />
           </Switch>
 
       </Container>

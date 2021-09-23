@@ -5,10 +5,9 @@ export const LESSONS =
       content: 
 <>
 <h2>Lesson One</h2>
-<h4>To be or not to be</h4>
+<h4>Lesson 1</h4>
                             
-<p>Where English has lots of different words for 'to be' in the present tense - I <em>am</em>, you <em>are</em>, she<em>is</em> - Scottish Gaelic just has one: <u>tha</u></p>
-                        
+<p>blah blah blah</p>                        
 </>
     },
 
