@@ -52,7 +52,6 @@ export const Lesson = (props) => {
         ) : display === "quiz" ? (
           <p>quiz...</p>
         ) : null}
-        */}
 
         <Paper
           sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
@@ -95,6 +94,8 @@ export const Lesson = (props) => {
             />
           </BottomNavigation>
         </Paper>
+        
+        */}
       </div>
     </div>
   );
