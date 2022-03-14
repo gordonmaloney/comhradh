@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
+import { Cards } from "./Cards";
 
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
@@ -13,7 +14,7 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <div className="container">  
+      <div id="container">  
         <App />
       </div>
     </Provider>

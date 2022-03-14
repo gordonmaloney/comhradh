@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { LESSONS } from "./Lessons/LESSONS";
 import { VocabSidebar } from "./VocabSidebar";
 import { useHistory } from "react-router-dom";
@@ -13,62 +13,89 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import QuizIcon from "@mui/icons-material/Quiz";
 import ChatIcon from "@mui/icons-material/Chat";
 
+import { Discuss } from "./Discuss";
+import { Dictionary } from "./Dictionary";
+
+import {Lesson1} from './Lessons/Lesson1'
+
 export const Lesson = (props) => {
   const history = useHistory();
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const [dict, setDict] = useState(null);
+
+  const [display, setDisplay] = useState("lesson");
+
   return (
     <div>
       <VocabSidebar lesson={props.match.params.lesson} />
 
-      {
-        LESSONS.filter(
-          (LESSON) => LESSON.lesson == props.match.params.lesson
-        )[0].content
-      }
+      <div className="innerContainer">
 
-      <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-        elevation={5}
-      >
-        <BottomNavigation
-          sx={{ width: "100%" }}
-          value={value}
-          onChange={handleChange}
+<Lesson1 />
+        {/*
+        {display === "lesson" ? (
+          LESSONS.filter(
+            (LESSON) => LESSON.lesson == props.match.params.lesson
+          )[0].content
+        ) : display === "discuss" ? (
+          <Discuss lesson={props.match.params.lesson} />
+        ) : display === "dictionary" ? (
+          <Dictionary />
+        ) : display === "cheatsheet" ? (
+          <p>cheatsheet...</p>
+        ) : display === "quiz" ? (
+          <p>quiz...</p>
+        ) : null}
+        */}
+
+        <Paper
+          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+          elevation={5}
         >
-          <BottomNavigationAction
-            label="Lesson"
-            value="lesson"
-            icon={<BorderColorIcon />}
-          />
-          <BottomNavigationAction
-            label="Dictionary"
-            value="dictionary"
-            icon={<MenuBookIcon />}
-          />
-          <BottomNavigationAction
-            label="Cheatsheet"
-            value="cheatsheet"
-            icon={<ReceiptIcon />}
-          />
-          <BottomNavigationAction
-            label="Quiz"
-            value="quiz"
-            icon={<QuizIcon />}
-          />
-          <BottomNavigationAction
-            label="Discuss"
-            value="discuss"
-            onClick={() => history.push(`/discuss/${props.match.params.lesson}`)}
-            icon={<ChatIcon />}
-          />
-        </BottomNavigation>
-      </Paper>
+          <BottomNavigation
+            sx={{ width: "100%" }}
+            value={value}
+            onChange={handleChange}
+          >
+            <BottomNavigationAction
+              label="Lesson"
+              value="lesson"
+              onClick={() => setDisplay("lesson")}
+              icon={<BorderColorIcon />}
+            />
+            <BottomNavigationAction
+              label="Dictionary"
+              value="dictionary"
+              onClick={() => setDisplay("dictionary")}
+              icon={<MenuBookIcon />}
+            />
+            <BottomNavigationAction
+              label="Cheatsheet"
+              value="cheatsheet"
+              onClick={() => setDisplay("cheatsheet")}
+              icon={<ReceiptIcon />}
+            />
+            <BottomNavigationAction
+              label="Quiz"
+              value="quiz"
+              onClick={() => setDisplay("quiz")}
+              icon={<QuizIcon />}
+            />
+            <BottomNavigationAction
+              label="Discuss"
+              value="discuss"
+              onClick={() => setDisplay("discuss")}
+              icon={<ChatIcon />}
+            />
+          </BottomNavigation>
+        </Paper>
+      </div>
     </div>
   );
 };

@@ -9,13 +9,12 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { WORDS } from "./Lessons/WORDS";
-import Fab from '@mui/material/Fab';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import Fab from "@mui/material/Fab";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 export const VocabSidebar = (props) => {
-
   const [state, setState] = React.useState({
-    left: false,
+    right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -37,20 +36,24 @@ export const VocabSidebar = (props) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+        <center>
+          <h3>Lesson {props.lesson}: Vocab</h3>
+        </center>
 
-        <h4>Lesson {props.lesson} vocab</h4>
-        {WORDS.filter(WORD => WORD.lesson == props.lesson)[0].words.map(word => <p>{word.gd} - {word.en}</p>)}
-
-        <Button onClick={toggleDrawer(anchor, false)}>Close</Button>
-
+        {WORDS.filter((WORD) => WORD.lesson == props.lesson)[0].words.map(
+          (word) => (
+            <ListItem>
+              {word.gd} - {word.en}
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );
 
   return (
     <div>
-    
-      <Fab onClick={toggleDrawer("right", true)} style={{float: "right"}}>
+      <Fab onClick={toggleDrawer("right", true)} style={{position: "absolute", right: 342, top: 22}}>
         <MenuBookIcon />
       </Fab>
 

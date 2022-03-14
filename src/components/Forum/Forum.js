@@ -3,9 +3,11 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { createPost } from '../../actions/posts'
+import { createPost } from "../../actions/posts";
 import { getPosts } from "../../actions/posts";
-
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { Divider } from "@mui/material";
 
 export const Forum = (props) => {
   const dispatch = useDispatch();
@@ -70,17 +72,19 @@ export const Forum = (props) => {
         </Button>
       </Box>
 
-    {posts.map(post => post.lesson == lesson
-    ?
-      <>
-        <h3>{post.title}</h3>
-        <p>{post.body}</p>
-        <p>- {post.author}</p>
-      </>
-    : null
-    )}    
-
-
+      {posts.map((post) =>
+        post.lesson == lesson ? (
+          <Card style={{margin: 20}}>
+            <CardContent>
+              <h3 className="cardHeader">{post.title}</h3>
+              <Divider />
+              <p className="cardBody">{post.body}</p>
+              <Divider />
+              <p  className="cardFooter">- {post.author}</p>
+            </CardContent>
+          </Card>
+        ) : null
+      )}
     </div>
   );
 };

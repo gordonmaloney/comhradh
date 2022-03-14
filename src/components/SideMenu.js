@@ -39,11 +39,12 @@ export const SideMenu = () => {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      <center><h3>Còmhradh</h3></center>
       <List>
         <ListItem button>
           <ListItemText primary="Profile" />
@@ -65,15 +66,15 @@ export const SideMenu = () => {
         </ListItem>
       </List>
 
-      <Button onClick={toggleDrawer(anchor, false)}>Close</Button>
     </Box>
   );
 
   return (
     <div>
-            <Fab onClick={toggleDrawer("left", true)} style={{float: "left"}}>
+      <Fab onClick={toggleDrawer("left", true)} style={{position:"absolute", float: "left", marginTop: '22px', zIndex:1}}>
         <MenuIcon />
       </Fab>
+
       <Drawer
         anchor="left"
         open={state["left"]}
