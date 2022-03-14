@@ -16,7 +16,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { Discuss } from "./Discuss";
 import { Dictionary } from "./Dictionary";
 
-import {Lesson1} from './Lessons/Lesson1'
+import { Lesson1, LessonFrame } from "./Lessons/LessonFrame";
 
 export const Lesson = (props) => {
   const history = useHistory();
@@ -36,13 +36,8 @@ export const Lesson = (props) => {
       <VocabSidebar lesson={props.match.params.lesson} />
 
       <div className="innerContainer">
-
-<Lesson1 />
-        {/*
         {display === "lesson" ? (
-          LESSONS.filter(
-            (LESSON) => LESSON.lesson == props.match.params.lesson
-          )[0].content
+          <LessonFrame lesson={props.match.params.lesson} />
         ) : display === "discuss" ? (
           <Discuss lesson={props.match.params.lesson} />
         ) : display === "dictionary" ? (
@@ -94,8 +89,6 @@ export const Lesson = (props) => {
             />
           </BottomNavigation>
         </Paper>
-        
-        */}
       </div>
     </div>
   );
