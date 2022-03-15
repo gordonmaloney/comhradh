@@ -53,7 +53,7 @@ export const VocabSidebar = (props) => {
 
   return (
     <div>
-      <Fab onClick={toggleDrawer("right", true)} style={{position: "absolute", right: 342, top: 22}}>
+      <Fab onClick={toggleDrawer("right", true)} style={{position: "fixed", right: "4%", top: 22, zIndex: 4}}>
         <MenuBookIcon />
       </Fab>
 

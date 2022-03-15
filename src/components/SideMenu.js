@@ -71,7 +71,7 @@ export const SideMenu = () => {
 
   return (
     <div>
-      <Fab onClick={toggleDrawer("left", true)} style={{position:"absolute", float: "left", marginTop: '22px', zIndex:1}}>
+      <Fab onClick={toggleDrawer("left", true)} style={{position:"fixed", left: "5%", marginTop: '22px', zIndex:1}}>
         <MenuIcon />
       </Fab>
 

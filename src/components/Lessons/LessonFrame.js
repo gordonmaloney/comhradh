@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -8,15 +8,16 @@ import Typography from "@mui/material/Typography";
 
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
+import * as Lesson3 from "./Lesson3";
+
 //use this for converting: https://html-online.com/editor/
 
+const lessons = [Lesson1, Lesson2, Lesson3];
 
-const lessons = [Lesson1, Lesson2];
+export const LessonFrame = ({ lesson }) => {
+  const { steps, Content, title } = lessons[lesson - 1];
 
-export const LessonFrame = ({lesson}) => {
-  const { steps, Content } = lessons[lesson-1];
-
-  console.log(Lesson2.steps)
+  console.log(Lesson2.steps);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -55,24 +56,42 @@ export const LessonFrame = ({lesson}) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
+      <div className="lessonHeader">
+        <h1>Lesson {lesson} - {title}</h1>
+
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const labelProps = {};
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+            return (
+              <Step key={label} {...stepProps}>
+                <StepLabel {...labelProps}>{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />      <br />
+
+      <Typography sx={{ mt: 2, mb: 1 }}>
+        <b>{steps[activeStep]}</b>
+      </Typography>
+
+      {/*content for stepper*/}
+      <Content step={activeStep + 1} />
+      {/*content ends*/}
+
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-           Are you ready to move on to the test?
+            Are you ready to move on to the test?
           </Typography>
           [move on btn]
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -91,16 +110,6 @@ export const LessonFrame = ({lesson}) => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            <b>{steps[activeStep]}</b>
-          </Typography>
-          
-          
-          {/*content for stepper*/}
-          <Content step={activeStep+1}/>
-          {/*content ends*/}
-
-
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             {activeStep !== 0 && (
               <Button
@@ -120,7 +129,13 @@ export const LessonFrame = ({lesson}) => {
           </Box>
         </React.Fragment>
       )}
-      <br /><br /><br /><br /><br /><br />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Box>
   );
 };

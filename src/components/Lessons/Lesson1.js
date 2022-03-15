@@ -1,5 +1,7 @@
 import { Step } from "@mui/material";
 
+export const title = ["Tha, Chan eil"]
+
 export const steps = ["Tha", "Other people", "Chan eil", "Recap"];
 
 export const StepContent = ({ step }) => {
@@ -177,7 +179,7 @@ export const StepContent = ({ step }) => {
       );
       break;
     default:
-      return "something has gone wrong!";
+      return <></>;
   }
 };
 

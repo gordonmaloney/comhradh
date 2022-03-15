@@ -36,6 +36,9 @@ export const Lesson = (props) => {
       <VocabSidebar lesson={props.match.params.lesson} />
 
       <div className="innerContainer">
+        <LessonFrame lesson={props.match.params.lesson} />
+
+        {/*
         {display === "lesson" ? (
           <LessonFrame lesson={props.match.params.lesson} />
         ) : display === "discuss" ? (
@@ -89,6 +92,7 @@ export const Lesson = (props) => {
             />
           </BottomNavigation>
         </Paper>
+        */}
       </div>
     </div>
   );

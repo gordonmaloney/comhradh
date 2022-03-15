@@ -9,6 +9,8 @@ export const steps = [
   "Recap",
 ];
 
+export const title = "Questions"
+
 export const StepContent = ({ step }) => {
   console.log("step: ", step);
   switch (step) {
