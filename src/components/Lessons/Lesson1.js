@@ -243,22 +243,24 @@ export const StepContent = ({ step }) => {
       return (
         <>
           <Title title="Recap" />
-          <ul>
-            <li aria-level="1">
-              The word-order in Gaelic is different to English, and for the
-              sentences we&rsquo;ve looked at here goes{" "}
-              <em>verb-subject-adjective</em> (as opposed to English, which is{" "}
-              <em>subject-verb-adjective)</em>
-            </li>
-            <li aria-level="1">
-              The verb <em>tha</em> doesn&rsquo;t change depending on the person
-              or thing
-            </li>
-          </ul>
-          <p>
-            The negative version of <em>tha</em> is <em>chan eil</em>, but
-            everything else about the sentence stays the same
-          </p>
+          <div className="recapBox">
+            <ul>
+              <li aria-level="1">
+                The word-order in Gaelic is different to English, and for the
+                sentences we&rsquo;ve looked at here goes{" "}
+                <em>verb-subject-adjective</em> (as opposed to English, which is{" "}
+                <em>subject-verb-adjective)</em>
+              </li>
+              <li aria-level="1">
+                The verb <em>tha</em> doesn&rsquo;t change depending on the
+                person or thing
+              </li>
+              <li>
+                The negative version of <em>tha</em> is <em>chan eil</em>, but
+                everything else about the sentence stays the same
+              </li>
+            </ul>
+          </div>
         </>
       );
       break;
@@ -305,7 +307,7 @@ export const Questions = (
         "John is small",
         "Tha Iain beag",
         "Anna is not sad",
-        "Chan eil Anna brònach"
+        "Chan eil Anna brònach",
       ]}
     />
   </>

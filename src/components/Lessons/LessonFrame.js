@@ -5,6 +5,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import {Title} from './LessonComponents'
 
 import * as Lesson1 from "./Lesson1";
@@ -56,7 +57,7 @@ export const LessonFrame = ({ lesson }) => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%"}}>
       <div className="lessonHeader">
         <h1>Lesson {lesson} - {title}</h1>
 
@@ -64,22 +65,15 @@ export const LessonFrame = ({ lesson }) => {
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
             return (
               <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
+                <StepLabel style={{cursor: "pointer"}} onClick={() => setActiveStep(index)} {...labelProps}>{label}</StepLabel>
               </Step>
             );
           })}
         </Stepper>
       </div>
 
-      <br />
-      <br />
-      <br />
-      <br />      <br />
 
       <Typography sx={{ mt: 2, mb: 1 }}>
       {/*
@@ -94,9 +88,9 @@ export const LessonFrame = ({ lesson }) => {
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            Are you ready to move on to the test?
+            Are you ready to test what you've learnt??
           </Typography>
-          [move on btn]
+          <Link to={`../test/${lesson}`}><Button>Take test</Button></Link>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
