@@ -8,6 +8,7 @@ import { Welcome } from "./components/Welcome";
 import { Lesson } from "./components/Lesson";
 import { Dictionary } from "./components/Dictionary";
 import { Discuss } from "./components/Discuss";
+import { Test } from './components/Test'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" exact component={Welcome} />
             <Route path="/lessons" exact component={LessonList} />
             <Route path="/lessons/:lesson" exact component={Lesson} />
+            <Route path="/test/:lesson" exact component={Test} />
             <Route path="/dictionary" exact component={Dictionary} />
             <Route path="/discuss/:lesson" exact component={Discuss} />
           </Switch>
