@@ -16,15 +16,21 @@ import * as Lesson3 from "./Lesson3";
 const lessons = [Lesson1, Lesson2, Lesson3];
 
 export const TestFrame = ({ lesson }) => {
-  const { Questions } = lessons[lesson - 1];
+  const { steps, Content, title } = lessons[lesson - 1];
 
+  console.log(Lesson2.steps);
+
+  const [activeStep, setActiveStep] = React.useState(steps.length);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  const { Questions } = lessons[lesson - 1];
 
   return (
     <Box sx={{ width: "100%" }}>
+      
       <h1>Test - level {lesson}</h1>
 
       {Questions}
-
     </Box>
   );
 };

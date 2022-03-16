@@ -6,11 +6,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import {Title} from './LessonComponents'
+import { Title } from "./LessonComponents";
 
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
+import { TestFrame } from "./TestFrame";
 
 //use this for converting: https://html-online.com/editor/
 
@@ -57,9 +58,11 @@ export const LessonFrame = ({ lesson }) => {
   };
 
   return (
-    <Box sx={{ width: "100%"}}>
+    <Box sx={{ width: "100%" }}>
       <div className="lessonHeader">
-        <h1>Lesson {lesson} - {title}</h1>
+        <h1>
+          Lesson {lesson} - {title}
+        </h1>
 
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -67,16 +70,21 @@ export const LessonFrame = ({ lesson }) => {
             const labelProps = {};
             return (
               <Step key={label} {...stepProps}>
-                <StepLabel style={{cursor: "pointer"}} onClick={() => setActiveStep(index)} {...labelProps}>{label}</StepLabel>
+                <StepLabel
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setActiveStep(index)}
+                  {...labelProps}
+                >
+                  {label}
+                </StepLabel>
               </Step>
             );
           })}
         </Stepper>
       </div>
 
-
       <Typography sx={{ mt: 2, mb: 1 }}>
-      {/*
+        {/*
       <Title title={steps[activeStep]} />
         */}
       </Typography>
@@ -87,10 +95,8 @@ export const LessonFrame = ({ lesson }) => {
 
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            Are you ready to test what you've learnt??
-          </Typography>
-          <Link to={`../test/${lesson}`}><Button>Take test</Button></Link>
+          <TestFrame lesson={lesson} />
+
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
@@ -102,7 +108,9 @@ export const LessonFrame = ({ lesson }) => {
             </Button>
 
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Link to={`../lessons/${parseInt(lesson) + 1}`}>
+              <Button onClick={() => setActiveStep(0)}>Next lesson</Button>
+            </Link>
           </Box>
         </React.Fragment>
       ) : (
@@ -121,7 +129,7 @@ export const LessonFrame = ({ lesson }) => {
             <Box sx={{ flex: "1 1 auto" }} />
 
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {activeStep === steps.length - 1 ? "Take the test" : "Next"}
             </Button>
           </Box>
         </React.Fragment>
