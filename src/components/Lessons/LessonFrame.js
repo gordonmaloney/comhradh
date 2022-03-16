@@ -5,6 +5,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import {Title} from './LessonComponents'
 
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
@@ -81,7 +82,9 @@ export const LessonFrame = ({ lesson }) => {
       <br />      <br />
 
       <Typography sx={{ mt: 2, mb: 1 }}>
-        <b>{steps[activeStep]}</b>
+      {/*
+      <Title title={steps[activeStep]} />
+        */}
       </Typography>
 
       {/*content for stepper*/}

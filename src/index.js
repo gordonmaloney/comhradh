@@ -7,14 +7,15 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 import { Cards } from "./Cards";
-
+import { AllLessons } from "./components/Lessons/AllLessons";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <div id="container">  
+      <div id="container">
+
         <App />
       </div>
     </Provider>

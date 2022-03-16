@@ -1,18 +1,12 @@
-import { Step } from "@mui/material";
-import {TransTable, VocabGrid, Title} from './LessonComponents'
+import React from "react";
 import { Grid } from "@mui/material";
+import {TransTable, VocabGrid, Title} from './LessonComponents'
 
-export const title = ["Tha, Chan eil"]
-
-export const steps = ["Tha", "Other people", "Chan eil", "Recap"];
-
-export const StepContent = ({ step }) => {
-    console.log("step: ", step)
-  switch (step) {
-    case 1:
-      return (
-        <div>
-          <span className="lessonSubHead">Tha</span>
+export const AllLessons = () => {
+  return (
+    <>
+      <div className="innerContainer">
+        <span className="lessonSubHead">Tha</span>
         <p>Let&rsquo;s start by learning four words:</p>
 
         <VocabGrid words={["is/am/are", "tha", "me/I", "mi", "big", "mòr", "small", "beag"]} />
@@ -100,13 +94,8 @@ export const StepContent = ({ step }) => {
             </span>
           </span>
         </p>
-        </div>
-      );
-      break;
-    case 2:
-      return (
-        <>
-          <Title title="Other people" />
+        <hr />
+        <Title title="Other people" />
         <p>
           Let&rsquo;s start by learning a couple other words and common names:
         </p>
@@ -157,13 +146,8 @@ export const StepContent = ({ step }) => {
           <em>are</em>, or <em>is</em> depending on context. Much easier than
           English!
         </p>
-        </>
-      );
-      break;
-    case 3:
-      return (
-        <>
-          <Title title="Chan eil" />
+        <hr />
+        <Title title="Chan eil" />
         <p>
           So we&rsquo;ve learned how to say someone or something <em>is</em>,
           but how do we say they <em>are not</em>?
@@ -199,35 +183,11 @@ export const StepContent = ({ step }) => {
         <VocabGrid
           words={["tired", "sgìth", "happy", "toilichte", "sad", "brònach"]}
         />
-        </>
-      );
-      break;
-    case 4:
-      return (
-        <>
-        <Title title="Recap" />
-          <ul>
-            <li aria-level="1">
-              The word-order in Gaelic is different to English, and for the
-              sentences we&rsquo;ve looked at here goes{" "}
-              <em>verb-subject-adjective</em> (as opposed to English, which is{" "}
-              <em>subject-verb-adjective)</em>
-            </li>
-            <li aria-level="1">
-              The verb <em>tha</em> doesn&rsquo;t change depending on the person
-              or thing
-            </li>
-          </ul>
-          <p>
-            The negative version of <em>tha</em> is <em>chan eil</em>, but
-            everything else about the sentence stays the same
-          </p>
-        </>
-      );
-      break;
-    default:
-      return <></>;
-  }
+        <p>
+          <br />
+          <br />
+        </p>
+      </div>
+    </>
+  );
 };
-
-export const Content = ({step}) => {return (<><StepContent step={step} /></>)}

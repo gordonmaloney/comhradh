@@ -55,3 +55,161 @@ code {
   padding: 5px;
   margin: 5px solid black;
 }
+
+.hoverRev {
+  color: black;
+  background-color: black;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 10px;
+}
+
+.hoverRev:hover{
+  background-color: transparent;
+    color: black
+}
+
+.hoverRev:hover:after{
+  content: "";
+}
+
+.hovBox {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.hoxBoxInner {
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid grey;
+}
+
+.hovGd {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.vocabGrid {
+  border: 1px solid black
+}
+
+.vocabEn {
+  padding: 5px;
+  padding-left: 10px;
+  text-align: right;
+}
+
+.vocabGd {
+  font-weight: 600;
+  padding: 5px;
+  padding-right: 10px;
+  text-align: left;
+}
+
+
+
+.lessonSubHead {
+  font-weight: 700;
+  font-size: xx-large;
+}
+
+.ex {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.engEx {
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid grey;
+}
+
+.gdEx {
+  font-weight: 500;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid grey;
+}
+
+.explainer {
+  font-style: italic;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid grey;
+}
+
+.helperText {
+  font-style: italic;
+  font-size: small;
+  margin-top: -5px;
+}
+
+.word4word {
+  margin-top: 5px;
+  border: 1px solid grey;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.word4word td {
+  padding: 3px;
+}
+
+.word4word td {
+  border-right: 1px solid lightgray;
+}
+
+.gdTab {
+  font-weight: 600;
+}
+
+.exTab {
+  font-style: italic;
+}
+
+.vocabBoxHeader {
+  float: right;
+  font-size: large;
+  font-weight: 600;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-bottom: -5px;
+}
+
+.transTable {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+.transTableGd {
+  font-weight: 600;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.transTableEn {
+  text-align: left;
+  padding-left: 5px;
+}
