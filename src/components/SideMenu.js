@@ -46,7 +46,7 @@ export const SideMenu = () => {
     >
       <center><h3>Còmhradh</h3></center>
       <List>
-        <ListItem button>
+        <ListItem button disabled>
           <ListItemText primary="Profile" />
         </ListItem>
         <ListItem button component={Link} to="/lessons">
@@ -58,10 +58,13 @@ export const SideMenu = () => {
         <ListItem button component={Link} to="/dictionary">
           <ListItemText primary="Dictionary" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to="/pronunciation/toilichte">
+          <ListItemText primary="Pronunciation Centre" />
+        </ListItem>
+        <ListItem button disabled>
           <ListItemText primary="Cheat Sheet" />
         </ListItem>
-        <ListItem button>
+        <ListItem button disabled>
           <ListItemText primary="Discuss" />
         </ListItem>
         <ListItem button onClick={logout}>
