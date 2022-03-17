@@ -6,9 +6,6 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
-import { Cards } from "./Cards";
-import { AllLessons } from "./components/Lessons/AllLessons";
-import { PronunciationCentre } from "./components/PronunciationCenter/PronunciationCentre";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
@@ -16,13 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <div id="container">
-        
-        <PronunciationCentre />
-
-
-        {/*
         <App />
-*/}
       </div>
     </Provider>
   </React.StrictMode>,

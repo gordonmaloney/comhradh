@@ -2,6 +2,8 @@ import { Step } from "@mui/material";
 import { TransTable, VocabGrid, Title } from "./LessonComponents";
 import { Qtranslate } from "./TestComponents";
 import { Grid } from "@mui/material";
+import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
+import { Link } from "react-router-dom";
 
 export const title = ["Tha, Chan eil"];
 
@@ -234,7 +236,7 @@ export const StepContent = ({ step }) => {
             more useful ones:
           </p>
           <VocabGrid
-            words={["tired", "sgìth", "happy", "toilichte", "sad", "brònach"]}
+            words={["tired", "sgìth", "happy", <Link to={'../pronunciation/toilichte'}>toilichte</Link>, "sad", "brònach"]}
           />
         </>
       );

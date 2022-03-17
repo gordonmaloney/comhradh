@@ -2,8 +2,9 @@ import React from "react";
 import { RecordPlay } from "./RecordPlay";
 import { Player } from "./Player";
 
-export const PronunciationCentre = () => {
-  const word = "toilichte";
+export const PronunciationCentre = (props) => {
+  const word = props.match.params.word;
+
   return (
     <div className="pronunciationCentre">
       <center>

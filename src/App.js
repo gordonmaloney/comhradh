@@ -9,6 +9,8 @@ import { Lesson } from "./components/Lesson";
 import { Dictionary } from "./components/Dictionary";
 import { Discuss } from "./components/Discuss";
 import { Test } from './components/Test'
+import { PronunciationCentre } from './components/PronunciationCenter/PronunciationCentre'
+import { FlashcardsMain } from "./components/Vocab/FlashcardsMain";
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
             <Route path="/test/:lesson" exact component={Test} />
             <Route path="/dictionary" exact component={Dictionary} />
             <Route path="/discuss/:lesson" exact component={Discuss} />
+            <Route path="/pronunciation/:word" component={PronunciationCentre} />
+            <Route path="/flashcards" exact component={FlashcardsMain} />
           </Switch>
 
       </Container>
