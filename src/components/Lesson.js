@@ -31,12 +31,14 @@ export const Lesson = (props) => {
 
   const [display, setDisplay] = useState("lesson");
 
+  console.log(props.match.params) 
+
   return (
     <div>
       <VocabSidebar lesson={props.match.params.lesson} />
 
       <div className="innerContainer">
-        <LessonFrame lesson={props.match.params.lesson} />
+        <LessonFrame lesson={props.match.params.lesson} step={props.match.params.step} />
 
         {/*
         {display === "lesson" ? (

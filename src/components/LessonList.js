@@ -9,7 +9,7 @@ export const LessonList = () => {
         <h3 style={{}}>Pick a lesson to get started</h3>
       </center>
       <div className="lessonList">
-        <Link to="/lessons/1">
+        <Link to="/lessons/1/1">
           <Button
             variant="contained"
             color="primary"
@@ -22,14 +22,14 @@ export const LessonList = () => {
         </Link>
         <br />
         <br />
-        <Link to="/lessons/2">
+        <Link to="/lessons/2/1">
           <Button variant="contained" color="primary" size="large" fullWidth>
             Lesson Two
           </Button>
         </Link>{" "}
         <br />
         <br />
-        <Link to="/lessons/3">
+        <Link to="/lessons/3/1">
           <Button variant="contained" color="primary" size="large" fullWidth>
             Lesson Three
           </Button>

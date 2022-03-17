@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
+import { useHistory } from "react-router-dom";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -17,12 +18,15 @@ import { TestFrame } from "./TestFrame";
 
 export const lessons = [Lesson1, Lesson2, Lesson3];
 
-export const LessonFrame = ({ lesson }) => {
+export const LessonFrame = ({ lesson, step }) => {
+  console.log(lesson, step)
+  const history = useHistory();
+
   const { steps, Content, title } = lessons[lesson - 1];
 
   console.log(Lesson2.steps);
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(step-1);
   const [skipped, setSkipped] = React.useState(new Set());
 
   const isStepSkipped = (step) => {
@@ -36,11 +40,16 @@ export const LessonFrame = ({ lesson }) => {
       newSkipped.delete(activeStep);
     }
 
+    history.push(`./${activeStep+2}`)
+
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+
   };
 
   const handleBack = () => {
+    history.push(`./${activeStep}`)
+
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -72,7 +81,10 @@ export const LessonFrame = ({ lesson }) => {
               <Step key={label} {...stepProps}>
                 <StepLabel
                   style={{ cursor: "pointer" }}
-                  onClick={() => setActiveStep(index)}
+                  onClick={() => {
+                    setActiveStep(index);
+                    history.push(`./${index+1}`)
+                  }}
                   {...labelProps}
                 >
                   {label}

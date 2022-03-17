@@ -24,7 +24,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Welcome} />
             <Route path="/lessons" exact component={LessonList} />
-            <Route path="/lessons/:lesson" exact component={Lesson} />
+            <Route path="/lessons/:lesson/:step" exact component={Lesson} />
             <Route path="/test/:lesson" exact component={Test} />
             <Route path="/dictionary" exact component={Dictionary} />
             <Route path="/discuss/:lesson" exact component={Discuss} />
