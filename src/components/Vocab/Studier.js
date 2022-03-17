@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //take words from prop
-//shuffle them
+//shuffle them, using useMemo so it only shuffles once
 //push duplicate to end of deck if wrong
 //activeStep progresses by one w/ each guess
 
 export const Studier = ({ words }) => {
+
+
   function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
   
@@ -24,7 +26,11 @@ export const Studier = ({ words }) => {
     return array;
   }
   
-  const [studyList, setStudyList] = useState(shuffle(words));
+  const shuffledWords = React.useMemo(() => {
+    return shuffle(words)
+  }, [])
+
+  const [studyList, setStudyList] = useState(shuffledWords);
 
   const [activeCard, setActiveCard] = useState(0);
 
@@ -42,8 +48,6 @@ export const Studier = ({ words }) => {
     setReveal(false);
     setActiveCard(activeCard + 1);
   };
-
-  console.log();
 
   return (
     <>

@@ -24,6 +24,7 @@ export const FlashcardsMain = () => {
         <h1>Flashcards</h1>
         <span>Level 1:</span>
         <Studier words={level1vocab}/>
+        
         <span>Level 2:</span>
         <Studier words={level2vocab}/>
     </div>
