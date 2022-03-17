@@ -15,7 +15,7 @@ import { TestFrame } from "./TestFrame";
 
 //use this for converting: https://html-online.com/editor/
 
-const lessons = [Lesson1, Lesson2, Lesson3];
+export const lessons = [Lesson1, Lesson2, Lesson3];
 
 export const LessonFrame = ({ lesson }) => {
   const { steps, Content, title } = lessons[lesson - 1];
@@ -83,11 +83,9 @@ export const LessonFrame = ({ lesson }) => {
         </Stepper>
       </div>
 
-      <Typography sx={{ mt: 2, mb: 1 }}>
-        {/*
+
       <Title title={steps[activeStep]} />
-        */}
-      </Typography>
+
 
       {/*content for stepper*/}
       <Content step={activeStep + 1} />

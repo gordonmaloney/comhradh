@@ -11,6 +11,7 @@ import { Discuss } from "./components/Discuss";
 import { Test } from './components/Test'
 import { PronunciationCentre } from './components/PronunciationCenter/PronunciationCentre'
 import { FlashcardsMain } from "./components/Vocab/FlashcardsMain";
+import { CheatSheet } from "./components/CheatSheet";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/discuss/:lesson" exact component={Discuss} />
             <Route path="/pronunciation/:word" component={PronunciationCentre} />
             <Route path="/flashcards" exact component={FlashcardsMain} />
+            <Route path="/cheatsheet" exact component={CheatSheet} />
           </Switch>
 
       </Container>

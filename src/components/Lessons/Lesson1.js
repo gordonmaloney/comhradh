@@ -9,13 +9,17 @@ export const title = ["Tha, Chan eil"];
 
 export const steps = ["Tha", "Other people", "Chan eil", "Recap"];
 
-export const StepContent = ({ step }) => {
-  console.log("step: ", step);
+
+export const Recap = () => {
+  console.log("test")
+  return <StepContent step={steps.length} />
+}
+
+export const StepContent = ({step}) => {
   switch (step) {
     case 1:
       return (
         <div>
-          <span className="lessonSubHead">Tha</span>
           <p>Let&rsquo;s start by learning four words:</p>
           <VocabGrid
             words={[
@@ -118,7 +122,6 @@ export const StepContent = ({ step }) => {
     case 2:
       return (
         <>
-          <Title title="Other people" />
           <p>
             Let&rsquo;s start by learning a couple other words and common names:
           </p>
@@ -188,7 +191,6 @@ export const StepContent = ({ step }) => {
     case 3:
       return (
         <>
-          <Title title="Chan eil" />
           <p>
             So we&rsquo;ve learned how to say someone or something <em>is</em>,
             but how do we say they <em>are not</em>?
@@ -244,7 +246,6 @@ export const StepContent = ({ step }) => {
     case 4:
       return (
         <>
-          <Title title="Recap" />
           <div className="recapBox">
             <ul>
               <li aria-level="1">

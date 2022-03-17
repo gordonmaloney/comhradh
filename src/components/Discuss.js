@@ -4,10 +4,9 @@ import { Forum } from './Forum/Forum'
 export const Discuss = (props) => {
     return (
         <div>
-            <h1>Discuss lesson number {props.lesson}</h1>
+            <h1>Discuss lesson number {props.match.params.lesson}</h1>
 
-
-            <Forum lesson={props.lesson} />
+            <Forum lesson={props.match.params.lesson} />
         </div>
     )
 }

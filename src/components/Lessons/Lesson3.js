@@ -8,6 +8,11 @@ export const steps = [
   "Recap",
 ];
 
+export const Recap = () => {
+  console.log("test")
+  return <StepContent step={steps.length} />
+}
+
 export const title = "Doing words - verbal nouns";
 
 export const StepContent = ({ step }) => {
