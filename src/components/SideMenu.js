@@ -46,7 +46,7 @@ export const SideMenu = () => {
     >
       <center><h3>Còmhradh</h3></center>
       <List>
-        <ListItem button disabled>
+        <ListItem button component={Link} to="../">
           <ListItemText primary="Profile" />
         </ListItem>
         <ListItem button component={Link} to="/lessons">
@@ -77,7 +77,7 @@ export const SideMenu = () => {
 
   return (
     <div>
-      <Fab onClick={toggleDrawer("left", true)} style={{position:"fixed", left: "5%", marginTop: '22px', zIndex:1}}>
+      <Fab className="sidebarFabLeft"  onClick={toggleDrawer("left", true)} style={{position:"fixed", left: "5%", marginTop: '22px', zIndex:1}}>
         <MenuIcon />
       </Fab>
 

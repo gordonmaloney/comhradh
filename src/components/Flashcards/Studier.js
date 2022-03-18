@@ -27,7 +27,8 @@ export const Studier = ({ words }) => {
   }
   
   const shuffledWords = React.useMemo(() => {
-    return shuffle(words)
+    let wordsToShuffle = words.map(word => word)
+    return shuffle(wordsToShuffle)
   }, [])
 
   const [studyList, setStudyList] = useState(shuffledWords);
@@ -35,8 +36,6 @@ export const Studier = ({ words }) => {
   const [activeCard, setActiveCard] = useState(0);
 
   const [reveal, setReveal] = useState(false);
-
-  const [revise, setRevise] = useState([""]);
 
   const handleRight = () => {
     setReveal(false);

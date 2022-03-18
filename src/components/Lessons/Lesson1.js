@@ -238,7 +238,7 @@ export const StepContent = ({step}) => {
             more useful ones:
           </p>
           <VocabGrid
-            words={["tired", "sgìth", "happy", <Link to={'../pronunciation/toilichte'}>toilichte</Link>, "sad", "brònach"]}
+            words={["tired", "sgìth", "happy", <Link to={'../../pronunciation/toilichte'}>toilichte</Link>, "sad", "brònach"]}
           />
         </>
       );

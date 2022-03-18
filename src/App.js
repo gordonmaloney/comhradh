@@ -10,7 +10,7 @@ import { Dictionary } from "./components/Dictionary";
 import { Discuss } from "./components/Discuss";
 import { Test } from './components/Test'
 import { PronunciationCentre } from './components/PronunciationCenter/PronunciationCentre'
-import { FlashcardsMain } from "./components/Vocab/FlashcardsMain";
+import { FlashcardsMain } from "./components/Flashcards/FlashcardsMain";
 import { CheatSheet } from "./components/CheatSheet";
 
 function App() {
@@ -18,7 +18,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container maxwidth="lg">
         <SideMenu />
 
           <Switch>
@@ -33,7 +32,6 @@ function App() {
             <Route path="/cheatsheet" exact component={CheatSheet} />
           </Switch>
 
-      </Container>
     </BrowserRouter>
   );
 }

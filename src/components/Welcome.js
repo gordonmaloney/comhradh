@@ -17,7 +17,7 @@ export const Welcome = () => {
     <div>
       <center>
         {user ? (
-          <p>Welcome {user.result.givenName}</p>
+          <p>Welcome {user?.result?.givenName}</p>
         ) : (
           <>
             <p>You need to log-in</p>
