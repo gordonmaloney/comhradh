@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Login } from "./Login";
-import { fetchUserData } from "../actions/auth";
+import { fetchUserData, updateUser } from "../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -28,8 +28,15 @@ export const Welcome = () => {
 
   console.log("test")
 
-  user?.result?.email && !posts.auth.name && dispatch(fetchUserData(user.result.email))
+  user?.result?.email && !posts.auth.name && dispatch(fetchUserData(user.result._id))
   
+  const handleUpdate = () => {
+    let updatedUser = posts.auth
+    updatedUser.progress++
+
+    console.log(updatedUser)
+    dispatch(updateUser(user?.result?._id, updatedUser))
+  }
 
   return (
     <div>
@@ -41,7 +48,9 @@ export const Welcome = () => {
             {!posts.auth ? "Loading..." :
             <>
               Level: {posts.auth.progress}<br />
-              Words learned: {posts.auth.words.length}
+              Words learned: {posts?.auth?.words?.length}
+
+              <button onClick={() => handleUpdate()}>update user</button>
             </>
             }
           </>

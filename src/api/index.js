@@ -9,4 +9,5 @@ export const deletePost = (id) => API.delete(`/posts/${id}`)
 
 export const signIn = (formData) => API.post('/users/signin', formData)
 export const signUp = (formData) => API.post('/users/signup', formData)
-export const fetchUser = email => API.get(`/users/allusers/${email}`)
+export const fetchUser = id => API.get(`/users/allusers/${id}`)
+export const updateUser = (id, updatedUser) => API.patch(`/users/allusers/${id}`, updatedUser)

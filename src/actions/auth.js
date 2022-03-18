@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { AUTH, FETCHUSER } from "./ActionTypes";
+import { AUTH, FETCHUSER, UPDATEUSER } from "./ActionTypes";
 
 export const signin = (formData, history) => async (dispatch) => {
   try {
@@ -27,10 +27,10 @@ export const signup = (formData, history) => async (dispatch) => {
   }
 };
 
-export const fetchUserData = email => async (dispatch) => {
-  console.log("fetching user data...", email)
+export const fetchUserData = id => async (dispatch) => {
+  console.log("fetching user data...", id)
     try {
-        const { data } = await api.fetchUser(email);
+        const { data } = await api.fetchUser(id);
     
         console.log(data)
         dispatch({ type: FETCHUSER, payload: data });
@@ -38,3 +38,14 @@ export const fetchUserData = email => async (dispatch) => {
         console.log(error);
       }
     };
+
+export const updateUser = (id, user) => async (dispatch) => {
+  console.log(id, user)
+  try {
+    const { data } = await api.updateUser(id, user);
+
+    dispatch({ type: UPDATEUSER, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
