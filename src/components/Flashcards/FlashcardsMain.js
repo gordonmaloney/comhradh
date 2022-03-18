@@ -2,15 +2,33 @@ import React from 'react'
 import { WORDS } from '../Lessons/WORDS'
 import { FlashcardLogic } from './FlashcardLogic'
 import { Studier } from './Studier'
-
+import { useState, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { fetchUserData, updateUser } from "../../actions/auth";
+import { useSelector, useDispatch } from "react-redux";
 
 export const FlashcardsMain = () => {
+  
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  useEffect(() => {
+    const token = user?.token;
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
+  const posts = useSelector((state) => state);
+  user?.result?.email && !posts.auth.name && dispatch(fetchUserData(user.result._id))
 
-    const user = "testUser"
-    const userLevel = 1
+    const userLevels = posts.auth.progress
+  
+    console.log(userLevels)
 
     const words = []
-    WORDS.map(lesson => {lesson.lesson <= userLevel && lesson.words.map(word => words.push(word))})
+    WORDS.map(lesson => 
+      userLevels.map(userLevel => 
+        {lesson.lesson == userLevel && lesson.words.map(word => words.push(word))})
+    )
+
     console.log(words)
 
     //level 1 vocab
@@ -23,13 +41,8 @@ export const FlashcardsMain = () => {
   return (
     <div className="innerContainer">
         <h1>Flashcards</h1>
-        <span>Level 1:</span>
-        <Studier words={level1vocab}/>
-        
-        <span>Level 2:</span>
-        <Studier words={level2vocab}/>
+        <Studier words={words}/>
 
-        <FlashcardLogic />
     </div>
   )
 }

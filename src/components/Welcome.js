@@ -10,33 +10,13 @@ export const Welcome = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-
-
   useEffect(() => {
     const token = user?.token;
-
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
-
-  
- 
   const posts = useSelector((state) => state);
-
-  console.log(posts.auth.name)
-  
-
-
-  console.log("test")
-
   user?.result?.email && !posts.auth.name && dispatch(fetchUserData(user.result._id))
   
-  const handleUpdate = () => {
-    let updatedUser = posts.auth
-    updatedUser.progress++
-
-    console.log(updatedUser)
-    dispatch(updateUser(user?.result?._id, updatedUser))
-  }
 
   return (
     <div>
@@ -47,10 +27,10 @@ export const Welcome = () => {
 
             {!posts.auth ? "Loading..." :
             <>
-              Level: {posts.auth.progress}<br />
+              Levels completed: {posts.auth.progress.length-1}<br />
               Words learned: {posts?.auth?.words?.length}
 
-              <button onClick={() => handleUpdate()}>update user</button>
+<br />
             </>
             }
           </>
