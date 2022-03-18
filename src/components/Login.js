@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { signup } from "../actions/auth";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -47,13 +48,12 @@ export const Login = () => {
   const handleClose = () => setOpen(false);
 
   const googleSuccess = async (res) => {
+    console.log("success")
     const result = res?.profileObj;
     const token = res?.tokenId;
-
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
-
-      history.push("/lessons");
+      //dispatch({ type: "AUTH", data: { result, token } });
+      dispatch(signup(res?.profileObj, history));
     } catch (error) {
       console.log(error);
     }

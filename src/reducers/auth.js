@@ -1,12 +1,14 @@
-import { AUTH, LOGOUT } from "../actions/ActionTypes";
+import { AUTH, LOGOUT, FETCHUSER } from "../actions/ActionTypes";
 
 const authReducer = (state = { authData: null }, action) => {
   switch (action.type) {
     case AUTH:
+      console.log("dispatching auth reducer, ", action.data)
       localStorage.setItem('profile', JSON.stringify({...action?.data}));
 
       return {...state, authData: action.data};
       break;
+
     case LOGOUT:
     
         localStorage.clear()
@@ -14,6 +16,11 @@ const authReducer = (state = { authData: null }, action) => {
 
       return state;
       break;
+
+    case FETCHUSER: 
+      console.log("reducing... ", action.payload)
+      
+      return (action.payload)
     default:
       return state;
       break;

@@ -1,5 +1,6 @@
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
+export const FETCHUSER = 'FETCHUSER'
 
 export const FETCH = "FETCH"
 export const CREATE = "CREATE" 
