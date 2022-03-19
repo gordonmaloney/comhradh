@@ -83,7 +83,7 @@ export const LessonList = () => {
                   size="large"
                   margin="normal"
                 >
-                  Lesson One
+                  Lesson {index+1}
                 </Button>
               </Link>
 

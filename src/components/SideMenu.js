@@ -7,9 +7,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom'
-import MenuIcon from '@mui/icons-material/Menu';
-import Fab from '@mui/material/Fab';
+import { useHistory } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import Fab from "@mui/material/Fab";
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const SideMenu = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    history.push('/')
+    history.push("/");
     setUser(null);
   };
 
@@ -44,13 +44,15 @@ export const SideMenu = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <center><h3>Còmhradh</h3></center>
+      <center>
+        <h3>Còmhradh</h3>
+      </center>
       <List>
         <ListItem button component={Link} to="../">
           <ListItemText primary="Profile" />
         </ListItem>
         <ListItem button component={Link} to="/lessons">
-          <ListItemText primary="Lessons"   />
+          <ListItemText primary="Lessons" />
         </ListItem>
         <ListItem button component={Link} to="/flashcards">
           <ListItemText primary="Flashcards" />
@@ -68,16 +70,19 @@ export const SideMenu = () => {
           <ListItemText primary="Discuss" />
         </ListItem>
         <ListItem button onClick={logout}>
-          <ListItemText primary="Log Out"  />
+          <ListItemText primary="Log Out" />
         </ListItem>
       </List>
-
     </Box>
   );
 
   return (
     <div>
-      <Fab className="sidebarFabLeft"  onClick={toggleDrawer("left", true)} style={{position:"fixed", left: "5%", marginTop: '22px', zIndex:1}}>
+      <Fab
+        className="sidebarFabLeft"
+        onClick={toggleDrawer("left", true)}
+        style={{ position: "fixed", left: "5%", marginTop: "22px", zIndex: 1 }}
+      >
         <MenuIcon />
       </Fab>
 

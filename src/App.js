@@ -12,12 +12,14 @@ import { Test } from './components/Test'
 import { PronunciationCentre } from './components/PronunciationCenter/PronunciationCentre'
 import { FlashcardsMain } from "./components/Flashcards/FlashcardsMain";
 import { CheatSheet } from "./components/CheatSheet";
+import { Profile } from "./components/Profile";
+import { FetchUser } from "./components/FetchUser";
 
 function App() {
 
-
   return (
     <BrowserRouter>
+        <FetchUser />
         <SideMenu />
 
           <Switch>
@@ -30,6 +32,8 @@ function App() {
             <Route path="/pronunciation/:word" component={PronunciationCentre} />
             <Route path="/flashcards" exact component={FlashcardsMain} />
             <Route path="/cheatsheet" exact component={CheatSheet} />
+            <Route path="/profile" exact component={Profile} />
+
           </Switch>
 
     </BrowserRouter>

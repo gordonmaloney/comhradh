@@ -92,7 +92,7 @@ export const Login = () => {
             {isSignup ? "Sign up" : "Log in"}
 
             <GoogleLogin
-              clientId="789405381572-mlra44csvrdsfp9ntgja0rt719nuronk.apps.googleusercontent.com"
+              clientId="419018923298-5pgdk5ubds4e8ia10cdiq0k64fh3rg3m.apps.googleusercontent.com"
               render={(renderProps) => (
                 <Button
                   className={style.googleButton}
