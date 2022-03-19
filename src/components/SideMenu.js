@@ -18,7 +18,7 @@ export const SideMenu = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    history.push("/");
+    history.push("/loggedout");
     setUser(null);
   };
 

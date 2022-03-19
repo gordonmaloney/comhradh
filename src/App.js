@@ -14,6 +14,7 @@ import { FlashcardsMain } from "./components/Flashcards/FlashcardsMain";
 import { CheatSheet } from "./components/CheatSheet";
 import { Profile } from "./components/Profile";
 import { FetchUser } from "./components/FetchUser";
+import { Redirect } from "./components/Redirect";
 
 function App() {
 
@@ -34,6 +35,8 @@ function App() {
             <Route path="/cheatsheet" exact component={CheatSheet} />
             <Route path="/profile" exact component={Profile} />
 
+            <Route path='/loggedout' exact render={(props) => <Redirect logged="out" />} />
+            <Route path='/loggedin' exact render={(props) => <Redirect logged="in" />} />
           </Switch>
 
     </BrowserRouter>
