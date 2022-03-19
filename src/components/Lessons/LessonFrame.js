@@ -13,22 +13,28 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
 
+import { Discuss } from "../Forum/Discuss";
+import { Dictionary } from "../Dictionary/Dictionary";
+import Modal from "@mui/material/Modal";
+
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import QuizIcon from "@mui/icons-material/Quiz";
+import MicIcon from '@mui/icons-material/Mic';
 import ChatIcon from "@mui/icons-material/Chat";
 
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
 import { TestFrame } from "./TestFrame";
+import { SingleLevelVocab } from "../Dictionary/SingleLevelVocab";
+import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 
 //use this for converting: https://html-online.com/editor/
 
 export const lessons = [Lesson1, Lesson2, Lesson3];
 
-export const LessonFrame = ({ lesson, step }) => {
+export const LessonFrame = ({ lesson, step, match }) => {
   const [value, setValue] = useState("");
 
   const handleChange = (event, newValue) => {
@@ -80,6 +86,13 @@ export const LessonFrame = ({ lesson, step }) => {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  //modal logic
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [display, setDisplay] = useState("discuss");
 
   return (
     <>
@@ -180,23 +193,61 @@ export const LessonFrame = ({ lesson, step }) => {
           <BottomNavigationAction
             label="Lesson"
             value="lesson"
-            onClick={() => {}}
+            onClick={() => {
+              setOpen(false);
+              setDisplay("none");
+            }}
             icon={<BorderColorIcon />}
           />
           <BottomNavigationAction
             label="Dictionary"
             value="dictionary"
-            onClick={() => {}}
+            onClick={() => {
+              setOpen(true);
+              setDisplay("dictionary");
+            }}
             icon={<MenuBookIcon />}
           />
           <BottomNavigationAction
             label="Pronunciation Centre"
             value="pronunciation"
-            onClick={() => {}}
-            icon={<ReceiptIcon />}
+            onClick={() => {
+              setOpen(true);
+              setDisplay("pronounce");
+            }}
+            icon={<MicIcon />}
+          />
+          <BottomNavigationAction
+            label="Discuss"
+            value="discuss"
+            onClick={() => {
+              setOpen(true);
+              setDisplay("discuss");
+            }}
+            icon={<ChatIcon />}
           />
         </BottomNavigation>
       </Paper>
+
+      {
+        //modal
+      }
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="modalBox">
+          {display === "discuss" ? (
+            <Discuss lesson={lesson} />
+          ) : display === "dictionary" ? (
+            <SingleLevelVocab lesson={lesson} />
+          ) : display === "pronounce" ? (
+            <PronunciationCentre lesson={lesson} />
+          ) : null}
+        </Box>
+      </Modal>
     </>
   );
 };

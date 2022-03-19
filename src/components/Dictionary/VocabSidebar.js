@@ -8,7 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { WORDS } from "./Lessons/WORDS";
+import { WORDS } from "../Lessons/WORDS";
 import Fab from "@mui/material/Fab";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 

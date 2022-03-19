@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { WORDS } from "./Lessons/WORDS";
+import { WORDS } from "../Lessons/WORDS";
 import { TextField } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { Card } from "@material-ui/core";

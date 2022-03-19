@@ -33,54 +33,81 @@ export const Forum = (props) => {
     e.preventDefault();
     console.log(postData);
     dispatch(createPost(postData));
+    setPost(false);
   };
+
+  const [post, setPost] = useState(false);
 
   return (
     <div>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { mb: 2, width: "100%" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <h3>Start a new discussion</h3>
-        <TextField
-          label="Title"
-          fullWidth
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
-        />
+      {post && (
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { mb: 2, width: "100%" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <h3>Post a message</h3>
+          <TextField
+            label="Title"
+            fullWidth
+            onChange={(e) =>
+              setPostData({ ...postData, title: e.target.value })
+            }
+          />
 
-        <TextField
-          id="outlined-multiline-static"
-          label="Your message"
-          multiline
-          rows={4}
-          fullWidth
-          onChange={(e) => setPostData({ ...postData, body: e.target.value })}
-        />
+          <TextField
+            id="outlined-multiline-static"
+            label="Your message"
+            multiline
+            rows={4}
+            fullWidth
+            onChange={(e) => setPostData({ ...postData, body: e.target.value })}
+          />
+          <center>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => setPost(false)}
+            >
+              Cancel
+            </Button>
+          </center>
+        </Box>
+      )}
 
+      {!post && (
         <Button
           variant="contained"
           color="primary"
           size="large"
           fullWidth
-          onClick={handleSubmit}
+          onClick={() => setPost(true)}
         >
-          Submit
+          Post a message
         </Button>
-      </Box>
+      )}
 
       {posts.map((post) =>
         post.lesson == lesson ? (
-          <Card style={{margin: 20}}>
+          <Card style={{ margin: 20 }}>
             <CardContent>
               <h3 className="cardHeader">{post.title}</h3>
               <Divider />
               <p className="cardBody">{post.body}</p>
               <Divider />
-              <p  className="cardFooter">- {post.author}</p>
+              <p className="cardFooter">- {post.author}</p>
             </CardContent>
           </Card>
         ) : null

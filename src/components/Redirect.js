@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom";
 export const Redirect = ({logged}) => {
   const history = useHistory();
 
-  setInterval(() => {
+  setTimeout(() => {
       history.push('../')
-  }, 1000);
+  }, 1500);
 
   return (
     <div>

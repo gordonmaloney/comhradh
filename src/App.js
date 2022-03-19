@@ -6,8 +6,8 @@ import { Container } from "@material-ui/core";
 import { LessonList } from "./components/LessonList";
 import { Welcome } from "./components/Welcome";
 import { Lesson } from "./components/Lesson";
-import { Dictionary } from "./components/Dictionary";
-import { Discuss } from "./components/Discuss";
+import { Dictionary } from "./components/Dictionary/Dictionary";
+import { Discuss } from "./components/Forum/Discuss";
 import { Test } from './components/Test'
 import { PronunciationCentre } from './components/PronunciationCenter/PronunciationCentre'
 import { FlashcardsMain } from "./components/Flashcards/FlashcardsMain";

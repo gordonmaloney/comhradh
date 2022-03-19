@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VocabSidebar } from "./VocabSidebar";
+import { VocabSidebar } from "./Dictionary/VocabSidebar";
 import { useHistory } from "react-router-dom";
 
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -12,8 +12,8 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import QuizIcon from "@mui/icons-material/Quiz";
 import ChatIcon from "@mui/icons-material/Chat";
 
-import { Discuss } from "./Discuss";
-import { Dictionary } from "./Dictionary";
+import { Discuss } from "./Forum/Discuss";
+import { Dictionary } from "./Dictionary/Dictionary";
 
 import { TestFrame } from "./Lessons/TestFrame";
 
