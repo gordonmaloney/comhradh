@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { useHistory } from "react-router-dom";
 import Stepper from "@mui/material/Stepper";
@@ -30,69 +30,48 @@ import { TestFrame } from "./TestFrame";
 import { SingleLevelVocab } from "../Dictionary/SingleLevelVocab";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 
-//use this for converting: https://html-online.com/editor/
-
+//use this for converting lessons: https://html-online.com/editor/
 export const lessons = [Lesson1, Lesson2, Lesson3];
 
 export const LessonFrame = ({ lesson, step, match }) => {
-  const [value, setValue] = useState("");
+  const history = useHistory();
 
+  //bottom navigator
+  const [value, setValue] = useState("");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  console.log(lesson, step);
-  const history = useHistory();
 
+  //steps logic
   const { steps, Content, title } = lessons[lesson - 1];
-
-  console.log(Lesson2.steps);
-
   const [activeStep, setActiveStep] = useState(step - 1);
-  const [skipped, setSkipped] = React.useState(new Set());
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
     history.push(`./${activeStep + 2}`);
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     history.push(`./${activeStep}`);
-
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
+  //scroll to top on activeStep change
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [activeStep])
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
+
   //modal logic
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [display, setDisplay] = useState("discuss");
+  const [display, setDisplay] = useState(null);
 
   return (
     <>
