@@ -3,7 +3,7 @@ import { RecordPlay } from "./RecordPlay";
 import { Player } from "./Player";
 
 export const PronunciationCentre = ({ lesson }) => {
-  const word = "toilichte";
+  const word = "chan eil";
 
   return (
     <div className="pronunciationCentre">
