@@ -4,12 +4,11 @@ const Breakdown = ({ word }) => {
   try {
     let src = require(`./Breakdowns/${word.toLowerCase()}.mp3`);
 
-    let audioFile = new Audio(src.default);
-
     return (
       <>
         <br />
-        Breakdown: <button onClick={() => audioFile.play()}>Play</button>
+        Breakdown:
+        <audio controls src={`${src.default}`} />
       </>
     );
   } catch {
@@ -21,13 +20,11 @@ export const Player = ({ word }) => {
   try {
     let src = require(`./Audio/${word.toLowerCase()}.mp3`);
 
-    let audioFile = new Audio(src.default);
-
     return (
       <>
         <h2>{word}</h2>
 
-        <button onClick={() => audioFile.play()}>Play</button>
+        <audio controls src={`${src.default}`} />
 
         <Breakdown word={word} />
       </>
