@@ -265,3 +265,8 @@ html {
     box-shadow: 24;
     padding: 10px;
 }
+
+.pronunciationCenterSelecter {
+  height: 100px;
+  overflow-y: scroll;
+}
