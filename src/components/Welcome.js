@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Login } from "./Login";
 import { useSelector } from "react-redux";
+import { LandingPage } from "./LandingPage";
 
 export const Welcome = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -39,7 +40,7 @@ export const Welcome = () => {
     return (
       <>
         <center>
-          <p>You need to log-in</p>
+          <LandingPage />
           <Login />
         </center>
       </>

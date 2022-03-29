@@ -39,7 +39,6 @@ export const Lesson = (props) => {
 
       <LessonFrame lesson={props.match.params.lesson} step={props.match.params.step} />
 
-      <div className="innerContainer">
 
         {/*
         {display === "lesson" ? (
@@ -96,7 +95,6 @@ export const Lesson = (props) => {
           </BottomNavigation>
         </Paper>
         */}
-      </div>
     </div>
   );
 };
