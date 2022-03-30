@@ -17,16 +17,14 @@ export const Dictionary = () => {
 
   const unfilteredWords = WORDS.map((WORD) => (
     <>
-      {" "}
       <b>Lesson {WORD.lesson}</b>
       <List>
-
-      {WORD.words.map((word) => (
-        <ListItem>
-          {word.gd} - {word.en}
-        </ListItem>
-      ))}
-    </List>
+        {WORD.words.map((word) => (
+          <ListItem>
+            {word.gd} - {word.en}
+          </ListItem>
+        ))}
+      </List>
     </>
   ));
 
@@ -50,24 +48,24 @@ export const Dictionary = () => {
   );
 
   return (
-    <div>
-      <Grid container spacing={2}>
+    <div style={{marginLeft: "10px", marginRight: "10px"}}>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
-          <div style={{  }}>
-              <center><h1>Dictionary</h1></center>
-</div>
+            <center>
+              <h1>Dictionary</h1>
+            </center>
         </Grid>
 
-        <Grid item xs={6}>
-          <h3>
-            Before you search...
-            <br />
-            have you <em>really</em> tried to remember it?
+        <Grid item xs={12} sm={6}>
+          <h3 style={{marginTop: 0, paddingTop: 0}}>
+            Before you search... have you <em>really</em> tried to remember it?
           </h3>
-          <TextField placeholder="Search" onChange={(e) => handleChange(e)} />
+          <center>
+            <TextField placeholder="Search" onChange={(e) => handleChange(e)} />
+          </center>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           {searchTerm ? filteredWords : unfilteredWords}
         </Grid>
       </Grid>

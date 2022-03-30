@@ -67,40 +67,41 @@ export const LessonList = () => {
   };
 
   if (posts?.auth?.progress) {
-  return (
-    <div className="innerContainer">
-      <center>
-        <h3 style={{}}>Pick a lesson to get started</h3>
-      </center>
-      <div className="lessonList">
-        {lessons.map((lesson, index) => {
-          return (
-            <>
-              <Link to={`/lessons/${index + 1}/1`}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  margin="normal"
-                >
-                  Lesson {index+1}
-                </Button>
-              </Link>
+    return (
+      <div className="innerContainer">
+        <center>
+          <h3 style={{}}>Pick a lesson to get started</h3>
+        </center>
+        <div className="lessonList">
+          {lessons.map((lesson, index) => {
+            return (
+              <>
+                <Link to={`/lessons/${index + 1}/1`}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    margin="normal"
+                  >
+                    Lesson {index + 1}
+                  </Button>
+                </Link>
 
-              <Checkbox
-                size="large"
-                checked={posts.auth.progress.includes(index + 1)}
-                onChange={(e) => handleChange(e, index + 1)}
-              />
-              <br />
-              <br />
-            </>
-          );
-        })}
+                <Checkbox
+                  size="large"
+                  checked={posts.auth.progress.includes(index + 1)}
+                  onChange={(e) => handleChange(e, index + 1)}
+                />
+                <br />
+                <br />
+              </>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-      } else {
-        return <>Loading...</>
-      }
+    );
+  } else {
+    return <>Loading...</>;
+  }
 };

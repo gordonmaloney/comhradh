@@ -33,8 +33,8 @@ function App() {
           <Route path="/lessons/:lesson/:step" exact component={Lesson} />
           <Route path="/test/:lesson" exact component={Test} />
           <Route path="/dictionary" exact component={Dictionary} />
-          <Route path="/discuss/:lesson" exact component={Discuss} />
-          <Route path="/pronunciation/:word" component={PronunciationCentre} />
+          <Route path="/discuss" exact component={Discuss} />
+          <Route path="/pronunciation" component={PronunciationCentre} />
           <Route path="/flashcards" exact component={FlashcardsMain} />
           <Route path="/cheatsheet" exact component={CheatSheet} />
           <Route path="/profile" exact component={Profile} />

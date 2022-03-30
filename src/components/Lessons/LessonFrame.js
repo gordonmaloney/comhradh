@@ -70,7 +70,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
   //modal logic
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false); setValue("lesson")}
   const [display, setDisplay] = useState(null);
 
   return (
@@ -188,7 +188,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
             icon={<MenuBookIcon />}
           />
           <BottomNavigationAction
-            label="Pronunciation Centre"
+            label="Pronunciation"
             value="pronunciation"
             onClick={() => {
               setOpen(true);
@@ -219,7 +219,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
       >
         <Box className="modalBox">
           {display === "discuss" ? (
-            <Discuss lesson={lesson} />
+            <Discuss lesson={lesson} modal="modal" />
           ) : display === "dictionary" ? (
             <SingleLevelVocab lesson={lesson} />
           ) : display === "pronounce" ? (

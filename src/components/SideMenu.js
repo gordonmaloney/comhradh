@@ -53,15 +53,16 @@ export const SideMenu = () => {
           <ListItem button component={Link} to="/dictionary">
             <ListItemText primary="Dictionary" />
           </ListItem>
-          <ListItem button component={Link} to="/pronunciation/toilichte">
+          <ListItem button component={Link} to="/pronunciation">
             <ListItemText primary="Pronunciation Centre" />
           </ListItem>
           <ListItem button component={Link} to="/cheatsheet">
             <ListItemText primary="Cheat Sheet" />
           </ListItem>
-          <ListItem button component={Link} to="/discuss/1">
+          <ListItem button component={Link} to="/discuss">
             <ListItemText primary="Discuss" />
           </ListItem>
+
           <ListItem button onClick={logout}>
             <ListItemText primary="Log Out" />
           </ListItem>

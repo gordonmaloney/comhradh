@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useDispatch } from "react-redux";
@@ -31,9 +31,15 @@ export const Header = () => {
     } else if (window.scrollY == 0) {
       document.getElementById("navbar").style.padding = "20px 10px";
       document.getElementById("navbar").style.boxShadow = "0px 0px 0px black";
-      document.getElementById("navbarHeader").style.fontSize = "3em";
+      if (window.innerWidth > 600) document.getElementById("navbarHeader").style.fontSize = "3em";
     }
   }
+
+  useEffect(() => {
+    window.innerWidth < 600
+      ? (document.getElementById("navbarHeader").style.fontSize = "1.5em")
+      : (document.getElementById("navbarHeader").style.fontSize = "3em");
+  }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -74,37 +80,63 @@ export const Header = () => {
           },
         }}
       >
-        <MenuItem button onClick={handleClose} component={Link} to="../">
+        <ListItem button onClick={handleClose} component={Link} to="../">
           <ListItemText primary="Profile" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/lessons">
+        <ListItem button onClick={handleClose} component={Link} to="/lessons">
           <ListItemText primary="Lessons" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/flashcards">
+        <ListItem
+          button
+          onClick={handleClose}
+          component={Link}
+          to="/flashcards"
+        >
           <ListItemText primary="Flashcards" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/dictionary">
+        <ListItem
+          button
+          onClick={handleClose}
+          component={Link}
+          to="/dictionary"
+        >
           <ListItemText primary="Dictionary" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/pronunciation/toilichte">
+        <ListItem
+          button
+          onClick={handleClose}
+          component={Link}
+          to="/pronunciation"
+        >
           <ListItemText primary="Pronunciation Centre" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/cheatsheet">
+        <ListItem
+          button
+          onClick={handleClose}
+          component={Link}
+          to="/cheatsheet"
+        >
           <ListItemText primary="Cheat Sheet" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={handleClose} component={Link} to="/discuss/1">
+        <ListItem button onClick={handleClose} component={Link} to="/discuss">
           <ListItemText primary="Discuss" />
-        </MenuItem>
+        </ListItem>
         <br />
-        <MenuItem button onClick={() => {logout(); handleClose()}}>
+        <ListItem
+          button
+          onClick={() => {
+            logout();
+            handleClose();
+          }}
+        >
           <ListItemText primary="Log Out" />
-        </MenuItem>
+        </ListItem>
       </Menu>
     </div>
   );
