@@ -74,7 +74,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
   const [display, setDisplay] = useState(null);
 
   return (
-    <>
+    <div style={{padding: 0}}>
       <div className="lessonHeader">
         <div className="innerHeader">
           <h1>
@@ -227,6 +227,6 @@ export const LessonFrame = ({ lesson, step, match }) => {
           ) : null}
         </Box>
       </Modal>
-    </>
+    </div>
   );
 };
