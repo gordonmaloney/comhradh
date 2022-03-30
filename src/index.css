@@ -7,6 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -27,7 +28,7 @@ html {
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  background-color: #6683d9;
+  background-color: #6683d944;
   
 }
 
@@ -296,16 +297,32 @@ html {
 
 #navbar {
   width: 100%;
-  background-color: red;
-  padding: 50px 10px;
+  background-color: #6683d9;
+  padding: 10px 10px;
   transition: 0.3s;
   position: sticky;
   top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.navbarHeader {
+#navbarHeader {
   font-family: "Lexend Deca";
   font-weight: 500;
-  font-size: 1.5em;
+  font-size: 3em;
   margin-left: 10%;
+  transition: 0.4s;
+  display: inline-block;
+}
+
+.navBarMobileMenu {
+  display: none;
+  margin-right: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+  .navBarMobileMenu {
+    display: inline;
+  }
 }
