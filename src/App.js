@@ -26,6 +26,7 @@ function App() {
       <SideMenu />
 
       <div className="outerContainer">
+       
         <Switch>
           <Route path="/" exact component={Welcome} />
           <Route path="/lessons" exact component={LessonList} />

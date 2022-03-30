@@ -37,62 +37,36 @@ export const SideMenu = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <center>
-        <h3>Còmhradh</h3>
-      </center>
-      <List>
-        <ListItem button component={Link} to="../">
-          <ListItemText primary="Profile" />
-        </ListItem>
-        <ListItem button component={Link} to="/lessons">
-          <ListItemText primary="Lessons" />
-        </ListItem>
-        <ListItem button component={Link} to="/flashcards">
-          <ListItemText primary="Flashcards" />
-        </ListItem>
-        <ListItem button component={Link} to="/dictionary">
-          <ListItemText primary="Dictionary" />
-        </ListItem>
-        <ListItem button component={Link} to="/pronunciation/toilichte">
-          <ListItemText primary="Pronunciation Centre" />
-        </ListItem>
-        <ListItem button component={Link} to="/cheatsheet">
-          <ListItemText primary="Cheat Sheet" />
-        </ListItem>
-        <ListItem button component={Link} to="/discuss/1">
-          <ListItemText primary="Discuss" />
-        </ListItem>
-        <ListItem button onClick={logout}>
-          <ListItemText primary="Log Out" />
-        </ListItem>
-      </List>
-    </Box>
-  );
-
   return (
-    <div>
-      <Fab
-        className="sidebarFabLeft"
-        onClick={toggleDrawer("left", true)}
-        style={{ position: "fixed", left: "5%", marginTop: "22px", zIndex: 1 }}
-      >
-        <MenuIcon />
-      </Fab>
-
-      <Drawer
-        anchor="left"
-        open={state["left"]}
-        onClose={toggleDrawer("left", false)}
-      >
-        {list("left")}
-      </Drawer>
+    <div style={{position: "fixed"}}>
+      <Box className="sideMenu">
+        <List>
+          <ListItem button component={Link} to="../">
+            <ListItemText primary="Profile" />
+          </ListItem>
+          <ListItem button component={Link} to="/lessons">
+            <ListItemText primary="Lessons" />
+          </ListItem>
+          <ListItem button component={Link} to="/flashcards">
+            <ListItemText primary="Flashcards" />
+          </ListItem>
+          <ListItem button component={Link} to="/dictionary">
+            <ListItemText primary="Dictionary" />
+          </ListItem>
+          <ListItem button component={Link} to="/pronunciation/toilichte">
+            <ListItemText primary="Pronunciation Centre" />
+          </ListItem>
+          <ListItem button component={Link} to="/cheatsheet">
+            <ListItemText primary="Cheat Sheet" />
+          </ListItem>
+          <ListItem button component={Link} to="/discuss/1">
+            <ListItemText primary="Discuss" />
+          </ListItem>
+          <ListItem button onClick={logout}>
+            <ListItemText primary="Log Out" />
+          </ListItem>
+        </List>
+      </Box>
     </div>
   );
 };
