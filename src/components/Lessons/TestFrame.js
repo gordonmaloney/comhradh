@@ -30,7 +30,7 @@ export const TestFrame = ({ lesson }) => {
       
       <h1>Test - level {lesson}</h1>
 
-      {Questions}
+      <Questions />
     </Box>
   );
 };

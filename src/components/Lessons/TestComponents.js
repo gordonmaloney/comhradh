@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Grid, inputAdornmentClasses } from "@mui/material";
 import { TextField } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import { Select } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Chip from "@mui/material/Chip";
+import Paper from "@mui/material/Paper";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const Qtranslate = (props) => {
   const [answers, setAnswers] = useState(props.words);
@@ -87,6 +93,110 @@ export const Qtranslate = (props) => {
           </>
         ))}
       </Grid>
+    </>
+  );
+};
+
+export const Selecter = ({ text, options, correct, textCont }) => {
+  const [selectValue, setSelectValue] = useState("Select...");
+
+  const handleChange = (event) => {
+    setSelectValue(event.target.value);
+  };
+
+  const [graded, setGraded] = useState("");
+
+  selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
+  selectValue != "Select..." &&
+    selectValue != correct &&
+    graded != "red" &&
+    setGraded("red");
+  graded != "" && selectValue == "Select..." && setGraded("");
+
+  return (
+    <p style={{ marginBottom: "10px" }}>
+      {text && text}
+      <Select
+        autoWidth
+        value={selectValue}
+        onChange={handleChange}
+        label="select"
+        sx={{ backgroundColor: graded }}
+      >
+        <MenuItem value="Select...">
+          <em>Select...</em>
+        </MenuItem>
+        {options.map((option) => (
+          <MenuItem value={option}>{option}</MenuItem>
+        ))}
+      </Select>
+      {textCont && textCont}
+    </p>
+  );
+};
+
+export const Dragger = () => {
+  const ListItem = styled("li")(({ theme }) => ({
+    margin: theme.spacing(0.5),
+  }));
+
+  const [options, setOptions] = useState([ "mi", "glè", "tha", "sgìth"]);
+
+  const [chipData, setChipData] = React.useState([]);
+
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
+    setOptions([...options, chipToDelete]);
+  };
+
+  const handleClick = (label) => {
+    setChipData([...chipData, label]);
+    setOptions((chips) => chips.filter((chip) => chip !== label));
+  };
+
+  return (
+    <>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          p: 0.5,
+          m: 0,
+        }}
+        component="ul"
+      >
+        {options.map((data, index) => {
+          return (
+            <ListItem key={data}>
+              <Chip label={data} onClick={() => handleClick(data)} />
+            </ListItem>
+          );
+        })}
+      </Paper>
+
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          p: 0.5,
+          m: 0,
+        }}
+        component="ul"
+      >
+        {chipData.map((data, index) => {
+          return (
+            <ListItem key={index}>
+              <Chip label={data} onDelete={handleDelete(data)} />
+            </ListItem>
+          );
+        })}
+      </Paper>
     </>
   );
 };

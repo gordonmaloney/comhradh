@@ -1,21 +1,24 @@
+import { useState } from "react";
 import { Step } from "@mui/material";
 import { TransTable, VocabGrid, Title } from "./LessonComponents";
-import { Qtranslate } from "./TestComponents";
+import { Dragger, Qtranslate, Selecter } from "./TestComponents";
 import { Grid } from "@mui/material";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 import { Link } from "react-router-dom";
+
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 export const title = ["Tha, Chan eil"];
 
 export const steps = ["Tha", "Other people", "Chan eil", "Recap"];
 
-
 export const Recap = () => {
-  console.log("test")
-  return <StepContent step={steps.length} />
-}
+  console.log("test");
+  return <StepContent step={steps.length} />;
+};
 
-export const StepContent = ({step}) => {
+export const StepContent = ({ step }) => {
   switch (step) {
     case 1:
       return (
@@ -280,38 +283,54 @@ export const Content = ({ step }) => {
   );
 };
 
-export const Questions = (
-  <>
-    <h3>Translate from Gaelic to English:</h3>
-    <Qtranslate
-      words={[
-        "Tha mi beag",
-        "I am small",
-        "Chan eil Anna brònach",
-        "Anne isn't sad",
-        "Tha mi mòr",
-        "I am big",
-        "Chan eil Iain sgìth",
-        "John isn't tired",
-        "Tha Mòrag beag",
-        "Morag is small",
-      ]}
-    />
+export const Questions = () => {
 
-    <h3>Translate from English to Gaelic:</h3>
-    <Qtranslate
-      words={[
-        "I am tired",
-        "Tha mi sgìth",
-        "I'm not small",
-        "Chan eil mi beag",
-        "Morag isn't big",
-        "Chan eil Mòrag mòr",
-        "John is small",
-        "Tha Iain beag",
-        "Anna is not sad",
-        "Chan eil Anna brònach",
-      ]}
-    />
-  </>
-);
+  const [selectValue, setSelectValue] = useState('Select...')
+
+  const handleChange = (event) => {
+    setSelectValue(event.target.value);
+  };
+
+  return (
+    <>
+
+    <Dragger />
+
+    
+      <Selecter text="1) Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="."/>
+      <Selecter text="2) A bheil " options={["thu", "tu"]} correct="thu" textCont="toilichte?"/>
+
+      <h3>Translate from Gaelic to English:</h3>
+      <Qtranslate
+        words={[
+          "Tha mi beag",
+          "I am small",
+          "Chan eil Anna brònach",
+          "Anne isn't sad",
+          "Tha mi mòr",
+          "I am big",
+          "Chan eil Iain sgìth",
+          "John isn't tired",
+          "Tha Mòrag beag",
+          "Morag is small",
+        ]}
+      />
+
+      <h3>Translate from English to Gaelic:</h3>
+      <Qtranslate
+        words={[
+          "I am tired",
+          "Tha mi sgìth",
+          "I'm not small",
+          "Chan eil mi beag",
+          "Morag isn't big",
+          "Chan eil Mòrag mòr",
+          "John is small",
+          "Tha Iain beag",
+          "Anna is not sad",
+          "Chan eil Anna brònach",
+        ]}
+      />
+    </>
+  );
+};
