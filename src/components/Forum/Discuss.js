@@ -11,7 +11,7 @@ export const Discuss = (props) => {
     props.lesson && !lesson && setLesson(props.lesson)
 
   return (
-    <div>
+    <>
       {lesson && (
         <>
           <h1>Discuss lesson number {lesson}</h1>
@@ -27,6 +27,6 @@ export const Discuss = (props) => {
           ))}
         </>
       )}
-    </div>
+    </>
   );
 };

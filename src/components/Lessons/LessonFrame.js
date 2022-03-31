@@ -20,7 +20,7 @@ import Modal from "@mui/material/Modal";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import MicIcon from '@mui/icons-material/Mic';
+import MicIcon from "@mui/icons-material/Mic";
 import ChatIcon from "@mui/icons-material/Chat";
 
 import * as Lesson1 from "./Lesson1";
@@ -42,7 +42,6 @@ export const LessonFrame = ({ lesson, step, match }) => {
     setValue(newValue);
   };
 
-
   //steps logic
   const { steps, Content, title } = lessons[lesson - 1];
   const [activeStep, setActiveStep] = useState(step - 1);
@@ -59,22 +58,24 @@ export const LessonFrame = ({ lesson, step, match }) => {
 
   //scroll to top on activeStep change
   useEffect(() => {
-    window.scrollTo(0,0)
-  }, [activeStep])
+    window.scrollTo(0, 0);
+  }, [activeStep]);
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
-
   //modal logic
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {setOpen(false); setValue("lesson")}
+  const handleClose = () => {
+    setOpen(false);
+    setValue("lesson");
+  };
   const [display, setDisplay] = useState(null);
 
   return (
-    <div style={{padding: 0}}>
+    <div style={{ padding: 0 }}>
       <div className="lessonHeader">
         <div className="innerHeader">
           <h1>
@@ -216,9 +217,10 @@ export const LessonFrame = ({ lesson, step, match }) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        
       >
-        <Box className="modalBox">
-          {display === "discuss" ? (
+        <Box className="modalBox" sx={{position: "absolute", overflowY: "scroll", maxHeight: "90%"}}>
+                  {display === "discuss" ? (
             <Discuss lesson={lesson} modal="modal" />
           ) : display === "dictionary" ? (
             <SingleLevelVocab lesson={lesson} />

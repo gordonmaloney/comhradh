@@ -322,6 +322,7 @@ html {
   margin-left: 10%;
   transition: 0.4s;
   display: inline-block;
+  user-select: none;
 }
 
 .navBarMobileMenu {
