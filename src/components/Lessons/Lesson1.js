@@ -294,9 +294,12 @@ export const Questions = () => {
   return (
     <>
 
-    <Dragger />
-
+<h3>Put these sentences in the correct order:</h3>
+<Dragger sentence="tha mi sgìth"/>
+<Dragger sentence="tha thu toilichte"/>
     
+
+    <h3>Select the correct word from the drop down:</h3>
       <Selecter text="1) Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="."/>
       <Selecter text="2) A bheil " options={["thu", "tu"]} correct="thu" textCont="toilichte?"/>
 
