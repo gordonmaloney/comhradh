@@ -5,9 +5,11 @@ import { Dragger, Qtranslate, Selecter } from "./TestComponents";
 import { Grid } from "@mui/material";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 import { Link } from "react-router-dom";
+import { WORDS } from "./WORDS";
 
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { Studier } from "../Flashcards/Studier";
 
 export const title = ["Tha, Chan eil"];
 
@@ -36,6 +38,9 @@ export const StepContent = ({ step }) => {
               "beag",
             ]}
           />
+
+<p>You can click on the word to hear it pronounced (and practice pronouncing it yourself), and where you see a wee <sup>m</sup>, you can hover over it to get a tip to help you memorise it.</p>
+
           <p>
             But before we can make a sentence with them, we need to understand
             that the order that words go in when you&rsquo;re speaking Gaelic is
@@ -119,6 +124,13 @@ export const StepContent = ({ step }) => {
               </span>
             </span>
           </p>
+
+          Now try putting these sentences in the right order:
+          <Dragger sentence="tha mi beag" />
+          <Dragger sentence="tha thu mòr" />
+          <Dragger sentence="tha thu beag" />
+          <Dragger sentence="tha mi mòr" />
+          
         </div>
       );
       break;
@@ -243,6 +255,15 @@ export const StepContent = ({ step }) => {
           <VocabGrid
             words={["tired", "sgìth", "happy", "toilichte", "sad", "brònach"]}
           />
+
+          <p>Now let's try these words out with a couple exercises:</p>
+
+          <Dragger sentence="chan eil Anna sgìth" />
+          <Dragger sentence="tha Calum toilichte" />
+          <Dragger sentence="chan eil mi brònach" />
+
+
+
         </>
       );
       break;
@@ -293,15 +314,9 @@ export const Questions = () => {
 
   return (
     <>
+Let's start by practicing the vocabulary we've learned in this level:
+<Studier words={WORDS.filter(word => word.lesson == 1)[0].words}/>
 
-<h3>Put these sentences in the correct order:</h3>
-<Dragger sentence="tha mi sgìth"/>
-<Dragger sentence="tha thu toilichte"/>
-    
-
-    <h3>Select the correct word from the drop down:</h3>
-      <Selecter text="1) Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="."/>
-      <Selecter text="2) A bheil " options={["thu", "tu"]} correct="thu" textCont="toilichte?"/>
 
       <h3>Translate from Gaelic to English:</h3>
       <Qtranslate

@@ -8,6 +8,18 @@ import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+export const cleanText = (str) => {
+  return str
+  //make lower case
+    .toLowerCase()
+  //remove punctuation
+    .replace(/[^\w\s]|_/g, " ")
+  //remove double spaces
+    .replace(/\s+/g, " ")
+  //trim white space and start and end
+    .trim();
+};
+
 export const Qtranslate = (props) => {
   const [answers, setAnswers] = useState(props.words);
 
@@ -15,37 +27,44 @@ export const Qtranslate = (props) => {
   const [incorrect, setIncorrect] = useState([]);
 
   const handleCorrect = (Q) => {
-    !correct.includes(Q.toLowerCase()) &&
-      setCorrect([...correct, Q.toLowerCase()]);
+    !correct.includes(cleanText(Q)) && setCorrect([...correct, cleanText(Q)]);
 
-    incorrect.includes(Q.toLowerCase()) &&
-      setIncorrect(incorrect.filter((answers) => answers != Q.toLowerCase()));
+    incorrect.includes(cleanText(Q)) &&
+      setIncorrect(incorrect.filter((answers) => answers != cleanText(Q)));
   };
 
   const handleIncorrect = (Q) => {
-    correct.includes(Q.toLowerCase()) &&
-      setCorrect(correct.filter((answers) => answers != Q.toLowerCase()));
+    correct.includes(cleanText(Q)) &&
+      setCorrect(correct.filter((answers) => answers != cleanText(Q)));
   };
 
   const handleIncorrectTried = (Q) => {
-    correct.includes(Q.toLowerCase()) &&
-      setCorrect(correct.filter((answers) => answers != Q.toLowerCase()));
+    correct.includes(cleanText(Q)) &&
+      setCorrect(correct.filter((answers) => answers != cleanText(Q)));
 
-    setIncorrect([...incorrect, Q.toLowerCase()]);
+    setIncorrect([...incorrect, cleanText(Q)]);
   };
 
   const handleSubmit = (e, Q, input, A) => {
+    console.log(cleanText(input));
+    console.log(cleanText(A));
+    console.log(cleanText(Q));
+
     e.keyCode == 13 &&
-      input.toLowerCase() != A.toLowerCase() &&
-      handleIncorrectTried(Q.toLowerCase());
+      cleanText(input) != cleanText(A) &&
+      handleIncorrectTried(cleanText(Q));
     e.keyCode == 13 &&
-      input.toLowerCase() == A.toLowerCase() &&
-      handleCorrect(Q.toLowerCase());
+      cleanText(input) == cleanText(A) &&
+      handleCorrect(cleanText(Q));
   };
 
   const handleChange = (e, Q, input, A) => {
-    input.toLowerCase() != A.toLowerCase() && handleIncorrect(Q.toLowerCase());
-    input.toLowerCase() == A.toLowerCase() && handleCorrect(Q.toLowerCase());
+    console.log(cleanText(input));
+    console.log(cleanText(A));
+    console.log(cleanText(Q));
+
+    cleanText(input) != cleanText(A) && handleIncorrect(cleanText(Q));
+    cleanText(input) == cleanText(A) && handleCorrect(cleanText(Q));
   };
 
   return (
@@ -62,12 +81,11 @@ export const Qtranslate = (props) => {
                   <TextField
                     sx={{
                       backgroundColor: correct.includes(
-                        props.words[index].toLowerCase()
+                        cleanText(props.words[index])
                       )
                         ? "lightgreen"
-                        : incorrect.includes(
-                            props.words[index].toLowerCase()
-                          ) && "red",
+                        : incorrect.includes(cleanText(props.words[index])) &&
+                          "red",
                     }}
                     size="small"
                     onKeyDown={(e, Q, input, A) =>
@@ -135,32 +153,26 @@ export const Selecter = ({ text, options, correct, textCont }) => {
   );
 };
 
-
 export const Dragger = ({ sentence }) => {
-
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
   sentenceSplit.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
-
-
-  const [options, setOptions] = useState(['']);
-  const [correct, setCorrect] = useState(false)
+  const [options, setOptions] = useState([""]);
+  const [correct, setCorrect] = useState(false);
 
   useEffect(() => {
-    console.log(options, sentenceSplit)
-    setOptions(sentenceSplit.map((word, index) => ({word: word, id: index})))
-  }, [])
-
+    console.log(options, sentenceSplit);
+    setOptions(sentenceSplit.map((word, index) => ({ word: word, id: index })));
+  }, []);
 
   //ensure the shuffled version isn't not in the same order
-  if (options.map(word => word.word).join(" ") == sentence) {
-    console.log("reshuffling")
-    setOptions(sentenceSplit.map((word, index) => ({word: word, id: index})))
+  if (options.map((word) => word.word).join(" ") == sentence) {
+    console.log("reshuffling");
+    setOptions(sentenceSplit.map((word, index) => ({ word: word, id: index })));
   }
 
-    const [chosen, setChosen] = useState([])
-
+  const [chosen, setChosen] = useState([]);
 
   //dragging logic
   const onDragEnd = (result) => {
@@ -187,69 +199,67 @@ export const Dragger = ({ sentence }) => {
   };
 
   const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? "lightblue" : correct ? "lightgreen" : "lightgrey",
+    background: isDraggingOver ? "aliceblue" : correct ? "lightgreen" : "white",
     display: "flex",
     padding: 2,
-    minHeight: '32px',
-    flexWrap: 'wrap',
+    minHeight: "32px",
+    flexWrap: "wrap",
     borderRadius: "0 0 5px 5px",
-    border: '1px solid grey',
-    borderTop: 'none'
+    border: "1px solid grey",
+    borderTop: "none",
   });
 
   const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "",
+    background: isDragging ? "lightgreen" : "white",
     borderRadius: "20px",
-    marginBottom: '2px',
-    marginTop: '2px',
+    marginBottom: "2px",
+    marginTop: "2px",
     // styles we need to apply on draggables
     ...draggableStyle,
   });
 
-
-  
-  sentence == chosen.map(word => word.word).join(" ") && correct == false && setCorrect(true);
-  sentence != chosen.map(word => word.word).join(" ") && correct == true && setCorrect(false);
-
-
+  sentence == chosen.map((word) => word.word).join(" ") &&
+    correct == false &&
+    setCorrect(true);
+  sentence != chosen.map((word) => word.word).join(" ") &&
+    correct == true &&
+    setCorrect(false);
 
   const handleClick = (e) => {
     setChosen([...chosen, e]);
 
-    setOptions((chips) =>
-      options.filter((chip) => chip !== e)
-    );  }
+    setOptions((chips) => options.filter((chip) => chip !== e));
+  };
 
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
   }));
 
   const handleDelete = (item) => {
-    console.log(item)
+    console.log(item);
     if (item != " " || item != undefined) {
-    setChosen((chips) =>
-      chosen.filter((chip) => chip !== item)
-    );
-    setOptions([...options, item]);
+      setChosen((chips) => chosen.filter((chip) => chip !== item));
+      setOptions([...options, item]);
     }
   };
 
   return (
-    <>
-    <Paper
+    <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+      <Paper
         sx={{
           display: "flex",
           justifyContent: "center",
           flexWrap: "wrap",
           listStyle: "none",
           minHeight: "20px",
+          backgroundColor: "aliceblue",
           p: 0.5,
           m: 0,
-          borderRadius: '5px 5px 0 0',
-          border: '1px solid grey',
-          borderBottom: '1px solid blue'
+          borderRadius: "5px 5px 0 0",
+          border: "1px solid grey",
+          borderBottom: "1px solid blue",
         }}
         component="ul"
       >
@@ -262,7 +272,6 @@ export const Dragger = ({ sentence }) => {
         })}
       </Paper>
 
-
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
@@ -272,7 +281,11 @@ export const Dragger = ({ sentence }) => {
               {...provided.droppableProps}
             >
               {chosen.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.word + item.id} index={index}>
+                <Draggable
+                  key={item.id}
+                  draggableId={item.word + item.id}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -283,9 +296,10 @@ export const Dragger = ({ sentence }) => {
                         provided.draggableProps.style
                       )}
                     >
-
-                      <Chip label={item.word} onDelete={() => handleDelete(item)} />
-
+                      <Chip
+                        label={item.word}
+                        onDelete={() => handleDelete(item)}
+                      />
                     </div>
                   )}
                 </Draggable>
@@ -295,6 +309,6 @@ export const Dragger = ({ sentence }) => {
           )}
         </Droppable>
       </DragDropContext>
-    </>
+    </div>
   );
 };
