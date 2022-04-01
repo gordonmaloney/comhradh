@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
+import { Quiz } from "./components/Quiz";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
@@ -13,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <div id="container">
-        <App />
+        <Quiz />
       </div>
     </Provider>
   </React.StrictMode>,

@@ -127,9 +127,9 @@ export const StepContent = ({ step }) => {
             </span>
           </p>
           Now try putting these sentences in the right order:
-          <Dragger sentence="tha mi beag" />
-          <Dragger sentence="tha thu mòr" />
-          <Dragger sentence="tha thu beag" />
+          <Dragger sentence="tha mi beag" handleCorrect={() => {console.log("handling")}} />
+          <Dragger sentence="tha thu mòr"  />
+          <Dragger sentence="tha thu beag"  />
           <Dragger sentence="tha mi mòr" />
         </div>
       );
@@ -310,10 +310,15 @@ export const Questions = () => {
 
   return (
     <>
+
+    <Selecter text="Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="." handleCorrect={() => {console.log("handling correct")}}/>
+
+    <Selecter text="Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="." />
+
       Let's start by practicing the vocabulary we've learned in this level:
       <Studier words={WORDS.filter((word) => word.lesson == 1)[0].words} />
       <h3>Translate from Gaelic to English:</h3>
-      <Qtranslate1 Q="Tha mi beag" A={["I am small", "I'm small"]} />
+      <Qtranslate1 Q="Tha mi beag" A={["I am small", "I'm small"]} handleCorrect={() => console.log("handling correct")} />
       <Qtranslate1
         Q="Chan eil Anna brònach"
         A={["Anna isn't sad", "Anna's not sad", "Anna is not sad"]}

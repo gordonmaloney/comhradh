@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, inputAdornmentClasses } from "@mui/material";
+import { Grid } from "@mui/material";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { Select } from "@mui/material";
@@ -7,6 +7,13 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+//text cleaner
+//translate
+//drop down selecter
+//chip drag n dropper
+
+//all have an optional "handleCorrect()" prop that can be called from the parent
 
 export const cleanText = (str) => {
   console.log("testing: ", str);
@@ -26,39 +33,38 @@ export const cleanText = (str) => {
 };
 
 export const Qtranslate1 = (props) => {
+  const handleCorrectProp = props.handleCorrect
+
   const Q = props.Q;
   const A = props.A.map((As) => cleanText(As));
 
   console.log(A);
 
-  const [correct, setCorrect] = useState('untested');
+  const [correct, setCorrect] = useState("untested");
+
+  props.handleCorrect && correct == "true" && handleCorrectProp()
 
   const handleCorrect = () => {
-    correct != "true" && setCorrect("true") 
+    correct != "true" && setCorrect("true");
   };
 
   const handleIncorrect = () => {
-    correct != "false" && setCorrect("false")
+    correct != "false" && setCorrect("false");
   };
 
   const handleIncorrectTried = () => {
-    console.log("incorrect tried")
-    correct != "false" && setCorrect("false")
+    console.log("incorrect tried");
+    correct != "false" && setCorrect("false");
   };
 
   const handleSubmit = (e, Q, input) => {
-
-    e.keyCode == 13 &&
-      !A.includes(cleanText(input)) &&
-      handleIncorrectTried();
-    e.keyCode == 13 &&
-      A.includes(cleanText(input)) &&
-      handleCorrect();
+    e.keyCode == 13 && !A.includes(cleanText(input)) && handleIncorrectTried();
+    e.keyCode == 13 && A.includes(cleanText(input)) && handleCorrect();
   };
 
   const handleChange = (e, Q, input) => {
-    console.log(correct)
-    correct != 'untested' && !A.includes(cleanText(input)) && handleIncorrect();
+    console.log(correct);
+    correct != "untested" && !A.includes(cleanText(input)) && handleIncorrect();
     A.includes(cleanText(input)) && handleCorrect();
   };
 
@@ -71,9 +77,8 @@ export const Qtranslate1 = (props) => {
         <Grid item xs={6}>
           <TextField
             sx={{
-              backgroundColor: correct == "true"
-                ? "lightgreen"
-                : correct == "false" && "red",
+              backgroundColor:
+                correct == "true" ? "lightgreen" : correct == "false" && "red",
             }}
             size="small"
             onKeyDown={(e, Q, input) => handleSubmit(e, Q, e.target.value)}
@@ -85,7 +90,7 @@ export const Qtranslate1 = (props) => {
   );
 };
 
-export const Selecter = ({ text, options, correct, textCont }) => {
+export const Selecter = ({ text, options, correct, textCont, handleCorrect }) => {
   const [selectValue, setSelectValue] = useState("Select...");
 
   const handleChange = (event) => {
@@ -93,6 +98,8 @@ export const Selecter = ({ text, options, correct, textCont }) => {
   };
 
   const [graded, setGraded] = useState("");
+
+  handleCorrect && selectValue == correct && handleCorrect()
 
   selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
   selectValue != "Select..." &&
@@ -123,13 +130,15 @@ export const Selecter = ({ text, options, correct, textCont }) => {
   );
 };
 
-export const Dragger = ({ sentence }) => {
+export const Dragger = ({ sentence, handleCorrect }) => {
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
   sentenceSplit.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
   const [options, setOptions] = useState([""]);
   const [correct, setCorrect] = useState(false);
+
+  correct == true && handleCorrect && handleCorrect()
 
   useEffect(() => {
     console.log(options, sentenceSplit);
