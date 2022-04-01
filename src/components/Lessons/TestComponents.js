@@ -9,107 +9,77 @@ import Paper from "@mui/material/Paper";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const cleanText = (str) => {
-  return str
-  //make lower case
-    .toLowerCase()
-  //remove punctuation
-    .replace(/[^\w\s]|_/g, " ")
-  //remove double spaces
-    .replace(/\s+/g, " ")
-  //trim white space and start and end
-    .trim();
+  console.log("testing: ", str);
+  if (str) {
+    return (
+      str
+        //make lower case
+        .toLowerCase()
+        //remove punctuation
+        .replace(/[^\w\s]|_/g, " ")
+        //remove double spaces
+        .replace(/\s+/g, " ")
+        //trim white space and start and end
+        .trim()
+    );
+  }
 };
 
-export const Qtranslate = (props) => {
-  const [answers, setAnswers] = useState(props.words);
+export const Qtranslate1 = (props) => {
+  const Q = props.Q;
+  const A = props.A.map((As) => cleanText(As));
 
-  const [correct, setCorrect] = useState([]);
-  const [incorrect, setIncorrect] = useState([]);
+  console.log(A);
 
-  const handleCorrect = (Q) => {
-    !correct.includes(cleanText(Q)) && setCorrect([...correct, cleanText(Q)]);
+  const [correct, setCorrect] = useState('untested');
 
-    incorrect.includes(cleanText(Q)) &&
-      setIncorrect(incorrect.filter((answers) => answers != cleanText(Q)));
+  const handleCorrect = () => {
+    correct != "true" && setCorrect("true") 
   };
 
-  const handleIncorrect = (Q) => {
-    correct.includes(cleanText(Q)) &&
-      setCorrect(correct.filter((answers) => answers != cleanText(Q)));
+  const handleIncorrect = () => {
+    correct != "false" && setCorrect("false")
   };
 
-  const handleIncorrectTried = (Q) => {
-    correct.includes(cleanText(Q)) &&
-      setCorrect(correct.filter((answers) => answers != cleanText(Q)));
-
-    setIncorrect([...incorrect, cleanText(Q)]);
+  const handleIncorrectTried = () => {
+    console.log("incorrect tried")
+    correct != "false" && setCorrect("false")
   };
 
-  const handleSubmit = (e, Q, input, A) => {
-    console.log(cleanText(input));
-    console.log(cleanText(A));
-    console.log(cleanText(Q));
+  const handleSubmit = (e, Q, input) => {
 
     e.keyCode == 13 &&
-      cleanText(input) != cleanText(A) &&
-      handleIncorrectTried(cleanText(Q));
+      !A.includes(cleanText(input)) &&
+      handleIncorrectTried();
     e.keyCode == 13 &&
-      cleanText(input) == cleanText(A) &&
-      handleCorrect(cleanText(Q));
+      A.includes(cleanText(input)) &&
+      handleCorrect();
   };
 
-  const handleChange = (e, Q, input, A) => {
-    console.log(cleanText(input));
-    console.log(cleanText(A));
-    console.log(cleanText(Q));
-
-    cleanText(input) != cleanText(A) && handleIncorrect(cleanText(Q));
-    cleanText(input) == cleanText(A) && handleCorrect(cleanText(Q));
+  const handleChange = (e, Q, input) => {
+    console.log(correct)
+    correct != 'untested' && !A.includes(cleanText(input)) && handleIncorrect();
+    A.includes(cleanText(input)) && handleCorrect();
   };
 
   return (
     <>
       <Grid container>
-        {props.words.map((word, index) => (
-          <>
-            {index % 2 == 0 && (
-              <>
-                <Grid item xs={6}>
-                  {props.words[index]}
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    sx={{
-                      backgroundColor: correct.includes(
-                        cleanText(props.words[index])
-                      )
-                        ? "lightgreen"
-                        : incorrect.includes(cleanText(props.words[index])) &&
-                          "red",
-                    }}
-                    size="small"
-                    onKeyDown={(e, Q, input, A) =>
-                      handleSubmit(
-                        e,
-                        props.words[index],
-                        e.target.value,
-                        props.words[index + 1]
-                      )
-                    }
-                    onChange={(e, Q, input, A) =>
-                      handleChange(
-                        e,
-                        props.words[index],
-                        e.target.value,
-                        props.words[index + 1]
-                      )
-                    }
-                  />
-                </Grid>
-              </>
-            )}
-          </>
-        ))}
+        <Grid item xs={6}>
+          {Q}
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            sx={{
+              backgroundColor: correct == "true"
+                ? "lightgreen"
+                : correct == "false" && "red",
+            }}
+            size="small"
+            onKeyDown={(e, Q, input) => handleSubmit(e, Q, e.target.value)}
+            onChange={(e, Q, input) => handleChange(e, Q, e.target.value)}
+          />
+        </Grid>
       </Grid>
     </>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Step } from "@mui/material";
 import { TransTable, VocabGrid, Title } from "./LessonComponents";
-import { Dragger, Qtranslate, Selecter } from "./TestComponents";
+import { Dragger, Qtranslate, Qtranslate1, Selecter } from "./TestComponents";
 import { Grid } from "@mui/material";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 import { Link } from "react-router-dom";
@@ -38,9 +38,11 @@ export const StepContent = ({ step }) => {
               "beag",
             ]}
           />
-
-<p>You can click on the word to hear it pronounced (and practice pronouncing it yourself), and where you see a wee <sup>m</sup>, you can hover over it to get a tip to help you memorise it.</p>
-
+          <p>
+            You can click on the word to hear it pronounced (and practice
+            pronouncing it yourself), and where you see a wee <sup>m</sup>, you
+            can hover over it to get a tip to help you memorise it.
+          </p>
           <p>
             But before we can make a sentence with them, we need to understand
             that the order that words go in when you&rsquo;re speaking Gaelic is
@@ -124,13 +126,11 @@ export const StepContent = ({ step }) => {
               </span>
             </span>
           </p>
-
           Now try putting these sentences in the right order:
           <Dragger sentence="tha mi beag" />
           <Dragger sentence="tha thu mòr" />
           <Dragger sentence="tha thu beag" />
           <Dragger sentence="tha mi mòr" />
-          
         </div>
       );
       break;
@@ -261,9 +261,6 @@ export const StepContent = ({ step }) => {
           <Dragger sentence="chan eil Anna sgìth" />
           <Dragger sentence="tha Calum toilichte" />
           <Dragger sentence="chan eil mi brònach" />
-
-
-
         </>
       );
       break;
@@ -305,8 +302,7 @@ export const Content = ({ step }) => {
 };
 
 export const Questions = () => {
-
-  const [selectValue, setSelectValue] = useState('Select...')
+  const [selectValue, setSelectValue] = useState("Select...");
 
   const handleChange = (event) => {
     setSelectValue(event.target.value);
@@ -314,41 +310,26 @@ export const Questions = () => {
 
   return (
     <>
-Let's start by practicing the vocabulary we've learned in this level:
-<Studier words={WORDS.filter(word => word.lesson == 1)[0].words}/>
-
-
+      Let's start by practicing the vocabulary we've learned in this level:
+      <Studier words={WORDS.filter((word) => word.lesson == 1)[0].words} />
       <h3>Translate from Gaelic to English:</h3>
-      <Qtranslate
-        words={[
-          "Tha mi beag",
-          "I am small",
-          "Chan eil Anna brònach",
-          "Anne isn't sad",
-          "Tha mi mòr",
-          "I am big",
-          "Chan eil Iain sgìth",
-          "John isn't tired",
-          "Tha Mòrag beag",
-          "Morag is small",
-        ]}
+      <Qtranslate1 Q="Tha mi beag" A={["I am small", "I'm small"]} />
+      <Qtranslate1
+        Q="Chan eil Anna brònach"
+        A={["Anna isn't sad", "Anna's not sad", "Anna is not sad"]}
       />
-
+      <Qtranslate1 Q="Tha mi mòr`" A={["I am big", "I'm big"]} />
+      <Qtranslate1
+        Q="Chan eil Iain sgìth"
+        A={["Iain isn't tired", "Iain's not tired", "Iain is not tired"]}
+      />
+      <Qtranslate1 Q="Tha Mòrag beag" A={["Morag is small", "Mòrag's small"]} />
       <h3>Translate from English to Gaelic:</h3>
-      <Qtranslate
-        words={[
-          "I am tired",
-          "Tha mi sgìth",
-          "I'm not small",
-          "Chan eil mi beag",
-          "Morag isn't big",
-          "Chan eil Mòrag mòr",
-          "John is small",
-          "Tha Iain beag",
-          "Anna is not sad",
-          "Chan eil Anna brònach",
-        ]}
-      />
+      <Qtranslate1 Q="I am tired" A={["Tha mi sgìth"]} />
+      <Qtranslate1 Q="I am not small" A={["Chan eil mi beag"]} />
+      <Qtranslate1 Q="Morag isn't big" A={["Chan eil Mòrag mòr"]} />
+      <Qtranslate1 Q="Iain is small" A={["Tha Iain beag"]} />
+      <Qtranslate1 Q="Anna isn't sad" A={["Chan eil Anna brònach"]} />
     </>
   );
 };
