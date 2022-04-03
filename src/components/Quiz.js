@@ -21,8 +21,6 @@ export const Quiz = () => {
 
   return (
     <>
-      <div>Quiz</div>
-
       {total.length == 0 ? (
         <Dragger
           sentence="tha mi beag"

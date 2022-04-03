@@ -14,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <div id="container">
-        <Quiz />
+        <App />
       </div>
     </Provider>
   </React.StrictMode>,

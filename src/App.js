@@ -16,7 +16,7 @@ import { Profile } from "./components/Profile";
 import { FetchUser } from "./components/FetchUser";
 import { Redirect } from "./components/Redirect";
 import { Header } from "./components/Header";
-
+import { Quiz } from './components/Quiz'
 
 
 
@@ -42,6 +42,8 @@ function App() {
           <Route path="/cheatsheet" exact component={CheatSheet} />
           <Route path="/profile" exact component={Profile} />
 
+
+          <Route path="/quiz" exact component={Quiz} />
           <Route
             path="/loggedout"
             exact

@@ -310,12 +310,7 @@ export const Questions = () => {
 
   return (
     <>
-
-    <Selecter text="Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="." handleCorrect={() => {console.log("handling correct")}}/>
-
-    <Selecter text="Tha mi " options={["sgith", "sgìth"]} correct="sgìth" textCont="." />
-
-      Let's start by practicing the vocabulary we've learned in this level:
+      <h3>Let's start by practicing the vocabulary we've learned in this level:</h3>
       <Studier words={WORDS.filter((word) => word.lesson == 1)[0].words} />
       <h3>Translate from Gaelic to English:</h3>
       <Qtranslate1 Q="Tha mi beag" A={["I am small", "I'm small"]} handleCorrect={() => console.log("handling correct")} />
