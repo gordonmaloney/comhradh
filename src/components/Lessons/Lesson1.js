@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { Step } from "@mui/material";
-import { TransTable, VocabGrid, Title } from "./LessonComponents";
-import { Dragger, Qtranslate, Qtranslate1, Selecter } from "./TestComponents";
+import { TransTable, VocabGrid, Title, Ex, HoverBox } from "./LessonComponents";
 import { Grid } from "@mui/material";
-import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
-import { Link } from "react-router-dom";
-import { WORDS } from "./WORDS";
+import { Dragger, Qtranslate1, Selecter } from "./TestComponents";
 
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import { WORDS } from "./WORDS";
 import { Studier } from "../Flashcards/Studier";
 
 export const title = ["Tha, Chan eil"];
@@ -51,23 +47,17 @@ export const StepContent = ({ step }) => {
           <p>
             In English, you would say:
             <br />
-            <span className="ex">
-              <span className="engEx">I am big</span>
-            </span>
+            <Ex en="I am big" />
           </p>
           <p>
             But in Gaelic, that same sentence would be:
             <br />
-            <span className="ex">
-              <span className="gdEx">Tha mi mòr</span>
-            </span>
+            <Ex gd="Tha mi mòr" />
           </p>
           <p>
             But the literal, word-for-word translation of this would be:
             <br />
-            <span className="ex">
-              <span className="explainer">am I big</span>
-            </span>
+            <Ex explainer="am I big" />
           </p>
           From time to time, we'll show you these kinds of literal,
           word-for-word translations of the Gaelic, to help you understand
@@ -102,34 +92,27 @@ export const StepContent = ({ step }) => {
           <p>
             So if:
             <br />
-            <span className="ex">
-              <span className="gdEx">Tha mi mòr</span>
-            </span>
+            <Ex gd="Tha mi mòr" />
           </p>
           <p>
-            Means:
-            <span className="ex">
-              <span className="engEx">I am big</span>
-            </span>
+            <Ex en="I am big" />
           </p>
           <p>
             <br />
             And <b>beag</b> means <em>small</em>, can you work out the Gaelic
             for this?
             <br />
-            <span className="hovBox">
-              <span className="hoxBoxInner">
-                <span className="hovEng">I am small</span>
-                <br />
-                <span className="hoverRev hovGd">Tha mi beag</span>
-                <span className="helperText">Hover to reveal</span>
-              </span>
-            </span>
+            <HoverBox en="I am small" gd="Tha mi beag" />
           </p>
           Now try putting these sentences in the right order:
-          <Dragger sentence="tha mi beag" handleCorrect={() => {console.log("handling")}} />
-          <Dragger sentence="tha thu mòr"  />
-          <Dragger sentence="tha thu beag"  />
+          <Dragger
+            sentence="tha mi beag"
+            handleCorrect={() => {
+              console.log("handling");
+            }}
+          />
+          <Dragger sentence="tha thu mòr" />
+          <Dragger sentence="tha thu beag" />
           <Dragger sentence="tha mi mòr" />
         </div>
       );
@@ -302,18 +285,19 @@ export const Content = ({ step }) => {
 };
 
 export const Questions = () => {
-  const [selectValue, setSelectValue] = useState("Select...");
-
-  const handleChange = (event) => {
-    setSelectValue(event.target.value);
-  };
 
   return (
     <>
-      <h3>Let's start by practicing the vocabulary we've learned in this level:</h3>
+      <h3>
+        Let's start by practicing the vocabulary we've learned in this level:
+      </h3>
       <Studier words={WORDS.filter((word) => word.lesson == 1)[0].words} />
       <h3>Translate from Gaelic to English:</h3>
-      <Qtranslate1 Q="Tha mi beag" A={["I am small", "I'm small"]} handleCorrect={() => console.log("handling correct")} />
+      <Qtranslate1
+        Q="Tha mi beag"
+        A={["I am small", "I'm small"]}
+        handleCorrect={() => console.log("handling correct")}
+      />
       <Qtranslate1
         Q="Chan eil Anna brònach"
         A={["Anna isn't sad", "Anna's not sad", "Anna is not sad"]}

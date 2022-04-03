@@ -161,13 +161,14 @@ html {
 
 .ex {
   display: inline-block;
-  width: 100%;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border: 1px solid grey;
+  margin-bottom: 10px
 }
 
 .engEx {
@@ -176,7 +177,6 @@ html {
   padding-bottom: 5px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid grey;
 }
 
 .gdEx {
@@ -185,7 +185,6 @@ html {
   padding-bottom: 5px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid grey;
 }
 
 .explainer {
@@ -194,7 +193,6 @@ html {
   padding-bottom: 5px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid grey;
 }
 
 .helperText {
@@ -253,9 +251,11 @@ html {
 
 .recapBox {
   border: 1px solid gray;
-  margin-left: 10%;
-  margin-right: 10%;
   margin-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 20px;
+  margin-right: 20px
 }
 
 .recapBox li {
@@ -350,4 +350,11 @@ html {
   .sideMenu {
     display: none;
   }
+}
+
+.tableHeader {
+  font-weight: 600
+}
+.tableTitle {
+  font-style: italic;
 }

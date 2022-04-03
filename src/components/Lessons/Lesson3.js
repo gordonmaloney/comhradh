@@ -1,4 +1,23 @@
 import { Step } from "@mui/material";
+import {
+  TransTable,
+  VocabGrid,
+  Title,
+  Ex,
+  HoverBox,
+  Table,
+  MathBox,
+} from "./LessonComponents";
+import { Dragger, Qtranslate1, Selecter } from "./TestComponents";
+
+import { WORDS } from "./WORDS";
+import { Studier } from "../Flashcards/Studier";
+
+export const Recap = () => {
+  return <StepContent step={steps.length} />;
+};
+
+export const title = "Doing words - verbal nouns";
 
 export const steps = [
   "Doing words",
@@ -8,19 +27,12 @@ export const steps = [
   "Recap",
 ];
 
-export const Recap = () => {
-  console.log("test")
-  return <StepContent step={steps.length} />
-}
-
-export const title = "Doing words - verbal nouns";
-
 export const StepContent = ({ step }) => {
   console.log("step: ", step);
   switch (step) {
     case 1:
       return (
-        <div>
+        <>
           <p>
             We&rsquo;re going to dip our toes into some more verbs here.
             We&rsquo;ll go into it in more detail later, but{" "}
@@ -33,74 +45,38 @@ export const StepContent = ({ step }) => {
             Let&rsquo;s learn a couple so we can start building sentences with
             them:
           </p>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <p>eating</p>
-                </td>
-                <td>
-                  <p>ag ithe</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>drinking</p>
-                </td>
-                <td>
-                  <p>ag &ograve;l</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Reading</p>
-                </td>
-                <td>
-                  <p>a' leughadh</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Writing</p>
-                </td>
-                <td>
-                  <p>a' sgr&igrave;obhadh</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            <br />
-            <br />
-            <br />
-          </p>
+
+          <VocabGrid
+            words={[
+              "eating",
+              "ag ithe",
+              "drinking",
+              "ag òl",
+              "reading",
+              "a' leughadh",
+              "writing",
+              "a' sgrìobhadh",
+            ]}
+          />
+
           <p>
             The good news with these is that they go into sentences just like
             adjectives do, so if:
           </p>
           <p>
-            <em>I am </em>
-            <em>
-              tired
-              <br />
-            </em>
-            Is
-            <br />
-            <em>Tha mi </em>
-            <em>sg&igrave;th</em>
+            <Ex en="I am tired" />
           </p>
+          <p>...is</p>
           <p>
-            Then:
-            <br />
-            <em>I am </em>
-            <em>
-              eating
-              <br />
-            </em>
-            Is simply:
-            <br />
-            <em>Tha mi </em>
-            <em>ag ithe</em>
+            <Ex gd="Tha mi sgìth" />
+          </p>
+          <p>Then:</p>
+          <p>
+            <Ex en="I am eating" />
+          </p>
+          <p>...is simply:</p>
+          <p>
+            <Ex gd="Tha mi ag ithe" />
           </p>
           <p>
             You will notice that some verbal nouns start with <em>ag</em> and
@@ -112,37 +88,60 @@ export const StepContent = ({ step }) => {
             <strong>
               <em>i</em>
             </strong>
-            <em>the, a</em>
-            <strong>
-              <em>g &ograve;</em>
-            </strong>
-            <em>l), </em>but <em>a&rsquo;</em> if the verbal noun starts with a
-            consonant (<em>a</em>
-            <strong>
-              <em>&rsquo;</em>
-            </strong>{" "}
+            <em>
+              the, a<strong>g &ograve;</strong>l),{" "}
+            </em>
+            but <em>a&rsquo;</em> if the verbal noun starts with a consonant (
+            <em>
+              a<strong>&rsquo;</strong>
+            </em>{" "}
             <strong>
               <em>l</em>
             </strong>
-            <em>eughadh, a</em>
-            <strong>
-              <em>&rsquo;</em>
-            </strong>{" "}
-            <strong>
-              <em>s</em>
-            </strong>
-            <em>gr&igrave;obhadh).</em>
+            <em>
+              eughadh, a<strong>&rsquo;</strong> <strong>s</strong>
+              gr&igrave;obhadh).
+            </em>
           </p>
           <p>
-            <br />
-            This rule is identical to the English article <em>a</em> - we have{" "}
-            <em>a</em> <em>banana, </em>but <em>a</em>
-            <strong>
-              <em>n a</em>
-            </strong>
-            <em>pple</em>.
+            This rule is a lot like the English article <em>a</em> - we have{" "}
+            <em>a banana, </em>but{" "}
+            <em>
+              a<strong>n a</strong>pple
+            </em>
+            .
           </p>
-        </div>
+
+          <p>Try your hand at this by picking the correct option:</p>
+
+          <Selecter
+            text="Tha sibh "
+            options={["ag", "a'"]}
+            correct="a'"
+            textCont=" sgrìobhadh."
+          />
+
+          <Selecter
+            text="Chan eil Iain "
+            options={["ag", "a'"]}
+            correct="ag"
+            textCont=" òl."
+          />
+
+          <Selecter
+            text="Nach eil sinn "
+            options={["ag", "a'"]}
+            correct="a'"
+            textCont=" leughadh?"
+          />
+
+          <Selecter
+            text="A bheil e "
+            options={["ag", "a'"]}
+            correct="ag"
+            textCont=" ithe?"
+          />
+        </>
       );
       break;
     case 2:
@@ -153,76 +152,65 @@ export const StepContent = ({ step }) => {
             in <strong>a ton</strong> more verbs into that structure.
             Let&rsquo;s learn a bunch and then practice with them.
           </p>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <p>Walking</p>
-                </td>
-                <td>
-                  <p>a' coiseachd</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>sleeping</p>
-                </td>
-                <td>
-                  <p>a' cadal</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Waiting</p>
-                </td>
-                <td>
-                  <p>a' feitheamh</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Understanding</p>
-                </td>
-                <td>
-                  <p>a' tuigsinn</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>helping</p>
-                </td>
-                <td>
-                  <p>a' cuideachadh</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>cleaning</p>
-                </td>
-                <td>
-                  <p>a' glanadh</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Let&rsquo;s practice these with some translation exercises - first
-            from Gaelic to English, then from English to Gaelic:
-          </p>
-          <ol>
-            <li aria-level="1">Chan eil iad a&rsquo; cadal</li>
-            <li aria-level="1">Tha sibh a&rsquo; cuideachadh</li>
-            <li aria-level="1">Nach eil e a&rsquo; glanadh?</li>
-            <li aria-level="1">Chan eil i a&rsquo; leughadh</li>
-            <li aria-level="1">A bheil mi a&rsquo; tuigsinn?</li>
-          </ol>
-          <ol>
-            <li aria-level="1">I am walking</li>
-            <li aria-level="1">They are writing</li>
-            <li aria-level="1">She is not helping</li>
-            <li aria-level="1">Are we drinking?</li>
-            <li aria-level="1">She is waiting</li>
-          </ol>
+          <VocabGrid
+            words={[
+              "walking",
+              "a' coiseachd",
+              "sleeping",
+              "a' cadal",
+              "waiting",
+              "a' feitheamh",
+              "understanding",
+              "a' tuigsinn",
+              "helping",
+              "a' cuideachadh",
+              "cleaning",
+              "a' glanadh",
+            ]}
+          />
+
+          <p>Let&rsquo;s practice these with some translation exercises.</p>
+
+          <h3>First from Gaelic to English:</h3>
+          <Qtranslate1
+            Q="Chan eil iad a' cadal"
+            A={[
+              "They aren't sleeping",
+              "They are not sleeping",
+              "They're not sleeping",
+            ]}
+          />
+
+          <Qtranslate1
+            Q="Tha sibh a' cuideachadh"
+            A={["You're helping", "You are helping"]}
+          />
+
+          <Qtranslate1
+            Q="Nach eil e a' glanadh?"
+            A={["Isn't he cleaning?", "Is he not cleaning?"]}
+          />
+
+          <Qtranslate1
+            Q="Chan eil i a' leughadh"
+            A={["She is not reading", "She's not reading", "She isn't reading"]}
+          />
+
+          <Qtranslate1
+            Q="A bheil mi a' tuigsinn?"
+            A={["Am I understanding?", "Do I understand?"]}
+          />
+
+          <h3>Then from English to Gaelic:</h3>
+
+          <Qtranslate1 Q="I am walking" A={["Tha mi a' coiseachd"]} />
+          <Qtranslate1 Q="Tha iad a' sgrìobhadh" A={["They are writing"]} />
+          <Qtranslate1
+            Q="She is not helping"
+            A={["Chan eil i a' cuideachadh"]}
+          />
+          <Qtranslate1 Q="A bheil sinn ag òl?" A={["Are we drinking?"]} />
+          <Qtranslate1 Q="She is waiting" A={["A bheil i a' feitheamh?"]} />
         </>
       );
       break;
@@ -234,33 +222,14 @@ export const StepContent = ({ step }) => {
             between English and Gaelic that we need to explore. To illustrate
             it, we&rsquo;re going to learn two words:
           </p>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <p>water</p>
-                </td>
-                <td>
-                  <p>water (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>cat</p>
-                </td>
-                <td>
-                  <p>cat (m)</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <VocabGrid words={["water", "uisge", "cat", "cat"]} />
           <p>
             In English, there are two <em>types</em> of articles, and some words
             don&rsquo;t always need an article. So we can say:
-            <br />
-            Water - no article
           </p>
           <p>
+            Water - <em>no </em>article
+            <br />
             <em>The</em> water - <em>definite </em>article (the)
             <br />
             <em>A</em> cat - <em>indefinite</em> article (a)
@@ -287,62 +256,27 @@ export const StepContent = ({ step }) => {
             build our vocabulary we need to start learning nouns. Here&rsquo;s a
             bunch for us to get started:
           </p>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <p>food</p>
-                </td>
-                <td>
-                  <p>biadh (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>book</p>
-                </td>
-                <td>
-                  <p>leabhar (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>house</p>
-                </td>
-                <td>
-                  <p>taigh (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>man/person</p>
-                </td>
-                <td>
-                  <p>duine (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>friend</p>
-                </td>
-                <td>
-                  <p>caraid (m)</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>dog</p>
-                </td>
-                <td>
-                  <p>c&ugrave; (m)</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <VocabGrid
+            words={[
+              "food",
+              "biadh",
+              "book",
+              "leabhar",
+              "house",
+              "taigh",
+              "man",
+              "duine",
+              "friend",
+              "caraid",
+              "dog",
+              "cù",
+            ]}
+          />
+
           <p>
-            The little (m) next to the these words indicate that they&rsquo;re
-            all <em>masculine</em> nouns - don&rsquo;t worry about that for now,
-            but we&rsquo;ll see why that matters down the line.
+            So far all the words we've learned are all <em>masculine</em> nouns
+            - don&rsquo;t worry about that for now, but we&rsquo;ll see why that
+            matters down the line.
           </p>
           <p>
             We&rsquo;ve already learned how these words can mean both <em>a</em>
@@ -351,29 +285,21 @@ export const StepContent = ({ step }) => {
             as simple as replacing the <em>subject </em>(the person or thing
             doing the action) with a different noun:
           </p>
-          <p>
-            <em>Tha duine a&rsquo; glanadh</em> -{" "}
-            <em>
-              A man is cleaning
-              <br />
-            </em>
-            <em>
-              Tha c&ugrave; a&rsquo; cadal - A dog is sleeping
-              <br />
-            </em>
-            <em>Tha caraid a&rsquo; cuideachadh - A friend is helping</em>
-          </p>
+          <Ex gd="Tha duine a' glanadh" explainer="A man is cleaning" />
+
+          <Ex gd="Tha cù a' cadal" explainer="A dog is sleeping" />
+
+          <Ex gd="Tha caraid a' cuideachadh" explainer="A friend is helping" />
         </>
       );
       break;
     case 5:
       return (
-        <>
+        <div className="recapBox">
           <ul>
-            <li aria-level="1">
-              Verbal nouns - the <em>doing</em> form of a verb - start with{" "}
-              <em>ag</em> before a vowel and <em>a&rsquo; </em>before a
-              consonant
+            <li>
+              Verbal nouns start with <em>ag</em> before a vowel and{" "}
+              <em>a&rsquo; </em>before a consonant
             </li>
             <li aria-level="1">
               In Gaelic, there&rsquo;s no equivalent of the English article
@@ -381,11 +307,33 @@ export const StepContent = ({ step }) => {
               say the noun
             </li>
           </ul>
-        </>
+        </div>
       );
+      break;
+
     default:
-      return "something has gone wrong!";
+      return <></>;
   }
 };
 
 export const Content = ({ step }) => <StepContent step={step} />;
+
+export const Questions = () => {
+  return (
+    <>
+      <h3>
+        Let's start by practicing the vocabulary we've learned in this level:
+      </h3>
+      <Studier words={WORDS.filter((word) => word.lesson == 3)[0].words} />
+
+      <h3>Now put these sentences in order:</h3>
+
+      <Dragger sentence="chan eil mi a' cadal" />
+      <Dragger sentence="tha cat ag òl" />
+      <Dragger sentence="a bheil duine a' leughadh?" />
+      <Dragger sentence="chan eil caraid a' cuideachadh!" />
+      <Dragger sentence="tha cù a' feitheamh" />
+
+    </>
+  );
+};

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 //take words from prop
 //shuffle them, using useMemo so it only shuffles once
@@ -7,11 +8,16 @@ import { Button } from "@material-ui/core";
 //activeStep progresses by one w/ each guess
 
 const WordAudio = ({ word }) => {
-  let AudioSrc = require(`../PronunciationCenter/Audio/${word.toLowerCase()}.mp3`);
-  let AudioFile = new Audio(AudioSrc.default);
   try {
+    let AudioSrc = require(`../PronunciationCenter/Audio/${word.toLowerCase()}.mp3`);
+    let AudioFile = new Audio(AudioSrc.default);
     AudioFile.play();
-    return <></>;
+    return (
+      <>
+        {" "}
+        <VolumeUpIcon onClick={() => AudioFile.play()} />
+      </>
+    );
   } catch {
     return <></>;
   }
@@ -70,8 +76,8 @@ export const Studier = ({ words }) => {
             <h4>
               {reveal && (
                 <>
-                  <WordAudio word={studyList[activeCard].gd} />
                   {studyList[activeCard].gd}
+                  <WordAudio word={studyList[activeCard].gd} />
                 </>
               )}
             </h4>

@@ -1,8 +1,24 @@
 import React from "react";
 
+export const CleanQuestionMarks = (str) => {
+  if (str) {
+    return (
+      str
+        //make lower case
+        .toLowerCase()
+        //remove question marks only
+        .replace(/\?/g, '')
+        //remove double spaces
+        .replace(/\s+/g, " ")
+        //trim white space and start and end
+        .trim()
+    );
+  }
+};
+
 const Breakdown = ({ word }) => {
   try {
-    let src = require(`./Breakdowns/${word.toLowerCase()}.mp3`);
+    let src = require(`./Breakdowns/${CleanQuestionMarks(word)}.mp3`);
 
     return (
       <>
@@ -17,8 +33,11 @@ const Breakdown = ({ word }) => {
 };
 
 export const Player = ({ word }) => {
+
+  console.log(CleanQuestionMarks(word))
+
   try {
-    let src = require(`./Audio/${word.toLowerCase()}.mp3`);
+    let src = require(`./Audio/${CleanQuestionMarks(word)}.mp3`);
 
     return (
       <>
