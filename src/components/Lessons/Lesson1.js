@@ -9,7 +9,13 @@ import { Studier } from "../Flashcards/Studier";
 
 export const title = ["Tha, Chan eil"];
 
-export const steps = ["Tha", "Other people", "Chan eil", "Recap"];
+export const steps = [
+  "Tha",
+  "Other people",
+  "Chan eil",
+  "More adjectives",
+  "Recap",
+];
 
 export const Recap = () => {
   console.log("test");
@@ -33,12 +39,29 @@ export const StepContent = ({ step }) => {
               "small",
               "beag",
             ]}
+            helper={[
+              <>
+                The <i>th</i> in <i>tha</i> is pronounced like the english{" "}
+                <i>h</i> - so <i>tha</i> is like <i>ha</i>.
+              </>,
+              <>
+                Accents in Gaelic are pretty simple compared to a language like
+                French - thèy ònly gò thìs wày - and all they do is{" "}
+                <i>elongate</i> the vowel.
+              </>,
+              <>
+                A <i>g</i> at the end of a word often sounds a bit like a{" "}
+                <i>k</i> sound - <i>beag</i> is a bit like the English{" "}
+                <i>beck</i>.
+              </>,
+              <>
+                Sometimes you'll see a wee <i>m</i> next to words in the vocab
+                lists - if you hover over that, you'll see a mnemonic to help
+                you remember the word.
+              </>,
+            ]}
           />
-          <p>
-            You can click on the word to hear it pronounced (and practice
-            pronouncing it yourself), and where you see a wee <sup>m</sup>, you
-            can hover over it to get a tip to help you memorise it.
-          </p>
+
           <p>
             But before we can make a sentence with them, we need to understand
             that the order that words go in when you&rsquo;re speaking Gaelic is
@@ -136,6 +159,18 @@ export const StepContent = ({ step }) => {
               "Morag",
               "Mòrag",
             ]}
+            helper={[
+              <>
+                I know I <i>just</i> told you that <i>th</i> was pronounced like{" "}
+                <i>h</i>, but this one word - <i>thu</i> - is a bit of an exception. Here, it's totally silent - so <i>thu</i> is a lot
+                more just look <i>oo</i>.
+              </>,
+              <>
+                It might seem unusual at first, but in Gaelic it is pretty
+                common for us to translate <i>names</i>, especially if there's a
+                commonly-used Gaelic version of them.
+              </>,
+            ]}
           />
 
           <p>
@@ -193,7 +228,22 @@ export const StepContent = ({ step }) => {
             So we&rsquo;ve learned how to say someone or something <em>is</em>,
             but how do we say they <em>are not</em>?
           </p>
-          <VocabGrid words={["isn't/aren't/am not", "chan eil"]} />
+          <VocabGrid
+            words={["isn't/aren't/am not", "chan eil"]}
+            helper={[
+              <>
+                Two wee things here - firstly, the <i>ch</i> is pronounced like
+                the <i>ch</i> in the Scottish word <i>loch</i>, or as in{" "}
+                <i>Bach</i>.
+              </>,
+              <>
+                And secondly, you might notice that the second word almost
+                sounds like it starts with a <i>y</i> sound. We'll come across
+                why that is more over time, but for now just rest assured you're
+                not hearing things!
+              </>,
+            ]}
+          />
           <p>
             Again this is really easy - you simply replace &ldquo;<em>tha</em>
             &rdquo; with &ldquo;<em>chan eil</em>&rdquo; - everything else about
@@ -228,6 +278,12 @@ export const StepContent = ({ step }) => {
             translated as <em>am not, are not</em> or <em>is not</em> depending
             on the context.
           </p>
+        </>
+      );
+      break;
+    case 4:
+      return (
+        <>
           <p>
             Now that we&rsquo;ve learned how to describe what something or
             someone <em>is</em> or <em>isn&rsquo;t</em>, it&rsquo;s time to
@@ -237,6 +293,10 @@ export const StepContent = ({ step }) => {
           </p>
           <VocabGrid
             words={["tired", "sgìth", "happy", "toilichte", "sad", "brònach"]}
+            helper={[<>The <i>g</i> in <i>sgìth</i> sounds a little like a <i>k</i>, and then the accent on the <i>ì</i> makes it long, and the <i>th</i> is silent - so it comes out kind of like the English word <i>ski</i>.</>,
+          <><i>Brònach</i> should make sense now - the <i>ò</i> is long, and the <i>ch</i> is like in <i>loch</i>.</>,
+          <><i>Toilichte</i> is tricky. The <i>ch</i> is a little bit <i>further forward</i> in your mouth - but the best way to get it is to practice. You can open the <b>pronunciation center</b> using the tabs at the bottom of the page to hear it broken down and practice it yourself.</>
+          ]}
           />
 
           <p>Now let's try these words out with a couple exercises:</p>
@@ -247,7 +307,7 @@ export const StepContent = ({ step }) => {
         </>
       );
       break;
-    case 4:
+    case 5:
       return (
         <>
           <div className="recapBox">
@@ -285,7 +345,6 @@ export const Content = ({ step }) => {
 };
 
 export const Questions = () => {
-
   return (
     <>
       <h3>

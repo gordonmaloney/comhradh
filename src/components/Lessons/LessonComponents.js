@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 
 import { MNEMONICS } from "./MNEMONICS";
-import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { useLocation } from "react-router-dom";
 
 import { Modal, Box } from "@mui/material";
-
 
 export const TransTable = (props) => {
   return (
@@ -30,88 +30,140 @@ export const TransTable = (props) => {
 };
 
 export const VocabGrid = (props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const location = useLocation();
+  useEffect(() => {
+    setOpen(true);
+  }, [location]);
+
   const [word, setWord] = useState();
 
-  return (
-    <Grid container className="vocabGrid">
-      <Grid item xs={12}>
-        <div className="vocabBoxHeader">Vocab</div>
-      </Grid>
-
-      {props.words.map((word, index) => (
+  const WordAudio = ({ word }) => {
+    try {
+      let AudioSrc = require(`../PronunciationCenter/Audio/${word.toLowerCase()}.mp3`);
+      let AudioFile = new Audio(AudioSrc.default);
+      return (
         <>
-          {index % 2 == 0 && (
-            <Grid
-              item
-              xs={12}
-              sm={props.words.length >= 6 ? 6 : 12}
-              md={
-                props.words.length >= 6 ? 6 : props.words.length >= 4 ? 6 : 12
-              }
-              lg={
-                props.words.length >= 8
-                  ? 6
-                  : props.words.length >= 6
-                  ? 6
-                  : props.words.length >= 4
-                  ? 6
-                  : 12
-              }
-            >
-              {/*
+          {" "}
+          <VolumeUpIcon onClick={() => AudioFile.play()} />
+        </>
+      );
+    } catch {
+      return <></>;
+    }
+  };
+
+  const VocabGrid = () => {
+    return (
+      <Grid
+        container
+        className="vocabGrid"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        <Grid item xs={12}>
+          <div className="vocabBoxHeader">Vocab</div>
+        </Grid>
+
+        {props.words.map((word, index) => (
+          <>
+            {index % 2 == 0 && (
+              <Grid
+                item
+                xs={12}
+                sm={props.words.length >= 6 ? 6 : 12}
+                md={
+                  props.words.length >= 6 ? 6 : props.words.length >= 4 ? 6 : 12
+                }
+                lg={
+                  props.words.length >= 8
+                    ? 6
+                    : props.words.length >= 6
+                    ? 6
+                    : props.words.length >= 4
+                    ? 6
+                    : 12
+                }
+              >
+                {/*
             <Grid item xs={12} sm={6} md={4} lg={3}>
           */}
-              <Grid container>
-                <Grid item className="vocabEn" xs={6}>
-                  {props.words[index]}
-                </Grid>
-                <Grid item className="vocabGd" xs={6}>
-                  <span
-                    onClick={() => {
-                      setOpen(true);
-                      setWord(props.words[index + 1]);
-                    }}
-                  >
-                    {props.words[index + 1]}
-                  </span>
-
-                  {MNEMONICS.filter(
-                    (mem) => mem.word == props.words[index + 1]
-                  )[0]?.word && (
-                    <Tooltip
-                      title={
-                        MNEMONICS.filter(
-                          (mem) => mem.word == props.words[index + 1]
-                        )[0]?.mem
-                      }
+                <Grid container>
+                  <Grid item className="vocabEn" xs={6}>
+                    {props.words[index]}
+                  </Grid>
+                  <Grid item className="vocabGd" xs={6}>
+                    <span
+                      onClick={() => {
+                        setOpen(true);
+                        setWord(props.words[index + 1]);
+                      }}
                     >
-                      <span className="mem">
-                        <sup>m</sup>
-                      </span>
-                    </Tooltip>
-                  )}
+                      {props.words[index + 1]}
+                    </span>
+
+                    <WordAudio word={props.words[index + 1]} />
+
+                    {MNEMONICS.filter(
+                      (mem) => mem.word == props.words[index + 1]
+                    )[0]?.word && (
+                      <Tooltip
+                        title={
+                          MNEMONICS.filter(
+                            (mem) => mem.word == props.words[index + 1]
+                          )[0]?.mem
+                        }
+                      >
+                        <span className="mem">
+                          <sup>m</sup>
+                        </span>
+                      </Tooltip>
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          )}
-        </>
-      ))}
+            )}
+          </>
+        ))}
+      </Grid>
+    );
+  };
 
+  return (
+    <>
+      <VocabGrid />
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="modalBox">
+        <Box
+          className="modalBox"
+          sx={{ position: "absolute", overflowY: "auto", maxHeight: "90%" }}
+        >
+          <VocabGrid />
+
+          {props.helper && (
+            <>
+              <h3>Tips:</h3>
+              <ul>
+                {props.helper.map((helper) => (
+                  <li style={{ marginBottom: "10px" }}>{helper}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {/*
           <PronunciationCentre lesson={1} word={word} />
+          */}
         </Box>
       </Modal>
-    </Grid>
+    </>
   );
 };
 
@@ -208,14 +260,29 @@ export const Table = ({ row1, row2, row3, row4, row5 }) => {
 
 export const Ex = ({ en, gd, explainer }) => {
   return (
-    <span style={{width: "100%"}}>
+    <span style={{ width: "100%" }}>
       <center>
-    <span className="ex">
-      {en && <><span className="engEx">{en}</span><br /></>}
-      {gd && <><span className="gdEx">{gd}</span><br /></>}
-      {explainer && <><span className="explainer">{explainer}</span><br /></>}
-    </span>
-    </center>
+        <span className="ex">
+          {en && (
+            <>
+              <span className="engEx">{en}</span>
+              <br />
+            </>
+          )}
+          {gd && (
+            <>
+              <span className="gdEx">{gd}</span>
+              <br />
+            </>
+          )}
+          {explainer && (
+            <>
+              <span className="explainer">{explainer}</span>
+              <br />
+            </>
+          )}
+        </span>
+      </center>
     </span>
   );
 };
@@ -236,23 +303,41 @@ export const HoverBox = ({ en, gd }) => {
 export const MathBox = ({ one, two, three }) => {
   return (
     <center>
-    <Grid container sx={{width: "50%", minWidth: "400px", margin: "20px", border: "1px solid grey"}} spacing={2}>
-    <Grid item xs={6} sx={{textAlign: "right"}}>
-        
+      <Grid
+        container
+        sx={{
+          width: "50%",
+          minWidth: "260px",
+          padding: "5px",
+          margin: "10px",
+          border: "1px solid grey",
+        }}
+        spacing={2}
+      >
+        <Grid item xs={6} sx={{ textAlign: "right" }}></Grid>
+        <Grid item xs={6} sx={{ textAlign: "left" }}>
+          {one}
+        </Grid>
+        <Grid item xs={6} sx={{ textAlign: "right" }}>
+          +
+        </Grid>
+        <Grid item xs={6} sx={{ textAlign: "left" }}>
+          {two}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            textAlign: "center",
+            paddingTop: "0px",
+            marginTop: "10px",
+            marginBottom: "10px",
+            borderTop: "1px solid grey",
+          }}
+        >
+          {three}
+        </Grid>
       </Grid>
-      <Grid item xs={6} sx={{textAlign: "left"}}>
-        {one}
-      </Grid>
-      <Grid item xs={6} sx={{textAlign: "right"}}>
-        +
-      </Grid>
-      <Grid item xs={6} sx={{textAlign: "left"}}>
-        {two}
-      </Grid>
-      <Grid item xs={12} sx={{textAlign: "center", paddingTop: "0px", marginTop: "10px", marginBottom: "10px",  borderTop: "1px solid grey"}}>
-        {three}
-      </Grid>
-    </Grid>
     </center>
   );
 };

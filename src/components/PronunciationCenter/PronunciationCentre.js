@@ -5,11 +5,12 @@ import { WORDS } from "../Lessons/WORDS";
 import { Mnemonic } from "./Mnemonic";
 
 export const PronunciationCentre = (props) => {
+
   const [lesson, setLesson] = useState(props.lesson);
   const [word, setWord] = useState(props.word);
 
   if (!lesson) {
-    setLesson(1);
+    props.match.params.lesson ? setLesson(props.match.params.lesson) : setLesson(1)
   }
 
   if (lesson && !word) {

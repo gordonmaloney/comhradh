@@ -58,7 +58,7 @@ export const Header = () => {
 
   return (
     <div id="navbar">
-      <span id="navbarHeader">
+      <span id="navbarHeader" onClick={() => history.push('../')}>
         <span style={{ color: "#434a73" }}>Còmh</span>
         <span style={{ color: "#542673" }}>radh</span>
       </span>

@@ -16,13 +16,14 @@ import { Profile } from "./components/Profile";
 import { FetchUser } from "./components/FetchUser";
 import { Redirect } from "./components/Redirect";
 import { Header } from "./components/Header";
-import { Quiz } from './components/Quiz'
-
+import { Quiz } from "./components/Quiz";
 
 
 function App() {
   return (
     <BrowserRouter>
+
+
       <FetchUser />
       <Header />
 
@@ -37,7 +38,8 @@ function App() {
           <Route path="/test/:lesson" exact component={Test} />
           <Route path="/dictionary" exact component={Dictionary} />
           <Route path="/discuss" exact component={Discuss} />
-          <Route path="/pronunciation" component={PronunciationCentre} />
+          <Route path="/pronunciation" exact component={PronunciationCentre} />
+          <Route path="/pronunciation/:lesson/:stage" component={PronunciationCentre} />
           <Route path="/flashcards" exact component={FlashcardsMain} />
           <Route path="/cheatsheet" exact component={CheatSheet} />
           <Route path="/profile" exact component={Profile} />
@@ -56,6 +58,8 @@ function App() {
           />
         </Switch>
       </div>
+
+
     </BrowserRouter>
   );
 }

@@ -76,7 +76,7 @@ export const LessonList = () => {
           {lessons.map((lesson, index) => {
             return (
               <>
-                <Link to={`/lessons/${index + 1}/1`}>
+                <Link to={`/lessons/${index}/1`}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -84,14 +84,15 @@ export const LessonList = () => {
                     size="large"
                     margin="normal"
                   >
-                    Lesson {index + 1}
+                    {index == 0 ? "Intro" : <>Lesson {index}</> }
+                    
                   </Button>
                 </Link>
 
                 <Checkbox
                   size="large"
-                  checked={posts.auth.progress.includes(index + 1)}
-                  onChange={(e) => handleChange(e, index + 1)}
+                  checked={posts.auth.progress.includes(index)}
+                  onChange={(e) => handleChange(e, index)}
                 />
                 <br />
                 <br />

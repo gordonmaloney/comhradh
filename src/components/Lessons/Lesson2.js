@@ -52,7 +52,7 @@ export const StepContent = ({ step }) => {
             <em>are&hellip;?</em>
           </p>
 
-          <VocabGrid words={["are/am/is?", "a bheil?"]} />
+          <VocabGrid words={["are/am/is?", "a bheil?"]} helper={[<>The <i>bh</i> here is pronounced a lot like the English <i>v</i> sound.</>]}/>
 
           <p>This is easiest to demonstrate with some examples:</p>
           <TransTable
@@ -134,6 +134,10 @@ export const StepContent = ({ step }) => {
               "they",
               "iad",
             ]}
+            helper={[<>The <i>s</i> in both <i>sinn</i> and <i>sibh</i> sounds like a <i>sh</i> - that's caused by the <i>i</i> next to them.</>,
+          <>You might recognise the <i>sinn</i> from the Irish political party <i>Sinn Féin</i> - it's just one of the many words Scottish Gaelic and Irish have in common.</>,
+          <><i>Sibh</i> is both a formal, respectal <i>you</i>, and a plural <i>yous</i>.</>
+          ]}
           />
           <p>
             Just like with the pronouns and names we&rsquo;ve already learnt,
@@ -165,7 +169,9 @@ export const StepContent = ({ step }) => {
             Lastly for this lesson, we&rsquo;re going to learn a handful of very
             useful words to allow us to make more interesting sentences:
           </p>
-          <VocabGrid words={["but", "ach", "and", "agus", "because", "oir"]} />
+          <VocabGrid words={["but", "ach", "and", "agus", "because", "oir"]} 
+          
+          helper={[<>In lots of dialects, the <i>r</i> in <i>oir</i> has quite a <i>breathy</i> sound - with your tongue about half way between where you'd make the English <i>r</i> sound and the English <i>th</i> sound.</>]}/>
 
           <p>
             We&rsquo;ll come across some joining words that <em>do</em> affect

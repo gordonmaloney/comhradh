@@ -23,6 +23,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import MicIcon from "@mui/icons-material/Mic";
 import ChatIcon from "@mui/icons-material/Chat";
 
+import * as Intro from './Intro'
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
@@ -31,7 +32,7 @@ import { SingleLevelVocab } from "../Dictionary/SingleLevelVocab";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 
 //use this for converting lessons: https://html-online.com/editor/
-export const lessons = [Lesson1, Lesson2, Lesson3];
+export const lessons = [Intro, Lesson1, Lesson2, Lesson3];
 
 export const LessonFrame = ({ lesson, step, match }) => {
   const history = useHistory();
@@ -43,7 +44,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
   };
 
   //steps logic
-  const { steps, Content, title } = lessons[lesson - 1];
+  const { steps, Content, title } = lessons[lesson];
   const [activeStep, setActiveStep] = useState(step - 1);
 
   const handleNext = () => {
@@ -79,7 +80,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
       <div className="lessonHeader">
         <div className="innerHeader">
           <h1>
-            Lesson {lesson} - {title}
+            {lesson > 0 && <>Lesson {lesson} - </>}{title}
           </h1>
 
           <Stepper activeStep={activeStep}>
@@ -219,7 +220,7 @@ export const LessonFrame = ({ lesson, step, match }) => {
         aria-describedby="modal-modal-description"
         
       >
-        <Box className="modalBox" sx={{position: "absolute", overflowY: "scroll", maxHeight: "90%"}}>
+        <Box className="modalBox" sx={{position: "absolute", overflowY: "auto", maxHeight: "90%"}}>
                   {display === "discuss" ? (
             <Discuss lesson={lesson} modal="modal" />
           ) : display === "dictionary" ? (
