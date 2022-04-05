@@ -1,14 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Forum } from "./Forum";
 import { lessons } from "../Lessons/LessonFrame";
 
 export const Discuss = (props) => {
+  console.log(props);
 
-    console.log(props)
+  const [lesson, setLesson] = useState();
 
-    const [lesson, setLesson] = useState()
-
-    props.lesson && !lesson && setLesson(props.lesson)
+  props.lesson && !lesson && setLesson(props.lesson);
 
   return (
     <>
@@ -22,9 +21,15 @@ export const Discuss = (props) => {
       {!lesson && (
         <>
           <h1>Discuss the course</h1>
-          {lessons.map((lesson, index) => (
-            <p onClick={() => setLesson(index+1)}>Lesson {index + 1}</p>
-          ))}
+          {lessons.map((lesson, index) => {
+            return (
+              <>
+                {index > 0 && (
+                  <p onClick={() => setLesson(index)}>Lesson {index}</p>
+                )}
+              </>
+            );
+          })}
         </>
       )}
     </>
