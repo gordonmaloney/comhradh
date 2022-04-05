@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { CleanQuestionMarks } from "../PronunciationCenter/Player";
 
 //take words from prop
 //shuffle them, using useMemo so it only shuffles once
@@ -9,6 +8,21 @@ import { CleanQuestionMarks } from "../PronunciationCenter/Player";
 //activeStep progresses by one w/ each guess
 
 const WordAudio = ({ word }) => {
+  const CleanQuestionMarks = (str) => {
+    if (str) {
+      return (
+        str
+          //make lower case
+          .toLowerCase()
+          //remove question marks only
+          .replace(/\?/g, '')
+          //remove double spaces
+          .replace(/\s+/g, " ")
+          //trim white space and start and end
+          .trim()
+      );
+    }
+  };
   try {
     let AudioSrc = require(`../PronunciationCenter/Audio/${CleanQuestionMarks(word)}.mp3`);
     let AudioFile = new Audio(AudioSrc.default);

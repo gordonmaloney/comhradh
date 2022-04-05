@@ -33,9 +33,6 @@ const Breakdown = ({ word }) => {
 };
 
 export const Player = ({ word }) => {
-  console.log(word)
-
-  console.log(CleanQuestionMarks(word))
 
   try {
     let src = require(`./Audio/${CleanQuestionMarks(word)}.mp3`);
