@@ -10,11 +10,17 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Fab from "@mui/material/Fab";
+import { useLocation } from "react-router-dom";
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+const location = useLocation()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")))
+  }, [location])
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -37,6 +43,7 @@ export const SideMenu = () => {
     setState({ ...state, [anchor]: open });
   };
 
+  if (user) {
   return (
     <div style={{position: "fixed"}}>
       <Box className="sideMenu">
@@ -69,5 +76,9 @@ export const SideMenu = () => {
         </List>
       </Box>
     </div>
-  );
+  )
+  } else {
+    return <></>
+  }
+
 };

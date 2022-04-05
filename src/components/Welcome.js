@@ -29,8 +29,10 @@ export const Welcome = () => {
             </>
           ) : (
             <>
-              <p>You need to log-in</p>
-              <Login />
+              <center>
+                <LandingPage />
+                <Login />
+              </center>
             </>
           )}
         </center>
