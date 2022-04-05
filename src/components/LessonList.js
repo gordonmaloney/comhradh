@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
+import Tooltip from "@mui/material/Tooltip";
 
 import { fetchUserData, updateUser } from "../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
@@ -76,18 +77,24 @@ export const LessonList = () => {
           {lessons.map((lesson, index) => {
             return (
               <>
-                <Link to={`/lessons/${index}/1`}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    margin="normal"
-                  >
-                    {index == 0 ? "Intro" : <>Lesson {index}</> }
-                    
-                  </Button>
-                </Link>
+                <Tooltip
+                  placement="right"
+                  arrow
+                  open={index == 0 && posts.auth.progress.length == 0 && true}
+                  title="Start here"
+                >
+                  <Link to={`/lessons/${index}/1`}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      margin="normal"
+                    >
+                      {index == 0 ? "Intro" : <>Lesson {index}</>}
+                    </Button>
+                  </Link>
+                </Tooltip>
 
                 <Checkbox
                   size="large"

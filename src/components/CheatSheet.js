@@ -6,13 +6,18 @@ import { lessons } from "./Lessons/LessonFrame";
 export const CheatSheet = () => {
   return (
     <div>
-      CheatSheet
-      {lessons.map((lesson, index) => 
-      <>
-      <h2>Lesson {index+1} - {lesson.title}</h2>
-      {lesson.Recap()}
-      </>
-      )}
+      {lessons.map((lesson, index) => {
+        return (
+          index > 0 && (
+            <>
+              <h2 style={{paddingLeft: "5px"}}>
+                Lesson {index} - {lesson.title}
+              </h2>
+              {lesson.Recap()}
+            </>
+          )
+        );
+      })}
     </div>
   );
 };

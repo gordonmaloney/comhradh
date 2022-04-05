@@ -33,6 +33,7 @@ const Breakdown = ({ word }) => {
 };
 
 export const Player = ({ word }) => {
+  console.log(word)
 
   console.log(CleanQuestionMarks(word))
 

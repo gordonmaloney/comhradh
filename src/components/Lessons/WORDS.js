@@ -54,7 +54,21 @@ export const WORDS = [
       { en: "man/person", gd: "duine" },
       { en: "friend", gd: "caraid" },
       { en: "dog", gd: "cù" },
-      { en: "cat", gd: "cat" },     
+      { en: "cat", gd: "cat" },
+    ],
+  },
+  {
+    lesson: 4,
+    words: [
+      { en: "something", gd: "rudeigin" },
+      { en: "someone", gd: "cuideigin" },
+      { en: "doing", gd: "a' dèanamh" },
+      { en: "buying", gd: "a' ceannachd" },
+      { en: "wanting", gd: "ag iarraidh" },
+      { en: "was, were", gd: "bha" },
+      { en: "wasn't, weren’t", gd: "cha robh" },
+      { en: "was? were?", gd: "an robh?" },
+      { en: "wasn't? weren’t?", gd: "nach robh?" },
     ],
   },
 ];

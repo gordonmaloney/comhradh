@@ -33,7 +33,7 @@ export const cleanText = (str) => {
 };
 
 export const Qtranslate1 = (props) => {
-  const handleCorrectProp = props.handleCorrect
+  const handleCorrectProp = props.handleCorrect;
 
   const Q = props.Q;
   const A = props.A.map((As) => cleanText(As));
@@ -42,7 +42,7 @@ export const Qtranslate1 = (props) => {
 
   const [correct, setCorrect] = useState("untested");
 
-  props.handleCorrect && correct == "true" && handleCorrectProp()
+  props.handleCorrect && correct == "true" && handleCorrectProp();
 
   const handleCorrect = () => {
     correct != "true" && setCorrect("true");
@@ -90,7 +90,13 @@ export const Qtranslate1 = (props) => {
   );
 };
 
-export const Selecter = ({ text, options, correct, textCont, handleCorrect }) => {
+export const Selecter = ({
+  text,
+  options,
+  correct,
+  textCont,
+  handleCorrect,
+}) => {
   const [selectValue, setSelectValue] = useState("Select...");
 
   const handleChange = (event) => {
@@ -99,7 +105,7 @@ export const Selecter = ({ text, options, correct, textCont, handleCorrect }) =>
 
   const [graded, setGraded] = useState("");
 
-  handleCorrect && selectValue == correct && handleCorrect()
+  handleCorrect && selectValue == correct && handleCorrect();
 
   selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
   selectValue != "Select..." &&
@@ -130,7 +136,7 @@ export const Selecter = ({ text, options, correct, textCont, handleCorrect }) =>
   );
 };
 
-export const Dragger = ({ sentence, handleCorrect }) => {
+export const Dragger = ({ sentence, prompt, handleCorrect }) => {
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
   sentenceSplit.sort(() => (Math.random() > 0.5 ? 1 : -1));
@@ -138,7 +144,7 @@ export const Dragger = ({ sentence, handleCorrect }) => {
   const [options, setOptions] = useState([""]);
   const [correct, setCorrect] = useState(false);
 
-  correct == true && handleCorrect && handleCorrect()
+  correct == true && handleCorrect && handleCorrect();
 
   useEffect(() => {
     console.log(options, sentenceSplit);
@@ -226,6 +232,26 @@ export const Dragger = ({ sentence, handleCorrect }) => {
 
   return (
     <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+      {prompt && (
+        <Paper
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            listStyle: "none",
+            minHeight: "20px",
+            backgroundColor: "aliceblue",
+            p: 0,
+            m: 0,
+            borderRadius: "5px 5px 0 0",
+            border: "1px solid grey",
+            borderBottom: "0px",
+          }}
+        >
+          <h4>{prompt}</h4>
+        </Paper>
+      )}
+
       <Paper
         sx={{
           display: "flex",
@@ -236,7 +262,7 @@ export const Dragger = ({ sentence, handleCorrect }) => {
           backgroundColor: "aliceblue",
           p: 0.5,
           m: 0,
-          borderRadius: "5px 5px 0 0",
+          borderRadius: prompt ? "0 0 0 0 " : "5px 5px 0 0",
           border: "1px solid grey",
           borderBottom: "1px solid blue",
         }}

@@ -20,7 +20,6 @@ export const FetchUser = () => {
     !posts.auth.name &&
     dispatch(fetchUserData(user.result._id));
 
-    console.log(posts.auth)
     return (
       <>
       </>

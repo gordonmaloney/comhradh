@@ -11,10 +11,11 @@ import * as Intro from './Intro'
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
+import * as Lesson4 from './Lesson4';
 
 //use this for converting: https://html-online.com/editor/
 
-const lessons = [Intro, Lesson1, Lesson2, Lesson3];
+const lessons = [Intro, Lesson1, Lesson2, Lesson3, Lesson4];
 
 export const TestFrame = ({ lesson }) => {
   const { steps, Content, title } = lessons[lesson];

@@ -167,6 +167,7 @@ export const StepContent = ({ step }) => {
               "cleaning",
               "a' glanadh",
             ]}
+            helper={[<>That <i>chd</i> sound is a tricky one - the <i>d</i> makes more of a hard <i>c</i> sound, so altogether it sounds like the <i>ch c</i> in the name <i>Lo<b>ch C</b>arron</i>.</>]}
           />
 
           <p>Let&rsquo;s practice these with some translation exercises.</p>

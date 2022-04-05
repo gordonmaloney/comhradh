@@ -4,7 +4,6 @@ import { AUTH, LOGOUT, FETCHUSER, UPDATEUSER } from "../actions/ActionTypes";
 const authReducer = (state = { authData: null }, action) => {
   switch (action.type) {
     case AUTH:
-      console.log("dispatching auth reducer, ", action.data);
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
 
       return { ...state, authData: action.data };
@@ -18,7 +17,6 @@ const authReducer = (state = { authData: null }, action) => {
       break;
 
     case FETCHUSER:
-      console.log("reducing... ", action.payload);
 
       return action.payload;
       break;

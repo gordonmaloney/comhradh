@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { CleanQuestionMarks } from "../PronunciationCenter/Player";
 
 //take words from prop
 //shuffle them, using useMemo so it only shuffles once
@@ -9,7 +10,7 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const WordAudio = ({ word }) => {
   try {
-    let AudioSrc = require(`../PronunciationCenter/Audio/${word.toLowerCase()}.mp3`);
+    let AudioSrc = require(`../PronunciationCenter/Audio/${CleanQuestionMarks(word)}.mp3`);
     let AudioFile = new Audio(AudioSrc.default);
     AudioFile.play();
     return (

@@ -23,16 +23,17 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import MicIcon from "@mui/icons-material/Mic";
 import ChatIcon from "@mui/icons-material/Chat";
 
-import * as Intro from './Intro'
+import * as Intro from "./Intro";
 import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
+import * as Lesson4 from "./Lesson4";
 import { TestFrame } from "./TestFrame";
 import { SingleLevelVocab } from "../Dictionary/SingleLevelVocab";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 
 //use this for converting lessons: https://html-online.com/editor/
-export const lessons = [Intro, Lesson1, Lesson2, Lesson3];
+export const lessons = [Intro, Lesson1, Lesson2, Lesson3, Lesson4];
 
 export const LessonFrame = ({ lesson, step, match }) => {
   const history = useHistory();
@@ -66,6 +67,62 @@ export const LessonFrame = ({ lesson, step, match }) => {
     setActiveStep(0);
   };
 
+  //support modal
+
+  const [supportModal, setSupportModal] = useState(false);
+
+  useEffect(() => {
+    Math.random() > 0.95 && setSupportModal(true);
+  }, [activeStep]);
+
+
+  const SupportModal = () => {
+    return (
+      <Modal
+        open={supportModal}
+        onClose={() => setSupportModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          className="modalBox"
+          sx={{
+            position: "absolute",
+            textAlign: "center",
+            overflowY: "auto",
+            maxHeight: "90%",
+            padding: "20px",
+          }}
+        >
+          <h3>Can you help?</h3>
+          Còmhradh is the culmination of a huge amount of time over many, many
+          years - learning languages, observing Gaelic learners, teaching and
+          tutoring, as well as learning coding and web design. It is an
+          ambitious project, but to complete it will take a lot of time and
+          resources.
+          <br />
+          <br />
+          That’s why, if you can, I need your help. A small donation will allow
+          me to devote the time necessary to continue to develop Còmhradh into
+          the resource that Gaelic learners deserve.
+          <br />
+          <br />
+          If you can spare a few pounds, you can do that here:{" "}
+          <a target="_blank" href="https://ko-fi.com/gordonmaloney">
+            ko-fi.com/gordonmaloney
+          </a>
+          <br />
+          <br />
+          If you can make your donation a monthly, recurring one, that will give
+          even more predictability and certainty.
+          <br />
+          <br />
+          <i>Mìle taing - a thousand thanks</i>
+        </Box>
+      </Modal>
+    );
+  };
+
   //modal logic
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -80,7 +137,8 @@ export const LessonFrame = ({ lesson, step, match }) => {
       <div className="lessonHeader">
         <div className="innerHeader">
           <h1>
-            {lesson > 0 && <>Lesson {lesson} - </>}{title}
+            {lesson > 0 && <>Lesson {lesson} - </>}
+            {title}
           </h1>
 
           <Stepper activeStep={activeStep}>
@@ -218,10 +276,12 @@ export const LessonFrame = ({ lesson, step, match }) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        
       >
-        <Box className="modalBox" sx={{position: "absolute", overflowY: "auto", maxHeight: "90%"}}>
-                  {display === "discuss" ? (
+        <Box
+          className="modalBox"
+          sx={{ position: "absolute", overflowY: "auto", maxHeight: "90%" }}
+        >
+          {display === "discuss" ? (
             <Discuss lesson={lesson} modal="modal" />
           ) : display === "dictionary" ? (
             <SingleLevelVocab lesson={lesson} />
@@ -230,6 +290,9 @@ export const LessonFrame = ({ lesson, step, match }) => {
           ) : null}
         </Box>
       </Modal>
+
+      <SupportModal />
+
     </div>
   );
 };

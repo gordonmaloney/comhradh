@@ -7,6 +7,7 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useLocation } from "react-router-dom";
 
 import { Modal, Box } from "@mui/material";
+import { CleanQuestionMarks } from "../PronunciationCenter/Player";
 
 export const TransTable = (props) => {
   return (
@@ -43,7 +44,7 @@ export const VocabGrid = (props) => {
 
   const WordAudio = ({ word }) => {
     try {
-      let AudioSrc = require(`../PronunciationCenter/Audio/${word.toLowerCase()}.mp3`);
+      let AudioSrc = require(`../PronunciationCenter/Audio/${CleanQuestionMarks(word)}.mp3`);
       let AudioFile = new Audio(AudioSrc.default);
       return (
         <>
