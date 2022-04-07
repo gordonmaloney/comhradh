@@ -37,6 +37,31 @@ export const Quiz = () => {
         <h3>
           {sentence.split("").map((letter, index) => {
             if (accents.split("").includes(letter)) {
+              let val =
+                selectValue.filter((arrayVal) => arrayVal.index == index)
+                  .length > 0
+                  ? selectValue.filter((arrayVal) => arrayVal.index == index)[
+                      selectValue.filter((arrayVal) => arrayVal.index == index)
+                        .length - 1
+                    ].value
+                  : "?";
+
+              let bgColor =
+                selectValue.filter((arrayVal) => arrayVal.index == index)
+                  .length > 0 &&
+                selectValue.filter((arrayVal) => arrayVal.index == index)[
+                  selectValue.filter((arrayVal) => arrayVal.index == index)
+                    .length - 1
+                ].value == letter
+                  ? "lightgreen"
+                  : selectValue.filter((arrayVal) => arrayVal.index == index)
+                      .length > 0 &&
+                    selectValue.filter((arrayVal) => arrayVal.index == index)[
+                      selectValue.filter((arrayVal) => arrayVal.index == index)
+                        .length - 1
+                    ].value != "?" &&
+                    "red";
+                    
               switch (letter) {
                 case "a":
                 case "à":
@@ -44,35 +69,12 @@ export const Quiz = () => {
                     <>
                       <Select
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
                         size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -87,36 +89,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -131,36 +110,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -175,36 +131,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -219,36 +152,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -264,35 +174,12 @@ export const Quiz = () => {
                     <>
                       <Select
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
                         size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -307,36 +194,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -351,36 +215,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -395,36 +236,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -439,36 +257,13 @@ export const Quiz = () => {
                   return (
                     <>
                       <Select
-                        size="small"
                         onChange={(event) => handleChange(event, index)}
-                        value={
-                          selectValue.filter(
-                            (arrayVal) => arrayVal.index == index
-                          ).length > 0
-                            ? selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              )[
-                                selectValue.filter(
-                                  (arrayVal) => arrayVal.index == index
-                                ).length - 1
-                              ].value
-                            : "?"
-                        }
+                        value={val}
                         autoWidth
                         label={index}
+                        size="small"
                         style={{
-                          backgroundColor:
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            ).length > 0 &&
-                            selectValue.filter(
-                              (arrayVal) => arrayVal.index == index
-                            )[
-                              selectValue.filter(
-                                (arrayVal) => arrayVal.index == index
-                              ).length - 1
-                            ].value == letter &&
-                            "lightgreen",
+                          backgroundColor: bgColor,
                         }}
                       >
                         <MenuItem value="?">?</MenuItem>
@@ -497,7 +292,6 @@ export const Quiz = () => {
       <AccentSelector sentence="mòr" />
 
       <AccentSelector sentence="dèan" />
-
 
       {total.length == 0 ? (
         <Dragger
