@@ -1,26 +1,504 @@
+import { MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import { Qtranslate1 } from "./Lessons/TestComponents";
 import { Selecter } from "./Lessons/TestComponents";
 import { Dragger } from "./Lessons/TestComponents";
-
 
 //stepper for quiz questions if it's useful who knows lmao
 
 export const Quiz = () => {
   const [total, setTotal] = useState([]);
 
-  const [correct, setCorrect] = useState(false)
+  const [correct, setCorrect] = useState(false);
 
   const handleCorrect = (e) => {
-      setCorrect(true)
+    setCorrect(true);
     !total.includes(e) && setTotal([...total, e]);
     setTimeout(() => {
-        setCorrect(false)
-    }, 1000)
+      setCorrect(false);
+    }, 1000);
+  };
+
+  const AccentSelector = ({ sentence }) => {
+    let accents = "aàeèiìoòuùAÀEÈIÌOÒUÙ";
+
+    const [selectValue, setSelectValue] = useState([{ index: 2, value: "?" }]);
+    console.log(selectValue.filter((arrayVal) => arrayVal.index == 2)[0].value);
+
+    const handleChange = (event, index) => {
+      setSelectValue([
+        ...selectValue,
+        { index: index, value: event.target.value },
+      ]);
+    };
+
+    return (
+      <>
+        <h3>
+          {sentence.split("").map((letter, index) => {
+            if (accents.split("").includes(letter)) {
+              switch (letter) {
+                case "a":
+                case "à":
+                  return (
+                    <>
+                      <Select
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        size="small"
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="a">a</MenuItem>
+                        <MenuItem value="à">à</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "è":
+                case "e":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="e">e</MenuItem>
+                        <MenuItem value="è">è</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "i":
+                case "ì":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="i">i</MenuItem>
+                        <MenuItem value="ì">ì</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "o":
+                case "ò":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="o">o</MenuItem>
+                        <MenuItem value="ò">ò</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "u":
+                case "ù":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="u">u</MenuItem>
+                        <MenuItem value="ù">ù</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "A":
+                case "À":
+                  return (
+                    <>
+                      <Select
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        size="small"
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="A">A</MenuItem>
+                        <MenuItem value="À">À</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "È":
+                case "E":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="E">E</MenuItem>
+                        <MenuItem value="È">È</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "I":
+                case "Ì":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="I">I</MenuItem>
+                        <MenuItem value="Ì">Ì</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "O":
+                case "Ò":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="O">O</MenuItem>
+                        <MenuItem value="Ò">Ò</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                case "U":
+                case "Ù":
+                  return (
+                    <>
+                      <Select
+                        size="small"
+                        onChange={(event) => handleChange(event, index)}
+                        value={
+                          selectValue.filter(
+                            (arrayVal) => arrayVal.index == index
+                          ).length > 0
+                            ? selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              )[
+                                selectValue.filter(
+                                  (arrayVal) => arrayVal.index == index
+                                ).length - 1
+                              ].value
+                            : "?"
+                        }
+                        autoWidth
+                        label={index}
+                        style={{
+                          backgroundColor:
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            ).length > 0 &&
+                            selectValue.filter(
+                              (arrayVal) => arrayVal.index == index
+                            )[
+                              selectValue.filter(
+                                (arrayVal) => arrayVal.index == index
+                              ).length - 1
+                            ].value == letter &&
+                            "lightgreen",
+                        }}
+                      >
+                        <MenuItem value="?">?</MenuItem>
+                        <MenuItem value="U">U</MenuItem>
+                        <MenuItem value="Ù">Ù</MenuItem>={" "}
+                      </Select>
+                    </>
+                  );
+                  break;
+                default:
+                  return <>broken</>;
+              }
+            } else {
+              return <>{letter}</>;
+            }
+          })}
+        </h3>
+      </>
+    );
   };
 
   return (
     <>
+      <AccentSelector sentence="tha mi sgìth" />
+
+      <AccentSelector sentence="mòr" />
+
+      <AccentSelector sentence="dèan" />
+
+
       {total.length == 0 ? (
         <Dragger
           sentence="tha mi beag"

@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Login } from "./Login";
 import { fetchUserData, updateUser } from "../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
-
+import { WORDS } from "./Lessons/WORDS";
 
 //deprecated - no longer in use
 
@@ -20,6 +20,16 @@ export const Profile = () => {
   user?.result?.email && !posts.auth.name && dispatch(fetchUserData(user.result._id))
   
 
+  const userLevels = posts.auth.progress
+  
+  const words = []
+
+  WORDS.length && userLevels && WORDS.map(lesson => 
+    userLevels.map(userLevel => 
+      {lesson.lesson == userLevel && lesson.words.map(word => words.push(word))})
+  )
+  console.log("TEST", words)
+
   return (
     <div>
       <center>
@@ -29,8 +39,8 @@ export const Profile = () => {
 
             {!posts.auth ? "Loading..." :
             <>
-              Levels completed: {posts.auth.progress.length-1}<br />
-              Words learned: {posts?.auth?.words?.length}
+              Levels completed: {posts.auth.progress.length}<br />
+              Words learned: {words?.length}
 
 <br />
             </>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { Link } from "react-router-dom";
 
 //take words from prop
 //shuffle them, using useMemo so it only shuffles once
@@ -15,7 +16,7 @@ const WordAudio = ({ word }) => {
           //make lower case
           .toLowerCase()
           //remove question marks only
-          .replace(/\?/g, '')
+          .replace(/\?/g, "")
           //remove double spaces
           .replace(/\s+/g, " ")
           //trim white space and start and end
@@ -24,7 +25,9 @@ const WordAudio = ({ word }) => {
     }
   };
   try {
-    let AudioSrc = require(`../PronunciationCenter/Audio/${CleanQuestionMarks(word)}.mp3`);
+    let AudioSrc = require(`../PronunciationCenter/Audio/${CleanQuestionMarks(
+      word
+    )}.mp3`);
     let AudioFile = new Audio(AudioSrc.default);
     AudioFile.play();
     return (
@@ -81,57 +84,61 @@ export const Studier = ({ words }) => {
     setActiveCard(activeCard + 1);
   };
 
-  return (
-    <>
-      {studyList.length != activeCard ? (
-        <div style={{ border: "1px solid grey", margin: "5px" }}>
-          <center>
-            <h4>{studyList[activeCard].en}</h4>
-            {!reveal && <br />}
-            <h4>
-              {reveal && (
+  if (words.length == 0) {
+    return <><h3>To add cards to your flashcard deck, mark lessons as completed on the <Link to="/lessons">Lessons page</Link>.</h3></>;
+  } else {
+    return (
+      <>
+        {studyList.length != activeCard ? (
+          <div style={{ border: "1px solid grey", margin: "5px", maxWidth: "400px" }}>
+            <center>
+              <h4>{studyList[activeCard].en}</h4>
+              {!reveal && <br />}
+              <h4>
+                {reveal && (
+                  <>
+                    {studyList[activeCard].gd}
+                    <WordAudio word={studyList[activeCard].gd} />
+                  </>
+                )}
+              </h4>
+              {!reveal ? (
+                <Button
+                  style={{ width: "90%", margin: "5px" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setReveal(!reveal)}
+                >
+                  Show Answer
+                </Button>
+              ) : (
                 <>
-                  {studyList[activeCard].gd}
-                  <WordAudio word={studyList[activeCard].gd} />
+                  <Button
+                    style={{ margin: "5px", backgroundColor: "lightgreen" }}
+                    variant="contained"
+                    onClick={handleRight}
+                  >
+                    Right
+                  </Button>
+                  <Button
+                    style={{ margin: "5px", backgroundColor: "red" }}
+                    variant="contained"
+                    onClick={handleWrong}
+                  >
+                    Wrong
+                  </Button>
                 </>
               )}
-            </h4>
-            {!reveal ? (
-              <Button
-                style={{ width: "90%", margin: "5px" }}
-                variant="contained"
-                color="primary"
-                onClick={() => setReveal(!reveal)}
-              >
-                Show Answer
-              </Button>
-            ) : (
-              <>
-                <Button
-                  style={{ margin: "5px", backgroundColor: "lightgreen" }}
-                  variant="contained"
-                  onClick={handleRight}
-                >
-                  Right
-                </Button>
-                <Button
-                  style={{ margin: "5px", backgroundColor: "red" }}
-                  variant="contained"
-                  onClick={handleWrong}
-                >
-                  Wrong
-                </Button>
-              </>
-            )}
-          </center>
-        </div>
-      ) : (
-        <div style={{ border: "1px solid grey", margin: "5px" }}>
-          <center>
-            <h3>You have finished this deck!</h3>
-          </center>
-        </div>
-      )}
-    </>
-  );
+            </center>
+          </div>
+        ) : (
+          <div style={{ border: "1px solid grey", margin: "5px" }}>
+            <center>
+              <h3>You have finished this deck!</h3>
+            </center>
+          </div>
+        )}
+      </>
+    );
+  }
 };

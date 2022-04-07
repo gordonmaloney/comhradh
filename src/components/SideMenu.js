@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Fab from "@mui/material/Fab";
 import { useLocation } from "react-router-dom";
+import { MenuContent } from "./MenuContent";
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,7 @@ const location = useLocation()
     setUser(JSON.parse(localStorage.getItem("profile")))
   }, [location])
 
-  const logout = () => {
-    dispatch({ type: "LOGOUT" });
-    history.push("/loggedout");
-    setUser(null);
-  };
+
 
   const [state, setState] = React.useState({
     left: false,
@@ -47,33 +44,7 @@ const location = useLocation()
   return (
     <div style={{position: "fixed"}}>
       <Box className="sideMenu">
-        <List>
-          <ListItem button component={Link} to="../">
-            <ListItemText primary="Profile" />
-          </ListItem>
-          <ListItem button component={Link} to="/lessons">
-            <ListItemText primary="Lessons" />
-          </ListItem>
-          <ListItem button component={Link} to="/flashcards">
-            <ListItemText primary="Flashcards" />
-          </ListItem>
-          <ListItem button component={Link} to="/dictionary">
-            <ListItemText primary="Dictionary" />
-          </ListItem>
-          <ListItem button component={Link} to="/pronunciation">
-            <ListItemText primary="Pronunciation Centre" />
-          </ListItem>
-          <ListItem button component={Link} to="/cheatsheet">
-            <ListItemText primary="Cheat Sheet" />
-          </ListItem>
-          <ListItem button component={Link} to="/discuss">
-            <ListItemText primary="Discuss" />
-          </ListItem>
-
-          <ListItem button onClick={logout}>
-            <ListItemText primary="Log Out" />
-          </ListItem>
-        </List>
+        <MenuContent />
       </Box>
     </div>
   )

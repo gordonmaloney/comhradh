@@ -89,7 +89,7 @@ export const Header = () => {
               },
             }}
           >
-            <ListItem button onClick={handleClose} component={Link} to="../">
+           <ListItem button onClick={handleClose} component={Link} to="../">
               <ListItemText primary="Profile" />
             </ListItem>
             <br />
@@ -121,7 +121,7 @@ export const Header = () => {
             </ListItem>
             <br />
             <ListItem
-              button
+              button disabled
               onClick={handleClose}
               component={Link}
               to="/pronunciation"
@@ -140,6 +140,7 @@ export const Header = () => {
             <br />
             <ListItem
               button
+              disabled
               onClick={handleClose}
               component={Link}
               to="/discuss"

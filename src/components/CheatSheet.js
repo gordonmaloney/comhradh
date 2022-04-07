@@ -6,13 +6,19 @@ import { lessons } from "./Lessons/LessonFrame";
 export const CheatSheet = () => {
   return (
     <div>
+      <center>
+        <h2>
+          This section contains the recaps from every lesson, all handily in one
+          place.
+        </h2>
+      </center>
       {lessons.map((lesson, index) => {
         return (
           index > 0 && (
             <>
-              <h2 style={{paddingLeft: "5px"}}>
+              <h3 style={{ paddingLeft: "5px" }}>
                 Lesson {index} - {lesson.title}
-              </h2>
+              </h3>
               {lesson.Recap()}
             </>
           )

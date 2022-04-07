@@ -7,7 +7,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { fetchUserData, updateUser } from "../../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
 
-export const FlashcardsMain = () => {
+export const FlashcardsMain = ({hideTitle}) => {
   
   const dispatch = useDispatch();
   const location = useLocation();
@@ -24,12 +24,13 @@ export const FlashcardsMain = () => {
     console.log(userLevels)
 
     const words = []
-    WORDS.map(lesson => 
+
+    WORDS.length && userLevels && WORDS.map(lesson => 
       userLevels.map(userLevel => 
         {lesson.lesson == userLevel && lesson.words.map(word => words.push(word))})
     )
 
-    console.log(words)
+    console.log(WORDS)
 
     //level 1 vocab
     const level1vocab = WORDS.filter(word => word.lesson == 1)[0].words
@@ -40,7 +41,7 @@ export const FlashcardsMain = () => {
 
   return (
     <div className="innerContainer">
-        <h1>Flashcards</h1>
+        {!hideTitle && <h1>Flashcards</h1>}
         <Studier words={words}/>
 
     </div>
