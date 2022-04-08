@@ -328,6 +328,7 @@ export const Quiz = () => {
             <Chip
               onClick={(word) => handleClick(word.target.textContent, index)}
               label={word}
+              sx={{marginLeft: "5px"}}
             />
           );
         })}
