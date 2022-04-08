@@ -1,8 +1,9 @@
-import { MenuItem, Select } from "@mui/material";
+import { Chip, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import { Qtranslate1 } from "./Lessons/TestComponents";
 import { Selecter } from "./Lessons/TestComponents";
 import { Dragger } from "./Lessons/TestComponents";
+import { Paper } from "@mui/material";
 
 //stepper for quiz questions if it's useful who knows lmao
 
@@ -61,7 +62,7 @@ export const Quiz = () => {
                         .length - 1
                     ].value != "?" &&
                     "red";
-                    
+
               switch (letter) {
                 case "a":
                 case "à":
@@ -285,8 +286,60 @@ export const Quiz = () => {
     );
   };
 
+  const Leniter = ({ sentence, correctSentence }) => {
+    const [sentenceSplit, setSentenceSplit] = useState(sentence.split(" "));
+
+    const handleClick = (word, index) => {
+      console.log(word);
+
+      if (word.slice(1, 2) == "h") {
+        let sentence2 = [...sentenceSplit];
+        let word2 = word.slice(0, 1) + word.slice(2);
+        sentence2[index] = word2;
+        console.log(word2);
+        setSentenceSplit(sentence2);
+      } else {
+        let sentence2 = [...sentenceSplit];
+        let word2 = word.slice(0, 1) + "h" + word.slice(1);
+        sentence2[index] = word2;
+        setSentenceSplit(sentence2);
+      }
+    };
+
+    return (
+      <>
+        <h3>Leniter</h3>
+
+        <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          minHeight: "20px",
+          backgroundColor: sentenceSplit.join(' ') == correctSentence ? "lightgreen" : "aliceblue",
+          p: 0.5,
+          m: 0,
+          borderRadius: "5px 5px 5px 5px",
+          border: "1px solid grey",
+        }}>
+        {sentenceSplit.map((word, index) => {
+          return (
+            <Chip
+              onClick={(word) => handleClick(word.target.textContent, index)}
+              label={word}
+            />
+          );
+        })}
+        </Paper>
+      </>
+    );
+  };
+
   return (
     <>
+      <Leniter sentence="ta mhi sgìth" correctSentence="tha mi sgìth" />
+
       <AccentSelector sentence="tha mi sgìth" />
 
       <AccentSelector sentence="mòr" />
