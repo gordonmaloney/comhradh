@@ -28,12 +28,14 @@ import * as Lesson1 from "./Lesson1";
 import * as Lesson2 from "./Lesson2";
 import * as Lesson3 from "./Lesson3";
 import * as Lesson4 from "./Lesson4";
+import * as Lesson5 from "./Lesson5";
+
 import { TestFrame } from "./TestFrame";
 import { SingleLevelVocab } from "../Dictionary/SingleLevelVocab";
 import { PronunciationCentre } from "../PronunciationCenter/PronunciationCentre";
 
 //use this for converting lessons: https://html-online.com/editor/
-export const lessons = [Intro, Lesson1, Lesson2, Lesson3, Lesson4];
+export const lessons = [Intro, Lesson1, Lesson2, Lesson3, Lesson4, Lesson5];
 
 export const LessonFrame = ({ lesson, step, match }) => {
   const history = useHistory();

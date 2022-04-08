@@ -71,4 +71,17 @@ export const WORDS = [
       { en: "wasn't? weren’t?", gd: "nach robh?" },
     ],
   },
+  {
+    lesson: 5,
+    words: [
+      { en: `the book`, gd: `an leabhar` },
+      { en: `the house`, gd: `an taigh` },
+      { en: `the man`, gd: `an duine` },
+      { en: `the friend`, gd: `an caraid` },
+      { en: `the dog`, gd: `an cù` },
+      { en: `the cat`, gd: `an cat` },
+      { en: `the water`, gd: `an t-uisge` },
+      { en: `the food`, gd: `am biadh` },
+    ],
+  },
 ];
