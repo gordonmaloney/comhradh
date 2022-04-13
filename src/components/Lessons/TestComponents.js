@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Grid } from "@mui/material";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,16 +7,12 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-//text cleaner
-//translate
-//drop down selecter
-//chip drag n dropper
+import { Button } from "@mui/material";
 
 //all have an optional "handleCorrect()" prop that can be called from the parent
+//optional handleSubmit boolean to determine whether they resolve right away or on click
 
 export const cleanText = (str) => {
-  console.log("testing: ", str);
   if (str) {
     return (
       str
@@ -32,24 +28,28 @@ export const cleanText = (str) => {
   }
 };
 
+//translate one sentence
 export const Qtranslate1 = (props) => {
   const handleCorrectProp = props.handleCorrect;
 
   const Q = props.Q;
   const A = props.A.map((As) => cleanText(As));
-
-  console.log(A);
+  const handleSubmit = props.handleSubmit;
 
   const [correct, setCorrect] = useState("untested");
+  const [inputField, setInputField] = useState("");
 
   props.handleCorrect && correct == "true" && handleCorrectProp();
 
   const handleCorrect = () => {
     correct != "true" && setCorrect("true");
+    handleCorrectProp && handleCorrectProp();
   };
 
   const handleIncorrect = () => {
     correct != "false" && setCorrect("false");
+
+    console.log("QTranslate - false", props.Q, props.A);
   };
 
   const handleIncorrectTried = () => {
@@ -57,15 +57,33 @@ export const Qtranslate1 = (props) => {
     correct != "false" && setCorrect("false");
   };
 
-  const handleSubmit = (e, Q, input) => {
-    e.keyCode == 13 && !A.includes(cleanText(input)) && handleIncorrectTried();
-    e.keyCode == 13 && A.includes(cleanText(input)) && handleCorrect();
+  const handleKeyPress = (e, Q, input) => {
+    if (!handleSubmit) {
+      e.keyCode == 13 &&
+        !A.includes(cleanText(input)) &&
+        handleIncorrectTried();
+      e.keyCode == 13 && A.includes(cleanText(input)) && handleCorrect();
+    }
+    if (handleSubmit) {
+    }
   };
 
   const handleChange = (e, Q, input) => {
-    console.log(correct);
-    correct != "untested" && !A.includes(cleanText(input)) && handleIncorrect();
-    A.includes(cleanText(input)) && handleCorrect();
+    setInputField(input);
+    console.log(inputField);
+    !handleSubmit &&
+      correct != "untested" &&
+      !A.includes(cleanText(input)) &&
+      handleIncorrect();
+    !handleSubmit && A.includes(cleanText(input)) && handleCorrect();
+  };
+
+  console.log(inputField);
+
+  const handleSubmitCheck = () => {
+    console.log(inputField);
+    !A.includes(cleanText(inputField)) && handleIncorrect();
+    A.includes(cleanText(inputField)) && handleCorrect();
   };
 
   return (
@@ -76,26 +94,35 @@ export const Qtranslate1 = (props) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            text={inputField}
             sx={{
               backgroundColor:
                 correct == "true" ? "lightgreen" : correct == "false" && "red",
             }}
             size="small"
-            onKeyDown={(e, Q, input) => handleSubmit(e, Q, e.target.value)}
+            onKeyDown={(e, Q, input) => handleKeyPress(e, Q, e.target.value)}
             onChange={(e, Q, input) => handleChange(e, Q, e.target.value)}
           />
         </Grid>
       </Grid>
+
+      {handleSubmit && (
+        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+          Submit
+        </Button>
+      )}
     </>
   );
 };
 
+//select one option
 export const Selecter = ({
   text,
   options,
   correct,
   textCont,
   handleCorrect,
+  handleSubmit,
 }) => {
   const [selectValue, setSelectValue] = useState("Select...");
 
@@ -105,38 +132,65 @@ export const Selecter = ({
 
   const [graded, setGraded] = useState("");
 
-  handleCorrect && selectValue == correct && handleCorrect();
+  !handleSubmit && handleCorrect && selectValue == correct && handleCorrect();
 
-  selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
-  selectValue != "Select..." &&
-    selectValue != correct &&
-    graded != "red" &&
-    setGraded("red");
-  graded != "" && selectValue == "Select..." && setGraded("");
+  //handleIncorrect
+  const handleIncorrect = () => {
+    console.log("Selecter false", text, options, correct, textCont);
+  };
+
+  selectValue != "Select..." && !correct && handleIncorrect();
+
+  if (!handleSubmit) {
+    selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
+    selectValue != "Select..." &&
+      selectValue != correct &&
+      graded != "red" &&
+      setGraded("red");
+    graded != "" && selectValue == "Select..." && setGraded("");
+  }
+
+  const handleSubmitCheck = () => {
+    selectValue == correct && graded != "lightgreen" && setGraded("lightgreen");
+    selectValue != "Select..." &&
+      selectValue != correct &&
+      graded != "red" &&
+      setGraded("red");
+    graded != "" && selectValue == "Select..." && setGraded("");
+    handleCorrect && selectValue == correct && handleCorrect();
+  };
 
   return (
-    <p style={{ marginBottom: "10px" }}>
-      {text && text}
-      <Select
-        autoWidth
-        value={selectValue}
-        onChange={handleChange}
-        label="select"
-        sx={{ backgroundColor: graded }}
-      >
-        <MenuItem value="Select...">
-          <em>Select...</em>
-        </MenuItem>
-        {options.map((option) => (
-          <MenuItem value={option}>{option}</MenuItem>
-        ))}
-      </Select>
-      {textCont && textCont}
-    </p>
+    <>
+      <p style={{ marginBottom: "10px" }}>
+        {text && text}
+        <Select
+          autoWidth
+          value={selectValue}
+          onChange={handleChange}
+          label="select"
+          sx={{ backgroundColor: graded }}
+        >
+          <MenuItem value="Select...">
+            <em>Select...</em>
+          </MenuItem>
+          {options.map((option) => (
+            <MenuItem value={option}>{option}</MenuItem>
+          ))}
+        </Select>
+        {textCont && textCont}
+      </p>
+      {handleSubmit && (
+        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+          Submit
+        </Button>
+      )}
+    </>
   );
 };
 
-export const Dragger = ({ sentence, prompt, handleCorrect }) => {
+//put sentence in order, optional prompt
+export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
   sentenceSplit.sort(() => (Math.random() > 0.5 ? 1 : -1));
@@ -144,7 +198,7 @@ export const Dragger = ({ sentence, prompt, handleCorrect }) => {
   const [options, setOptions] = useState([""]);
   const [correct, setCorrect] = useState(false);
 
-  correct == true && handleCorrect && handleCorrect();
+  !handleSubmit && correct == true && handleCorrect && handleCorrect();
 
   useEffect(() => {
     console.log(options, sentenceSplit);
@@ -205,13 +259,6 @@ export const Dragger = ({ sentence, prompt, handleCorrect }) => {
     ...draggableStyle,
   });
 
-  sentence == chosen.map((word) => word.word).join(" ") &&
-    correct == false &&
-    setCorrect(true);
-  sentence != chosen.map((word) => word.word).join(" ") &&
-    correct == true &&
-    setCorrect(false);
-
   const handleClick = (e) => {
     setChosen([...chosen, e]);
 
@@ -228,6 +275,34 @@ export const Dragger = ({ sentence, prompt, handleCorrect }) => {
       setChosen((chips) => chosen.filter((chip) => chip !== item));
       setOptions([...options, item]);
     }
+  };
+
+  //handleIncorrect
+  const handleIncorrect = () => {
+    console.log("Dragger false", sentence);
+  };
+
+  chosen.length == sentenceSplit.length && !correct && handleIncorrect();
+
+  //handleSubmit Check
+  if (!handleSubmit) {
+    sentence == chosen.map((word) => word.word).join(" ") &&
+      correct == false &&
+      setCorrect(true);
+    sentence != chosen.map((word) => word.word).join(" ") &&
+      correct == true &&
+      setCorrect(false);
+  }
+
+  const handleSubmitCheck = () => {
+    sentence == chosen.map((word) => word.word).join(" ") &&
+      correct == false &&
+      setCorrect(true);
+    handleCorrect && handleCorrect();
+    sentence != chosen.map((word) => word.word).join(" ") &&
+      correct == true &&
+      setCorrect(false);
+    //submitted but false
   };
 
   return (
@@ -314,6 +389,409 @@ export const Dragger = ({ sentence, prompt, handleCorrect }) => {
           )}
         </Droppable>
       </DragDropContext>
+
+      {handleSubmit && (
+        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+          Submit
+        </Button>
+      )}
     </div>
+  );
+};
+
+//fix lenition
+export const Leniter = ({
+  sentence,
+  correctSentence,
+  handleCorrect,
+  handleSubmit,
+}) => {
+  const [sentenceSplit, setSentenceSplit] = useState(sentence.split(" "));
+
+  const [submitted, setSubmitted] = useState(false);
+  const handleSubmitCheck = () => {
+    setSubmitted(true);
+  };
+
+  const handleClick = (word, index) => {
+    setSubmitted(false);
+
+    if (word.slice(1, 2) == "h") {
+      let sentence2 = [...sentenceSplit];
+      let word2 = word.slice(0, 1) + word.slice(2);
+      sentence2[index] = word2;
+      setSentenceSplit(sentence2);
+    } else {
+      let sentence2 = [...sentenceSplit];
+      let word2 = word.slice(0, 1) + "h" + word.slice(1);
+      sentence2[index] = word2;
+      setSentenceSplit(sentence2);
+    }
+  };
+
+  //handleCorrect / incorrect on submit
+  (!handleSubmit || (handleSubmit && submitted)) &&
+    sentenceSplit.join(" ") == correctSentence &&
+    handleCorrect();
+  handleSubmit &&
+    submitted &&
+    sentenceSplit.join(" ") !== correctSentence &&
+    console.log("incorrect");
+
+  return (
+    <>
+      <h3>Leniter</h3>
+
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          listStyle: "none",
+          minHeight: "20px",
+          backgroundColor:
+            (!handleSubmit || (handleSubmit && submitted)) &&
+            sentenceSplit.join(" ") == correctSentence
+              ? "lightgreen"
+              : handleSubmit &&
+                submitted &&
+                sentenceSplit.join(" ") !== correctSentence
+              ? "red"
+              : "aliceblue",
+          p: 0.5,
+          m: 0,
+          borderRadius: "5px 5px 5px 5px",
+          border: "1px solid grey",
+        }}
+      >
+        {sentenceSplit.map((word, index) => {
+          return (
+            <Chip
+              onClick={(word) => handleClick(word.target.textContent, index)}
+              label={word}
+              sx={{ marginLeft: "5px" }}
+            />
+          );
+        })}
+      </Paper>
+
+      {handleSubmit && (
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={() => handleSubmitCheck()}
+        >
+          Submit
+        </Button>
+      )}
+    </>
+  );
+};
+
+//choose whether vowels should have accents
+export const AccentSelector = ({ sentence, handleCorrect, handleSubmit }) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  let accents = "aàeèiìoòuùAÀEÈIÌOÒUÙ";
+
+  const [selectValue, setSelectValue] = useState([{ index: 2, value: "?" }]);
+
+  const handleChange = (event, index) => {
+    setSubmitted(false);
+    setCorrect([]);
+    setSelectValue([
+      ...selectValue,
+      { index: index, value: event.target.value },
+    ]);
+  };
+
+  //handleCorrect/incorrect
+  const [correct, setCorrect] = useState([]);
+
+  const handleSubmitCheck = () => {
+    setCorrect([]);
+    setSubmitted(true);
+  };
+
+  submitted &&
+    correct.includes("true") &&
+    !correct.includes("false") &&
+    handleCorrect();
+
+  return (
+    <>
+      <h3>
+        {sentence.split("").map((letter, index) => {
+          if (accents.split("").includes(letter)) {
+            let val =
+              selectValue.filter((arrayVal) => arrayVal.index == index).length >
+              0
+                ? selectValue.filter((arrayVal) => arrayVal.index == index)[
+                    selectValue.filter((arrayVal) => arrayVal.index == index)
+                      .length - 1
+                  ].value
+                : "?";
+
+            let bgColor =
+              (!handleSubmit || (handleSubmit && submitted)) &&
+              selectValue.filter((arrayVal) => arrayVal.index == index).length >
+                0 &&
+              selectValue.filter((arrayVal) => arrayVal.index == index)[
+                selectValue.filter((arrayVal) => arrayVal.index == index)
+                  .length - 1
+              ].value == letter
+                ? "lightgreen"
+                : (!handleSubmit || (handleSubmit && submitted)) &&
+                  selectValue.filter((arrayVal) => arrayVal.index == index)
+                    .length > 0 &&
+                  selectValue.filter((arrayVal) => arrayVal.index == index)[
+                    selectValue.filter((arrayVal) => arrayVal.index == index)
+                      .length - 1
+                  ].value != "?"
+                ? "red"
+                : "aliceblue";
+
+
+                //push to Correct array
+            if (bgColor == "lightgreen" && !correct.includes("true")) {
+              setCorrect([...correct, "true"]);
+            }
+
+            if (
+              (bgColor == "red" || bgColor == "aliceblue") &&
+              !correct.includes("false")
+            ) {
+              setCorrect([...correct, "false"]);
+            }
+
+            switch (letter) {
+              case "a":
+              case "à":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="a">a</MenuItem>
+                      <MenuItem value="à">à</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "è":
+              case "e":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="e">e</MenuItem>
+                      <MenuItem value="è">è</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "i":
+              case "ì":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="i">i</MenuItem>
+                      <MenuItem value="ì">ì</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "o":
+              case "ò":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="o">o</MenuItem>
+                      <MenuItem value="ò">ò</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "u":
+              case "ù":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="u">u</MenuItem>
+                      <MenuItem value="ù">ù</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "A":
+              case "À":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="A">A</MenuItem>
+                      <MenuItem value="À">À</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "È":
+              case "E":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="E">E</MenuItem>
+                      <MenuItem value="È">È</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "I":
+              case "Ì":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="I">I</MenuItem>
+                      <MenuItem value="Ì">Ì</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "O":
+              case "Ò":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="O">O</MenuItem>
+                      <MenuItem value="Ò">Ò</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              case "U":
+              case "Ù":
+                return (
+                  <>
+                    <Select
+                      onChange={(event) => handleChange(event, index)}
+                      value={val}
+                      autoWidth
+                      label={index}
+                      size="small"
+                      style={{
+                        backgroundColor: bgColor,
+                      }}
+                    >
+                      <MenuItem value="?">?</MenuItem>
+                      <MenuItem value="U">U</MenuItem>
+                      <MenuItem value="Ù">Ù</MenuItem>={" "}
+                    </Select>
+                  </>
+                );
+                break;
+              default:
+                return <>broken</>;
+            }
+          } else {
+            return <>{letter}</>;
+          }
+        })}
+      </h3>
+      {handleSubmit && (
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={() => handleSubmitCheck()}
+        >
+          Submit
+        </Button>
+      )}
+    </>
   );
 };
