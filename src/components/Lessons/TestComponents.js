@@ -44,15 +44,20 @@ export const Qtranslate1 = (props) => {
   const A = props.A.map((As) => cleanText(As));
   const handleSubmit = props.handleSubmit;
   const header = props.header;
+  const topic = props.topic;
 
   const [correct, setCorrect] = useState("untested");
   const [inputField, setInputField] = useState("");
 
-  props.handleCorrect && correct == "true" && handleCorrectProp();
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  //props.handleCorrect && correct == "true" && handleCorrectProp();
 
   const handleCorrect = () => {
     correct != "true" && setCorrect("true");
-    handleCorrectProp && handleCorrectProp();
+    handleCorrectProp && handleCorrectProp(topic);
+    setInputField("");
+    setCorrect("untested");
   };
 
   const handleIncorrect = () => {
@@ -109,7 +114,7 @@ export const Qtranslate1 = (props) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            text={inputField}
+            value={inputField}
             sx={{
               backgroundColor:
                 correct == "true" ? "lightgreen" : correct == "false" && "red",
@@ -120,6 +125,12 @@ export const Qtranslate1 = (props) => {
           />
         </Grid>
       </Grid>
+
+      <Button onClick={() => setShowAnswer(!showAnswer)}>
+        {showAnswer ? "Hide" : "Show"} Answer
+      </Button>
+
+      {showAnswer && <h5>{props.A[0]}</h5>}
 
       {handleSubmit && (
         <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
@@ -141,6 +152,12 @@ export const Selecter = ({
   header,
 }) => {
   const [selectValue, setSelectValue] = useState("Select...");
+
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  useState(() => {
+    setSelectValue("Select...");
+  }, []);
 
   const handleChange = (event) => {
     setSelectValue(event.target.value);
@@ -173,7 +190,11 @@ export const Selecter = ({
       graded != "red" &&
       setGraded("red");
     graded != "" && selectValue == "Select..." && setGraded("");
-    handleCorrect && selectValue == correct && handleCorrect();
+    if (handleCorrect && selectValue == correct) {
+      handleCorrect();
+      setSelectValue("Select...");
+      setGraded("white");
+    }
   };
 
   return (
@@ -202,6 +223,19 @@ export const Selecter = ({
         </Select>
         {textCont && textCont}
       </p>
+
+      <Button onClick={() => setShowAnswer(!showAnswer)}>
+        {showAnswer ? "Hide" : "Show"} Answer
+      </Button>
+
+      {showAnswer && (
+        <h5>
+          {text}
+          <u>{correct}</u>
+          {textCont}
+        </h5>
+      )}
+
       {handleSubmit && (
         <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
@@ -218,6 +252,7 @@ export const Dragger = ({
   handleCorrect,
   handleSubmit,
   header,
+  topic,
 }) => {
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
@@ -226,19 +261,25 @@ export const Dragger = ({
   const [options, setOptions] = useState([""]);
   const [correct, setCorrect] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false)
 
-  !handleSubmit && correct == true && handleCorrect && handleCorrect();
+  !handleSubmit && correct == true && handleCorrect && handleCorrect(topic);
+
+  const shuffleOptions = () => {
+    setOptions(sentenceSplit.map((word, index) => ({ word: word, id: index })));
+
+    //ensure the shuffled version isn't not in the same order
+    if (options.map((word) => word.word).join(" ") == sentence) {
+      console.log("reshuffling");
+      setOptions(
+        sentenceSplit.map((word, index) => ({ word: word, id: index }))
+      );
+    }
+  };
 
   useEffect(() => {
-    console.log(options, sentenceSplit);
-    setOptions(sentenceSplit.map((word, index) => ({ word: word, id: index })));
+    shuffleOptions();
   }, []);
-
-  //ensure the shuffled version isn't not in the same order
-  if (options.map((word) => word.word).join(" ") == sentence) {
-    console.log("reshuffling");
-    setOptions(sentenceSplit.map((word, index) => ({ word: word, id: index })));
-  }
 
   const [chosen, setChosen] = useState([]);
 
@@ -321,7 +362,9 @@ export const Dragger = ({
     console.log("Dragger false", sentence);
   };
 
-  chosen.length == sentenceSplit.length && !correct && handleIncorrect();
+  chosen.length == sentenceSplit.length &&
+    sentence != chosen.map((word) => word.word).join(" ") &&
+    handleIncorrect();
 
   //handleSubmit Check
   if (!handleSubmit) {
@@ -338,8 +381,9 @@ export const Dragger = ({
       sentence == chosen.map((word) => word.word).join(" ") &&
       correct == false
     ) {
-      setCorrect(true);
-      handleCorrect && handleCorrect();
+      handleCorrect && handleCorrect(topic);
+      setChosen([]);
+      shuffleOptions();
     }
 
     if (sentence != chosen.map((word) => word.word).join(" ")) {
@@ -442,6 +486,16 @@ export const Dragger = ({
         </DragDropContext>
       </div>
 
+      <Button onClick={() => setShowAnswer(!showAnswer)}>
+        {showAnswer ? "Hide" : "Show"} Answer
+      </Button>
+
+      {showAnswer && (
+        <h5>
+          {sentence}
+        </h5>
+      )}
+
       {handleSubmit && (
         <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
@@ -458,9 +512,10 @@ export const Leniter = ({
   handleCorrect,
   handleSubmit,
   header,
+  topic,
 }) => {
   const [sentenceSplit, setSentenceSplit] = useState(sentence.split(" "));
-
+const [showAnswer, setShowAnswer] = useState(false)
   const [submitted, setSubmitted] = useState(false);
   const handleSubmitCheck = () => {
     setSubmitted(true);
@@ -483,13 +538,21 @@ export const Leniter = ({
   };
 
   //handleCorrect / incorrect on submit
-  (!handleSubmit || (handleSubmit && submitted)) &&
-    sentenceSplit.join(" ") == correctSentence &&
-    handleCorrect();
-  handleSubmit &&
-    submitted &&
-    sentenceSplit.join(" ") !== correctSentence &&
-    console.log("incorrect");
+  useEffect(() => {
+    if (
+      (!handleSubmit || (handleSubmit && submitted)) &&
+      sentenceSplit.join(" ") == correctSentence
+    ) {
+      handleCorrect(topic);
+      setSubmitted(false);
+      setSentenceSplit(sentence.split(" "));
+    }
+
+    handleSubmit &&
+      submitted &&
+      sentenceSplit.join(" ") !== correctSentence &&
+      console.log("incorrect");
+  }, [submitted]);
 
   return (
     <div className="testComponent">
@@ -534,6 +597,16 @@ export const Leniter = ({
         })}
       </Paper>
 
+      <Button onClick={() => setShowAnswer(!showAnswer)}>
+        {showAnswer ? "Hide" : "Show"} Answer
+      </Button>
+
+      {showAnswer && (
+        <h5>
+          {correctSentence}
+        </h5>
+      )}
+
       {handleSubmit && (
         <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
@@ -549,12 +622,15 @@ export const AccentSelector = ({
   handleCorrect,
   handleSubmit,
   header,
+  topic,
 }) => {
   const [submitted, setSubmitted] = useState(false);
 
+  const [showAnswer, setShowAnswer] = useState(false)
+
   let accents = "aàeèiìoòuùAÀEÈIÌOÒUÙ";
 
-  const [selectValue, setSelectValue] = useState([{ index: 2, value: "?" }]);
+  const [selectValue, setSelectValue] = useState([{}]);
 
   const handleChange = (event, index) => {
     setSubmitted(false);
@@ -573,10 +649,20 @@ export const AccentSelector = ({
     setSubmitted(true);
   };
 
-  submitted &&
-    correct.includes("true") &&
-    !correct.includes("false") &&
-    handleCorrect();
+  console.log(submitted, correct);
+
+  useEffect(() => {
+    if (
+      submitted &&
+      correct.length > 0 &&
+      correct.includes("true") &&
+      !correct.includes("false")
+    ) {
+      handleCorrect();
+      setSelectValue([{}]);
+      setCorrect([]);
+    }
+  }, [correct]);
 
   return (
     <div className="testComponent">
@@ -847,6 +933,17 @@ export const AccentSelector = ({
           }
         })}
       </h3>
+
+      <Button onClick={() => setShowAnswer(!showAnswer)}>
+        {showAnswer ? "Hide" : "Show"} Answer
+      </Button>
+
+      {showAnswer && (
+        <h5>
+          {sentence}
+        </h5>
+      )}
+      
       {handleSubmit && (
         <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit

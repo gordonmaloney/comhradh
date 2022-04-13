@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
+import { Quiz2 } from "./components/Quiz2";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 

@@ -14,26 +14,20 @@ import { Paper } from "@mui/material";
 export const Quiz = () => {
   const [correct, setCorrect] = useState(false);
 
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState(0);
 
+  
   const [questions, setQuestions] = useState([
-    <AccentSelector
-      sentence="tha mi sgìth"
-      handleSubmit={true}
-      handleCorrect={() => handleCorrect()}
-      header="default"
-    />,
-
     <Leniter
       sentence="ta mhi sgìth"
       correctSentence="tha mi sgìth"
-      handleCorrect={() => handleCorrect()}
+      handleCorrect={(topic, index) => handleCorrect(topic, index)}
       handleSubmit={true}
       header="default"
     />,
 
-    <Dragger
-      sentence="tha mi beag"
+    <AccentSelector
+      sentence="tha mi sgìth"
       handleSubmit={true}
       handleCorrect={() => handleCorrect()}
       header="default"
@@ -56,9 +50,20 @@ export const Quiz = () => {
       handleCorrect={() => handleCorrect()}
       header="default"
     />,
+
+    <Dragger
+      sentence="tha mi beag"
+      handleSubmit={true}
+      handleCorrect={() => handleCorrect()}
+      header="default"
+    />,
   ]);
 
-  const handleCorrect = (e) => {
+
+
+
+  const handleCorrect = () => {
+    console.log("TEST");
     setCorrect(true);
     setIndex((prevIndex) => prevIndex + 1);
 
