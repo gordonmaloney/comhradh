@@ -28,6 +28,14 @@ export const cleanText = (str) => {
   }
 };
 
+const SubmitBtn = styled(Button)({
+  position: "fixed",
+  left: "50%",
+  transform: "translate(-50%, 0)",
+  width: "60vw",
+  bottom: "20px",
+});
+
 //translate one sentence
 export const Qtranslate1 = (props) => {
   const handleCorrectProp = props.handleCorrect;
@@ -35,6 +43,7 @@ export const Qtranslate1 = (props) => {
   const Q = props.Q;
   const A = props.A.map((As) => cleanText(As));
   const handleSubmit = props.handleSubmit;
+  const header = props.header;
 
   const [correct, setCorrect] = useState("untested");
   const [inputField, setInputField] = useState("");
@@ -87,7 +96,13 @@ export const Qtranslate1 = (props) => {
   };
 
   return (
-    <>
+    <div className="testComponent">
+      {header && header == "default" ? (
+        <h3>Translate the sentence below:</h3>
+      ) : (
+        header && <h3>{header}</h3>
+      )}
+
       <Grid container>
         <Grid item xs={6}>
           {Q}
@@ -107,11 +122,11 @@ export const Qtranslate1 = (props) => {
       </Grid>
 
       {handleSubmit && (
-        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+        <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
-        </Button>
+        </SubmitBtn>
       )}
-    </>
+    </div>
   );
 };
 
@@ -123,6 +138,7 @@ export const Selecter = ({
   textCont,
   handleCorrect,
   handleSubmit,
+  header,
 }) => {
   const [selectValue, setSelectValue] = useState("Select...");
 
@@ -161,7 +177,13 @@ export const Selecter = ({
   };
 
   return (
-    <>
+    <div className="testComponent">
+      {header && header == "default" ? (
+        <h3>Pick the correct option:</h3>
+      ) : (
+        header && <h3>{header}</h3>
+      )}
+
       <p style={{ marginBottom: "10px" }}>
         {text && text}
         <Select
@@ -181,22 +203,29 @@ export const Selecter = ({
         {textCont && textCont}
       </p>
       {handleSubmit && (
-        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+        <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
-        </Button>
+        </SubmitBtn>
       )}
-    </>
+    </div>
   );
 };
 
 //put sentence in order, optional prompt
-export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
+export const Dragger = ({
+  sentence,
+  prompt,
+  handleCorrect,
+  handleSubmit,
+  header,
+}) => {
   //take sentence from props and turn into randomised array
   const sentenceSplit = sentence.split(" ");
   sentenceSplit.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
   const [options, setOptions] = useState([""]);
   const [correct, setCorrect] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   !handleSubmit && correct == true && handleCorrect && handleCorrect();
 
@@ -212,6 +241,10 @@ export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
   }
 
   const [chosen, setChosen] = useState([]);
+
+  useEffect(() => {
+    setSubmitted(false);
+  }, [chosen]);
 
   //dragging logic
   const onDragEnd = (result) => {
@@ -238,7 +271,13 @@ export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
   };
 
   const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? "aliceblue" : correct ? "lightgreen" : "white",
+    background: isDraggingOver
+      ? "aliceblue"
+      : correct
+      ? "lightgreen"
+      : !correct && submitted
+      ? "red"
+      : "white",
     display: "flex",
     padding: 2,
     minHeight: "32px",
@@ -295,19 +334,50 @@ export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
   }
 
   const handleSubmitCheck = () => {
-    sentence == chosen.map((word) => word.word).join(" ") &&
-      correct == false &&
+    if (
+      sentence == chosen.map((word) => word.word).join(" ") &&
+      correct == false
+    ) {
       setCorrect(true);
-    handleCorrect && handleCorrect();
-    sentence != chosen.map((word) => word.word).join(" ") &&
-      correct == true &&
+      handleCorrect && handleCorrect();
+    }
+
+    if (sentence != chosen.map((word) => word.word).join(" ")) {
       setCorrect(false);
+      setSubmitted(true);
+    }
     //submitted but false
   };
 
   return (
-    <div style={{ marginBottom: "10px", marginTop: "10px" }}>
-      {prompt && (
+    <div className="testComponent">
+      {header && header == "default" ? (
+        <h3>Put the words in the correct order:</h3>
+      ) : (
+        header && <h3>{header}</h3>
+      )}
+
+      <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+        {prompt && (
+          <Paper
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              listStyle: "none",
+              minHeight: "20px",
+              backgroundColor: "aliceblue",
+              p: 0,
+              m: 0,
+              borderRadius: "5px 5px 0 0",
+              border: "1px solid grey",
+              borderBottom: "0px",
+            }}
+          >
+            <h4>{prompt}</h4>
+          </Paper>
+        )}
+
         <Paper
           sx={{
             display: "flex",
@@ -316,84 +386,66 @@ export const Dragger = ({ sentence, prompt, handleCorrect, handleSubmit }) => {
             listStyle: "none",
             minHeight: "20px",
             backgroundColor: "aliceblue",
-            p: 0,
+            p: 0.5,
             m: 0,
-            borderRadius: "5px 5px 0 0",
+            borderRadius: prompt ? "0 0 0 0 " : "5px 5px 0 0",
             border: "1px solid grey",
-            borderBottom: "0px",
+            borderBottom: "1px solid blue",
           }}
+          component="ul"
         >
-          <h4>{prompt}</h4>
+          {options.map((data, index) => {
+            return (
+              <ListItem key={data.id}>
+                <Chip label={data.word} onClick={() => handleClick(data)} />
+              </ListItem>
+            );
+          })}
         </Paper>
-      )}
 
-      <Paper
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          listStyle: "none",
-          minHeight: "20px",
-          backgroundColor: "aliceblue",
-          p: 0.5,
-          m: 0,
-          borderRadius: prompt ? "0 0 0 0 " : "5px 5px 0 0",
-          border: "1px solid grey",
-          borderBottom: "1px solid blue",
-        }}
-        component="ul"
-      >
-        {options.map((data, index) => {
-          return (
-            <ListItem key={data.id}>
-              <Chip label={data.word} onClick={() => handleClick(data)} />
-            </ListItem>
-          );
-        })}
-      </Paper>
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable" direction="horizontal">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-              {...provided.droppableProps}
-            >
-              {chosen.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.word + item.id}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <Chip
-                        label={item.word}
-                        onDelete={() => handleDelete(item)}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable" direction="horizontal">
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+                {...provided.droppableProps}
+              >
+                {chosen.map((item, index) => (
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.word + item.id}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
+                      >
+                        <Chip
+                          label={item.word}
+                          onDelete={() => handleDelete(item)}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
 
       {handleSubmit && (
-        <Button variant="contained" fullWidth onClick={handleSubmitCheck}>
+        <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
-        </Button>
+        </SubmitBtn>
       )}
     </div>
   );
@@ -405,6 +457,7 @@ export const Leniter = ({
   correctSentence,
   handleCorrect,
   handleSubmit,
+  header,
 }) => {
   const [sentenceSplit, setSentenceSplit] = useState(sentence.split(" "));
 
@@ -439,8 +492,14 @@ export const Leniter = ({
     console.log("incorrect");
 
   return (
-    <>
-      <h3>Leniter</h3>
+    <div className="testComponent">
+      {header && header == "default" ? (
+        <h3>
+          Add or remove the <i>h</i> to make the correct form of the words:
+        </h3>
+      ) : (
+        header && <h3>{header}</h3>
+      )}
 
       <Paper
         sx={{
@@ -476,20 +535,21 @@ export const Leniter = ({
       </Paper>
 
       {handleSubmit && (
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={() => handleSubmitCheck()}
-        >
+        <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
-        </Button>
+        </SubmitBtn>
       )}
-    </>
+    </div>
   );
 };
 
 //choose whether vowels should have accents
-export const AccentSelector = ({ sentence, handleCorrect, handleSubmit }) => {
+export const AccentSelector = ({
+  sentence,
+  handleCorrect,
+  handleSubmit,
+  header,
+}) => {
   const [submitted, setSubmitted] = useState(false);
 
   let accents = "aàeèiìoòuùAÀEÈIÌOÒUÙ";
@@ -519,7 +579,12 @@ export const AccentSelector = ({ sentence, handleCorrect, handleSubmit }) => {
     handleCorrect();
 
   return (
-    <>
+    <div className="testComponent">
+      {header && header == "default" ? (
+        <h3>Select the correct versions of the vowels:</h3>
+      ) : (
+        header && <h3>{header}</h3>
+      )}
       <h3>
         {sentence.split("").map((letter, index) => {
           if (accents.split("").includes(letter)) {
@@ -551,8 +616,7 @@ export const AccentSelector = ({ sentence, handleCorrect, handleSubmit }) => {
                 ? "red"
                 : "aliceblue";
 
-
-                //push to Correct array
+            //push to Correct array
             if (bgColor == "lightgreen" && !correct.includes("true")) {
               setCorrect([...correct, "true"]);
             }
@@ -784,14 +848,10 @@ export const AccentSelector = ({ sentence, handleCorrect, handleSubmit }) => {
         })}
       </h3>
       {handleSubmit && (
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={() => handleSubmitCheck()}
-        >
+        <SubmitBtn variant="contained" onClick={() => handleSubmitCheck()}>
           Submit
-        </Button>
+        </SubmitBtn>
       )}
-    </>
+    </div>
   );
 };
